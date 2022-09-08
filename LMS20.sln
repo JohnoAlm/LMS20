@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMS20.Web", "LMS20\LMS20.Web.csproj", "{798E2580-CAA7-45A7-A817-7DB4F554D961}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMS20.Core", "LMS20.Core\LMS20.Core.csproj", "{7E498980-DF63-49D4-AF23-DCAA69377D83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMS20.Data", "LMS20.Data\LMS20.Data.csproj", "{9C36A177-A330-472C-92F2-5720B71E61B9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{798E2580-CAA7-45A7-A817-7DB4F554D961}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{798E2580-CAA7-45A7-A817-7DB4F554D961}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{798E2580-CAA7-45A7-A817-7DB4F554D961}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{798E2580-CAA7-45A7-A817-7DB4F554D961}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E498980-DF63-49D4-AF23-DCAA69377D83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E498980-DF63-49D4-AF23-DCAA69377D83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E498980-DF63-49D4-AF23-DCAA69377D83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E498980-DF63-49D4-AF23-DCAA69377D83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C36A177-A330-472C-92F2-5720B71E61B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C36A177-A330-472C-92F2-5720B71E61B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C36A177-A330-472C-92F2-5720B71E61B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C36A177-A330-472C-92F2-5720B71E61B9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2003FC14-EAB1-40B1-A6C5-921AB12450F8}
+	EndGlobalSection
+EndGlobal
