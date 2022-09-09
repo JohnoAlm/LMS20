@@ -12,6 +12,11 @@ namespace LMS20.Data.Data
         {
         }
 
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Module> Modules { get; set; }
 
+        //public DbSet<ModuleActivity> Activity { get; set; }
+
+        
     }
 }
