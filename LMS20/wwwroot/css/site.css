@@ -16,3 +16,22 @@ html {
 body {
   margin-bottom: 60px;
 }
+.signin{
+    background-color: #F5F5F5;
+
+}
+.nav-color {
+    background-color: #2C2C3F;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    height: 100px
+}
+.nav-height{
+    height: 20px;
+}
+.title{
+    font-family: KoHo, Arial, Helvetica, sans-serif;
+    font-size: 250%;
+    margin-left: 300px;
+    margin-right: 100px;
+}
