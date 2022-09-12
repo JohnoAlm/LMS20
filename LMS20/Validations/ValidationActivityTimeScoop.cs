@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LMS20.Web.Validations
 {
-    public class ValidationActivityTimeScope : ValidationAttribute
+    public class ValidationActivityTimeScoop : ValidationAttribute
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
@@ -20,9 +20,9 @@ namespace LMS20.Web.Validations
                 var module = db.Modules.FirstOrDefault(m => m.Id == vm.Id);
 
                 var startTime = vm.ActivityStartTime;
-                var endTime = vm.ActivityStartTime + vm.ActivityDuration;
+                var endTime = vm.ActivityStartTime + vm.ActivityDuration;       // input ?
 
-                if(startTime < DateTime.Now) return new ValidationResult(ErrorMessage);
+                if (startTime < DateTime.Now) return new ValidationResult(ErrorMessage);
 
                 // Startar före eller slutar efter modulen
                 if(startTime < module.StartDateTime ||
