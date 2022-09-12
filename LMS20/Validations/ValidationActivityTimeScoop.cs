@@ -17,7 +17,7 @@ namespace LMS20.Web.Validations
 
                 if(vm is null || db is null) return new ValidationResult(ErrorMessage);
 
-                var module = db.Modules.FirstOrDefault(m => m.Id == vm.Id);
+                var module = db.Module.FirstOrDefault(m => m.Id == vm.Id);
 
                 var startTime = vm.ActivityStartTime;
                 var endTime = vm.ActivityStartTime + vm.ActivityDuration;       // input ?

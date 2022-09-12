@@ -124,7 +124,7 @@ namespace LMS20.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Course", (string)null);
+                    b.ToTable("Course");
                 });
 
             modelBuilder.Entity("LMS20.Core.Entities.Document", b =>
@@ -169,7 +169,7 @@ namespace LMS20.Data.Migrations
 
                     b.HasIndex("ModuleId");
 
-                    b.ToTable("Document", (string)null);
+                    b.ToTable("Document");
                 });
 
             modelBuilder.Entity("LMS20.Core.Entities.Module", b =>
@@ -201,7 +201,7 @@ namespace LMS20.Data.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("Module", (string)null);
+                    b.ToTable("Module");
                 });
 
             modelBuilder.Entity("LMS20.Core.Entities.ModuleActivity", b =>
@@ -233,7 +233,7 @@ namespace LMS20.Data.Migrations
 
                     b.HasIndex("ModuleId");
 
-                    b.ToTable("ModuleActivity", (string)null);
+                    b.ToTable("ModuleActivity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -414,11 +414,13 @@ namespace LMS20.Data.Migrations
 
             modelBuilder.Entity("LMS20.Core.Entities.ModuleActivity", b =>
                 {
-                    b.HasOne("LMS20.Core.Entities.Module", null)
+                    b.HasOne("LMS20.Core.Entities.Module", "Module")
                         .WithMany("ModuleActivities")
                         .HasForeignKey("ModuleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Module");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
