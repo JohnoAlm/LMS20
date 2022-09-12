@@ -87,6 +87,8 @@ namespace LMS20.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CourseId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -96,6 +98,33 @@ namespace LMS20.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("LMS20.Core.Entities.Course", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<TimeSpan>("Duration")
+                        .HasColumnType("time");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("LMS20.Core.Entities.Document", b =>
@@ -134,7 +163,77 @@ namespace LMS20.Data.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("ModuleActivityId");
+
+                    b.HasIndex("ModuleId");
+
                     b.ToTable("Document");
+                });
+
+            modelBuilder.Entity("LMS20.Core.Entities.Module", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<TimeSpan>("Duration")
+                        .HasColumnType("time");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("Modules");
+                });
+
+            modelBuilder.Entity("LMS20.Core.Entities.ModuleActivity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<TimeSpan>("Duration")
+                        .HasColumnType("time");
+
+                    b.Property<int>("ModuleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ModuleId");
+
+                    b.ToTable("ModuleActivity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -274,11 +373,50 @@ namespace LMS20.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("LMS20.Core.Entities.ApplicationUser", b =>
+                {
+                    b.HasOne("LMS20.Core.Entities.Course", null)
+                        .WithMany("ApplicationUsers")
+                        .HasForeignKey("CourseId");
+                });
+
             modelBuilder.Entity("LMS20.Core.Entities.Document", b =>
                 {
                     b.HasOne("LMS20.Core.Entities.ApplicationUser", null)
                         .WithMany("Documents")
                         .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LMS20.Core.Entities.Course", null)
+                        .WithMany("Documents")
+                        .HasForeignKey("CourseId");
+
+                    b.HasOne("LMS20.Core.Entities.ModuleActivity", null)
+                        .WithMany("Documents")
+                        .HasForeignKey("ModuleActivityId");
+
+                    b.HasOne("LMS20.Core.Entities.Module", null)
+                        .WithMany("Documents")
+                        .HasForeignKey("ModuleId");
+                });
+
+            modelBuilder.Entity("LMS20.Core.Entities.Module", b =>
+                {
+                    b.HasOne("LMS20.Core.Entities.Course", "Course")
+                        .WithMany("Modules")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("LMS20.Core.Entities.ModuleActivity", b =>
+                {
+                    b.HasOne("LMS20.Core.Entities.Module", null)
+                        .WithMany("ModuleActivities")
+                        .HasForeignKey("ModuleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -335,6 +473,27 @@ namespace LMS20.Data.Migrations
                 });
 
             modelBuilder.Entity("LMS20.Core.Entities.ApplicationUser", b =>
+                {
+                    b.Navigation("Documents");
+                });
+
+            modelBuilder.Entity("LMS20.Core.Entities.Course", b =>
+                {
+                    b.Navigation("ApplicationUsers");
+
+                    b.Navigation("Documents");
+
+                    b.Navigation("Modules");
+                });
+
+            modelBuilder.Entity("LMS20.Core.Entities.Module", b =>
+                {
+                    b.Navigation("Documents");
+
+                    b.Navigation("ModuleActivities");
+                });
+
+            modelBuilder.Entity("LMS20.Core.Entities.ModuleActivity", b =>
                 {
                     b.Navigation("Documents");
                 });

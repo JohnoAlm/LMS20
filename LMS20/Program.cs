@@ -1,5 +1,6 @@
 using LMS20.Core.Entities;
 using LMS20.Data.Data;
+using LMS20.Web.Automapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddAutoMapper(typeof(MapperProfile));
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
