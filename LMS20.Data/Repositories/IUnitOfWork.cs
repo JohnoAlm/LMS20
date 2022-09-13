@@ -2,6 +2,6 @@
 {
     public interface IUnitOfWork
     {
-        ICourseRepository CourseRepository { get; }
+        CourseRepository CourseRepository { get; }
     }
 }
