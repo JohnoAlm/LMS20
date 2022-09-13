@@ -48,8 +48,8 @@ namespace LMS20.Web.Controllers
                         Name = course.Name,
                         StartDateTime = course.StartDateTime,
                         Duration = course.Duration,
-                        Progress = progress,
-                        NrOfParticipants = course.ApplicationUsers.Count
+                        Progress = 68 /*progress*/,
+                        NrOfParticipants = 15 /*course.ApplicationUsers.Count*/
                     };
                     coursesView.Add(viewModel);
                 }
