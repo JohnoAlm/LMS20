@@ -1,9 +1,5 @@
 ﻿@model IEnumerable<LMS20.Core.ViewModels.CoursesViewModel>
 
-@*<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>*@
-
 @{ViewData["Title"] = "Index";}
 
 <h1>Kurser</h1>
@@ -38,10 +34,15 @@
 @foreach (var item in Model) {
     
     <div class="bd-callout bd-callout-primary">
-        @Html.DisplayFor(modelItem => item.Name) <br>
-        @Html.DisplayFor(modelItem => item.StartDateTime) <br>
-        @Html.DisplayFor(modelItem => item.Duration) <br>
-        @Html.DisplayFor(modelItem => item.NrOfParticipants)
+        <span class="course-title">@Html.DisplayFor(modelItem => item.Name)</span><span>@Html.DisplayFor(modelItem => item.NrOfParticipants)</span>
+        
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+
+        @*@Html.DisplayFor(modelItem => item.StartDateTime) <br>
+        @Html.DisplayFor(modelItem => item.Duration)*@ <br>
+        
     </div>
 
 
