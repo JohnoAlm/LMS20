@@ -176,7 +176,7 @@ namespace LMS20.Web.Controllers
             {
                 db.Courses.Remove(course);
             }
-
+            
             await db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

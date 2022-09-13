@@ -20,7 +20,17 @@ builder.Services.Configure<IdentityOptions>(options => {
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => 
+{
+
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequireDigit = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 3;
+
+})
+
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -29,6 +39,32 @@ builder.Services.AddAutoMapper(typeof(MapperProfile));
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+// SeedData
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var db = services.GetRequiredService<ApplicationDbContext>();
+
+    db.Database.EnsureDeleted();
+    db.Database.Migrate();
+
+    var config = services.GetRequiredService<IConfiguration>();
+    var teacherPW = config["teacherPW"];
+    var studentPW = config["studentPW"];
+
+    try
+    {
+        SeedData.InitAsync(db, services, teacherPW, studentPW).GetAwaiter().GetResult();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex);
+        throw;
+    } 
+
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
