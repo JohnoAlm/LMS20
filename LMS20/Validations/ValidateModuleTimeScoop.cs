@@ -20,7 +20,7 @@ namespace LMS20.Web.Validations
 
                 if (startTime < DateTime.Now) return new ValidationResult(ErrorMessage);
 
-                var course = db.Courses.FirstOrDefault(m => m.Id == vm.Id);
+                var course = db.Course.FirstOrDefault(m => m.Id == vm.Id);
 
                 // Startar före eller slutar efter modulen
                 if(startTime < course.StartDateTime ||
