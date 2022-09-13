@@ -74,3 +74,18 @@ body {
 .taskType {
     background-color: #49B6B6;
 }
+.dash-titel {
+    font-family: KoHo, Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    font-weight:bold;
+}
+.dagens-rubrik {
+    font-size: 20px;
+    font-weight: bold;
+}
+.dagens-footer {
+    height: 50px;
+}
+.dagens-datum {
+    font-weight: bold;
+}

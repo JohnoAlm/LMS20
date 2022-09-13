@@ -1,5 +1,9 @@
-﻿@{
+﻿@model LMS20.Core.Dtos.CourseDto
+@*@model LMS20.Core.Dtos.CourseDto*@
+
+@{
     ViewData["Title"] = "Home Page";
+   
 }
 
 <div class="text-center">
@@ -8,40 +12,59 @@
 </div>
 
 <div class="container-fluid">
-    <div class="row justify-content-around">
-        <div class="card col-3 card-darkgrey" style="width: 18rem;">
-            <div class="card-header">
-                Datum
+    <div class="row justify-content-around mt-5 pt-5">
+
+        <div class="col-3">
+            <h1 class="dash-titel ">DAGEN</h1>
+            <hr class="mb-5">
+            @* </div>*@
+            <div class="card col-3 card-darkgrey " style="width: 18rem; border-radius:7px;">
+                <div class="card-header text-center dagens-datum">
+                 @DateTime.Now.ToString("dddd dd MMMM")
+                </div>
+                <ul class="list-group list-group-flush ">
+                    <li class="list-group-item lectureType">
+                        <div class="dagens-rubrik ">Föreläsning 101</div>
+                        <div class="dagens-info">09.00-11.00</div>
+                    </li>
+                    <li class="list-group-item taskType">
+                        <div class="dagens-rubrik ">Uppgift 102</div>
+                        <div class="dagens-info"><span>Senast </span>18.00</div>
+                    </li>
+                    <li class="list-group-item dagens-footer card-darkgrey "><a href=""><i class="bi bi-filter-square " style="font-size:25px; color: black;"></i></a></li>
+                </ul>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Banh My</li>
-                <li class="list-group-item">Pho</li>
-                <li class="list-group-item">Salad</li>
-            </ul>
+
+        </div>
+        <div class="col-3">
+            <h1 class="dash-titel ">VECKAN</h1>
+            <hr class="mb-5">
+            <div class="card col-3" style="width: 18rem;">
+                <div class="card-header">
+                    Datum
+                </div>
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item">Uppgift 102</li>
+                    <li class="list-group-item">Uppgift 102</li>
+                    <li class="list-group-item"></li>
+                </ul>
+            </div>
         </div>
 
-
-        <div class="card col-3" style="width: 18rem;">
-            <div class="card-header">
-                Datum
+        <div class="col-3">
+            <h1 class="dash-titel ">UPPGIFTER</h1>
+            <hr class="mb-5">
+            <div class="card col-3" style="width: 18rem;">
+                <div class="card-header">
+                    Datum
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Banh My</li>
+                    <li class="list-group-item">Pho</li>
+                    <li class="list-group-item">Salad</li>
+                </ul>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Banh My</li>
-                <li class="list-group-item">Pho</li>
-                <li class="list-group-item">Salad</li>
-            </ul>
-        </div>
-
-
-        <div class="card col-3" style="width: 18rem;">
-            <div class="card-header">
-                Datum
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Banh My</li>
-                <li class="list-group-item">Pho</li>
-                <li class="list-group-item">Salad</li>
-            </ul>
         </div>
     </div>
 </div>
