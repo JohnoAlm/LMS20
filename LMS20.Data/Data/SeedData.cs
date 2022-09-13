@@ -120,13 +120,13 @@ namespace LMS20.Data.Data
         // Seedar roller
         private static async Task AddRolesAsync(string [] roleNames)
         {
-            foreach (var roleName in roleNames)
+            foreach(var roleName in roleNames)
             {
-                if (await roleManager.RoleExistsAsync(roleName)) continue;
+                if(await roleManager.RoleExistsAsync(roleName)) continue;
                 var role = new IdentityRole { Name = roleName };
                 var result = await roleManager.CreateAsync(role);
 
-                if (!result.Succeeded) throw new Exception(string.Join("\n", result.Errors));
+                if(!result.Succeeded) throw new Exception(string.Join("\n", result.Errors));
             }
         }
 
