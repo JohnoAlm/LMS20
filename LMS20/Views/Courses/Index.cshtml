@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<LMS20.Core.ViewModels.CoursesViewModel>
 
+@*<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>*@
+
 @{ViewData["Title"] = "Index";}
 
 <h1>Kurser</h1>
@@ -7,8 +11,13 @@
 <p>
     <a asp-action="Create">Skapa ny</a>
 </p>
-<table class="table">
-    <thead>
+
+
+
+
+
+@*<table class="table">*@
+@*    <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -24,10 +33,20 @@
             </th>
             <th></th>
         </tr>
-    </thead>
-    <tbody>
+    </thead>*@
+@*    <tbody>*@
 @foreach (var item in Model) {
-        <tr>
+    
+    <div class="bd-callout bd-callout-primary">
+        @Html.DisplayFor(modelItem => item.Name) <br>
+        @Html.DisplayFor(modelItem => item.StartDateTime) <br>
+        @Html.DisplayFor(modelItem => item.Duration) <br>
+        @Html.DisplayFor(modelItem => item.NrOfParticipants)
+    </div>
+
+
+
+@*        <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -45,7 +64,7 @@
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
-        </tr>
+        </tr>*@
 }
-    </tbody>
-</table>
+@*    </tbody>
+</table>*@

@@ -52,6 +52,21 @@ body {
     margin-top: 0px;
     padding-top:0px;
 }
+
+/*Callout*/
+.bd-callout {
+    padding: 1.25rem;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid #eee;
+    border-left-width: .25rem;
+    border-radius: .25rem
+}
+.bd-callout-primary {
+    border-left-color: #007bff
+}
+
+
 .footer{
     position: absolute;
     bottom:0;
