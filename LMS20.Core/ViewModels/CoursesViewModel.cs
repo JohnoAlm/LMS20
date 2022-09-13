@@ -21,6 +21,8 @@ namespace LMS20.Core.ViewModels
         [Display(Name = "Längd")]
         public TimeSpan Duration { get; set; }
 
+        public double Progress { get; set; }
+
         [Display(Name = "Antal deltagare")]
         public int NrOfParticipants { get; set; }
     }

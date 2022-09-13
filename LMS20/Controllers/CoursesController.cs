@@ -33,17 +33,22 @@ namespace LMS20.Web.Controllers
             var courses = await uow.CourseRepository.GetAllCoursesAsync();
             var coursesView = new List<CoursesViewModel>();
 
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 CoursesViewModel viewModel;
-                foreach (var course in courses)
+                foreach(var course in courses)
                 {
+                    var duration = course.Duration;
+                    var prog = DateTime.Now - course.StartDateTime;
+                    double progress = (prog / duration) *100;
+
                     viewModel = new CoursesViewModel
                     {
                         Id = course.Id,
                         Name = course.Name,
                         StartDateTime = course.StartDateTime,
                         Duration = course.Duration,
+                        Progress = progress,
                         NrOfParticipants = course.ApplicationUsers.Count
                     };
                     coursesView.Add(viewModel);
