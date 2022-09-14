@@ -21,7 +21,7 @@ namespace LMS20.Data.Repositories
 
         public async Task<IEnumerable<Course>> GetAllCoursesAsync()
         {
-            return await db.Courses.ToListAsync();
+            return await db.Courses.Include(p => p.ApplicationUsers).ToListAsync();
         }
     }
 }

@@ -29,29 +29,72 @@
 <h1>Kurser</h1>
 <hr />
 
-<span>Pågående</span>
-@foreach (var item in Model) {
-    
-    <div class="bd-callout bd-callout-primary">
 
-        <table class="table table-borderless">
-            <tbody>
-                <tr>
-                    <td><span class="course-title">@item.Name</span></td>
-                    <td align="right"><span class="badge rounded-pill bg-danger">@item.NrOfParticipants</span></td>
-                </tr>
-            </tbody>
-        </table>
+@foreach(var item in Model) {
 
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: @item.Progress%" aria-valuemin="0" aria-valuemax="100">
+    if(item.StartDateTime < DateTime.Now && (item.StartDateTime + item.Duration) > DateTime.Now)
+    {
+        <span>Pågående</span>
+        <div class="bd-callout bd-callout-primary">
+
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <td><span class="course-title">@item.Name</span></td>
+                        <td align="right"><span class="badge rounded-pill bg-danger">@item.NrOfParticipants</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: @item.Progress%" aria-valuemin="0" aria-valuemax="100">
+                </div>
             </div>
+
         </div>
+    }
 
-    </div>
+    if(item.StartDateTime > DateTime.Now)
+    {
+        <span>Kommande</span>
+        <div class="bd-callout bd-callout-primary">
 
-<span>Kommande</span>
-<br />
-<span>Avslutade</span>
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <td><span class="course-title">@item.Name</span></td>
+                        <td align="right"><span class="badge rounded-pill bg-danger">@item.NrOfParticipants</span></td>
+                    </tr>
+                </tbody>
+            </table>
 
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: @item.Progress%" aria-valuemin="0" aria-valuemax="100">
+                </div>
+            </div>
+
+        </div>
+    }
+
+    if((item.StartDateTime + item.Duration) < DateTime.Now)
+    {
+        <span>Avslutade</span>
+        <div class="bd-callout bd-callout-primary">
+
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <td><span class="course-title">@item.Name</span></td>
+                        <td align="right"><span class="badge rounded-pill bg-danger">@item.NrOfParticipants</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: @item.Progress%" aria-valuemin="0" aria-valuemax="100">
+                </div>
+            </div>
+
+        </div>
+    }
 }
