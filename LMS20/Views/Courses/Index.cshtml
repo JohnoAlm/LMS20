@@ -1,51 +1,57 @@
 ﻿@model IEnumerable<LMS20.Core.ViewModels.CoursesViewModel>
 
-@{ViewData["Title"] = "Index";}
+@*Nav-bar*@
+<div class="msb" id="msb">
+	<nav class="navbar navbar-default" role="navigation">
+        <div class="side-menu-container central">
+
+	        <ul class="nav navbar-nav">
+		        <li>
+                    <a asp-action="Create" class="nav-link text-black">
+                        @*<i class="central bi bi-person-fill"></i>*@
+                        <i class="central bi bi-mortarboard-fill"></i>
+                        <div class="central-text">Skapa ny kurs</div>
+                    </a>
+                </li>
+                <li>
+                    <a asp-action="Participants" class="nav-link text-black">
+                        <i class="central bi bi-person-fill"></i>
+                        <div class="central-text">Lägg till ny lärare</div>
+                    </a>
+                </li>
+
+	        </ul>
+
+        </div>
+    </nav>  
+</div>
 
 <h1>Kurser</h1>
+<hr />
 
-<p>
-    <a asp-action="Create">Skapa ny</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDateTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Duration)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NrOfParticipants)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+<span>Pågående</span>
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Duration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NrOfParticipants)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+    
+    <div class="bd-callout bd-callout-primary">
+
+        <table class="table table-borderless">
+            <tbody>
+                <tr>
+                    <td><span class="course-title">@item.Name</span></td>
+                    <td align="right"><span class="badge rounded-pill bg-danger">@item.NrOfParticipants</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: @item.Progress%" aria-valuemin="0" aria-valuemax="100">
+            </div>
+        </div>
+
+    </div>
+
+<span>Kommande</span>
+<br />
+<span>Avslutade</span>
+
 }
-    </tbody>
-</table>

@@ -52,10 +52,68 @@ body {
     margin-top: 0px;
     padding-top:0px;
 }
-.footer{
-    position: absolute;
-    bottom:0;
-    width:100%;
-    height: 50px;
-    text-align:center;
+
+/*Callout*/
+.bd-callout {
+    padding: 1.25rem;
+    padding-bottom: 1rem;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid #eee;
+    border-left-width: .25rem;
+    border-radius: .3rem
 }
+.bd-callout-primary {
+    border-left-color: #007bff
+}
+.course-title {
+    font-family: KoHo, Arial, Helvetica, sans-serif;
+    font-size: 125%;
+}
+.badge {
+    position: relative;
+    right: 0;
+    top: 0;
+}
+.progress {
+    margin-top: 2rem;
+    margin-bottom: 0rem;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+}
+
+/*Nav-bar*/
+.msb {
+    width: 200px;
+    background-color: #F5F7F9;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: auto;
+    min-height: 100%;
+    overflow-y: auto;
+    white-space: nowrap;
+    height: 100%;
+    z-index: 1;
+    border-right: 1px solid #ddd;
+    .navbar {
+        border: none;
+        margin-left: 0;
+        background-color: inherit;
+    }
+    .navbar-nav {
+        li {
+            display: block;
+            width: 100%;
+        }
+    }
+
+
+}
+
