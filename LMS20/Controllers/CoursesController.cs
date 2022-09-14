@@ -190,5 +190,20 @@ namespace LMS20.Web.Controllers
         {
             return (db.Courses?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        public async Task<IActionResult> Participants(int? id)
+        {
+            var course = await db.Courses.FirstOrDefaultAsync(m => m.Id == id);
+
+            var viewModel = new ParticipantsViewModel
+            {
+                Id = course.Id,
+                Name = course.Name,
+                ApplicationUsers = course.ApplicationUsers,
+
+            };
+
+            return View(viewModel);
+        }
     }
 }
