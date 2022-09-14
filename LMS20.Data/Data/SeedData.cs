@@ -108,7 +108,8 @@ namespace LMS20.Data.Data
                 FirstName = "Student",
                 LastName = "Studentsson",
                 UserName = studentEmail,
-                Email = studentEmail
+                Email = studentEmail,
+                CourseId = 1
             };
 
             var result = await userManager.CreateAsync(student, studentPW);
