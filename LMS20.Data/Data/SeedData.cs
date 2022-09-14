@@ -198,7 +198,7 @@ namespace LMS20.Data.Data
                     StartDateTime = DateTime.Now,
                     Duration = new TimeSpan(0, 55, 0),
                     //ModuleId = module.Id
-                    
+                    //Type = "Lecture"
                 };
 
                 moduleActivities.Add(temp);

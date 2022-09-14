@@ -1,9 +1,10 @@
-﻿@model LMS20.Core.Dtos.CourseDto
-@*@model LMS20.Core.Dtos.CourseDto*@
+﻿@model LMS20.Core.ViewModels.IndexViewModel
+
 
 @{
     ViewData["Title"] = "Home Page";
-   
+    ViewData["CourseTitle"] = Html.DisplayFor(model => model.CourseName);
+   //var activity = Html.DisplayFor(model => model.Name);
 }
 
 <div class="text-center">
@@ -19,12 +20,12 @@
             <hr class="mb-5">
             @* </div>*@
             <div class="card col-3 card-darkgrey " style="width: 18rem; border-radius:7px;">
-                <div class="card-header text-center dagens-datum">
-                 @DateTime.Now.ToString("dddd dd MMMM")
+                <div class="card-header text-center dagens-datum "style="text-transform: capitalize;">
+                 @DateTime.Now.ToString("dddd dd MMMM yyyy")
                 </div>
                 <ul class="list-group list-group-flush ">
                     <li class="list-group-item lectureType">
-                        <div class="dagens-rubrik ">Föreläsning 101</div>
+                        <div class="dagens-rubrik ">blabla</div>
                         <div class="dagens-info">09.00-11.00</div>
                     </li>
                     <li class="list-group-item taskType">
@@ -68,3 +69,8 @@
         </div>
     </div>
 </div>
+
+@*
+@section CourseTitle{
+    <div class = "title text-white">TestCourseName </div> 
+}*@

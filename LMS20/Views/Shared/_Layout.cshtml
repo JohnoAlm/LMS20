@@ -1,10 +1,10 @@
 ﻿@using LMS20.Core.Entities
-@model LMS20.Core.Dtos.CourseDto
+@model LMS20.Core.ViewModels.IndexViewModel
 
-@{
+@*@{
     var courseName = Html.DisplayFor(model => model.Name);
 }
- 
+ *@
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +35,14 @@
              
             <div class="container-fluid ">
                 @*<P class=" m-5 title text-white" asp-area="">KURS 101</P>*@
-               <div class = "title text-white">@courseName </div> @*@Html.DisplayFor(Course.Name)*@
+              @*  @if (IsSectionDefined("CourseTitle"))
+                {
+                    @RenderSection("CourseTitle");
+                }
+               
+*@
+              <div class = "title text-white">@ViewData["CourseTitle"] </div> 
+            
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

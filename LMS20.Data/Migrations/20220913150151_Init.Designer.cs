@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMS20.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220912112909_fix")]
-    partial class fix
+    [Migration("20220913150151_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
