@@ -47,8 +47,8 @@ var app = builder.Build();
 //    var services = scope.ServiceProvider;
 //    var db = services.GetRequiredService<ApplicationDbContext>();
 
-//    //db.Database.EnsureDeleted();
-//    //db.Database.Migrate();
+//    db.Database.EnsureDeleted();
+//    db.Database.Migrate();
 
 //    var config = services.GetRequiredService<IConfiguration>();
 //    var teacherPW = config["teacherPW"];
@@ -62,7 +62,7 @@ var app = builder.Build();
 //    {
 //        Console.WriteLine(ex);
 //        throw;
-//    } 
+//    }
 
 //}
 

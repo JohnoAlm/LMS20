@@ -40,13 +40,14 @@ namespace LMS20.Web.Controllers
                 {
                     var duration = course.Duration;
                     var prog = DateTime.Now - course.StartDateTime;
-                    double progress = (prog / duration) *100;
-
+                    double dProg = (prog / duration) * 100;
+                    int progress = (int)Math.Round(dProg);
+                    
                     viewModel = new CoursesViewModel
                     {
                         Id = course.Id,
                         Name = course.Name,
-                        StartDateTime = course.StartDateTime,
+                        StartTime = course.StartDateTime,
                         Duration = course.Duration,
                         Progress = progress /*68*/,
                         NrOfParticipants = course.ApplicationUsers.Count 

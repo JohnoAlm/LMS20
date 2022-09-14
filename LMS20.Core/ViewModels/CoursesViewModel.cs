@@ -16,12 +16,13 @@ namespace LMS20.Core.ViewModels
         public string Name { get; set; } = "KURS 101";
 
         [Display(Name = "Starttid")]
-        public DateTime StartDateTime { get; set; }
+        public DateTime StartTime { get; set; }
 
         [Display(Name = "Längd")]
         public TimeSpan Duration { get; set; }
 
-        public double Progress { get; set; }
+        public DateTime EndTime { get { return (StartTime + Duration); } }
+        public int Progress { get; set; }
 
         [Display(Name = "Antal deltagare")]
         public int NrOfParticipants { get; set; }

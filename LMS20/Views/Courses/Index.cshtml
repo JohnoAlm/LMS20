@@ -37,7 +37,7 @@
     <span>Pågående</span><br />
 @foreach(var item in Model) {
 
-    if(item.StartDateTime < DateTime.Now && (item.StartDateTime + item.Duration) > DateTime.Now) {
+    if(item.StartTime < DateTime.Now && item.EndTime > DateTime.Now) {
         <partial name="CoursePartial" model="@item"/>    
     }
 }
@@ -45,15 +45,15 @@
     <span>Kommande</span><br />
 @foreach(var item in Model) {
 
-    if(item.StartDateTime > DateTime.Now) {
+    if(item.StartTime > DateTime.Now) {
         <partial name="CoursePartial" model="@item"/>
     }
 }
 
-    <span>Avslutade</span>
+    <span>Avslutade</span><br />
 @foreach(var item in Model) {
 
-    if((item.StartDateTime + item.Duration) < DateTime.Now){
+    if(item.EndTime < DateTime.Now){
         <partial name="CoursePartial" model="@item"/>
     }
 }
