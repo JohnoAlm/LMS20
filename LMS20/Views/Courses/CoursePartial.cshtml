@@ -1,0 +1,19 @@
+﻿@model CoursesViewModel 
+
+<div class="bd-callout bd-callout-primary">
+
+    <table class="table table-borderless">
+        <tbody>
+            <tr>
+                <td><span class="course-title">@Model.Name</span></td>
+                <td align="right"><span class="badge rounded-pill bg-danger">@Model.NrOfParticipants</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Progress%" aria-valuemin="0" aria-valuemax="100">
+        </div>
+    </div>
+
+</div>

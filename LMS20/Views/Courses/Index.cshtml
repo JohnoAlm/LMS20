@@ -8,7 +8,6 @@
 	        <ul class="nav navbar-nav">
 		        <li>
                     <a asp-action="Create" class="nav-link text-black">
-                        @*<i class="central bi bi-person-fill"></i>*@
                         <i class="central bi bi-mortarboard-fill"></i>
                         <div class="central-text">Skapa ny kurs</div>
                     </a>
@@ -35,66 +34,18 @@
     if(item.StartDateTime < DateTime.Now && (item.StartDateTime + item.Duration) > DateTime.Now)
     {
         <span>Pågående</span>
-        <div class="bd-callout bd-callout-primary">
-
-            <table class="table table-borderless">
-                <tbody>
-                    <tr>
-                        <td><span class="course-title">@item.Name</span></td>
-                        <td align="right"><span class="badge rounded-pill bg-danger">@item.NrOfParticipants</span></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: @item.Progress%" aria-valuemin="0" aria-valuemax="100">
-                </div>
-            </div>
-
-        </div>
+        <partial name="CoursePartial" model="@item"/>
     }
 
     if(item.StartDateTime > DateTime.Now)
     {
         <span>Kommande</span>
-        <div class="bd-callout bd-callout-primary">
-
-            <table class="table table-borderless">
-                <tbody>
-                    <tr>
-                        <td><span class="course-title">@item.Name</span></td>
-                        <td align="right"><span class="badge rounded-pill bg-danger">@item.NrOfParticipants</span></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: @item.Progress%" aria-valuemin="0" aria-valuemax="100">
-                </div>
-            </div>
-
-        </div>
+        <partial name="CoursePartial" model="@item"/>
     }
 
     if((item.StartDateTime + item.Duration) < DateTime.Now)
     {
         <span>Avslutade</span>
-        <div class="bd-callout bd-callout-primary">
-
-            <table class="table table-borderless">
-                <tbody>
-                    <tr>
-                        <td><span class="course-title">@item.Name</span></td>
-                        <td align="right"><span class="badge rounded-pill bg-danger">@item.NrOfParticipants</span></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: @item.Progress%" aria-valuemin="0" aria-valuemax="100">
-                </div>
-            </div>
-
-        </div>
+        <partial name="CoursePartial" model="@item"/>
     }
 }
