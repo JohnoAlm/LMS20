@@ -47,7 +47,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var db = services.GetRequiredService<ApplicationDbContext>();
 
-    db.Database.EnsureDeleted();
+    db.Database.EnsureDeleted();        // ta bort för persistent data
     db.Database.Migrate();
 
     var config = services.GetRequiredService<IConfiguration>();
