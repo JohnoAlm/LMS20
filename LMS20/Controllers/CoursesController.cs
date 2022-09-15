@@ -201,7 +201,7 @@ namespace LMS20.Web.Controllers
             {
                 Id = course.Id,
                 Name = course.Name,
-                ApplicationUsers = course.ApplicationUsers,
+                ApplicationUsers = await db.Users.Where(u => u.CourseId == id).ToListAsync()
 
             };
 
