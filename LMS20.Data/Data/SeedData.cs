@@ -30,8 +30,8 @@ namespace LMS20.Data.Data
             var teacherEmail = "larare@lms.se";
             var studentEmail = "student@lms.se";
 
-            var course = GetCourse();
-            await db.AddRangeAsync(course);
+            var courses = GetCourses();
+            await db.AddRangeAsync(courses);
 
             //var modules = GetModules();
             //await db.AddRangeAsync(modules);
@@ -45,9 +45,9 @@ namespace LMS20.Data.Data
 
             await AddToRolesAsyncTeacher(teacher, roleNames);
 
-            var student = await AddStudentAsync(studentEmail, studentPW);
+            var students = await AddStudentsAsync(studentEmail, studentPW);
 
-            await AddToRoleAsyncStudent(student, "Student");
+            await AddToRoleAsyncStudent(students, "Student");
 
             await db.SaveChangesAsync();
         }
@@ -65,12 +65,14 @@ namespace LMS20.Data.Data
 
 
         // Lägger till student till rollen "Student"
-        private static async Task AddToRoleAsyncStudent(ApplicationUser student, string roleName)
+        private static async Task AddToRoleAsyncStudent(ICollection<ApplicationUser> students, string roleName)
         {
-
+            foreach (var student in students)
+            {
                 if (await userManager.IsInRoleAsync(student, roleName)) return;
                 var result = await userManager.AddToRoleAsync(student, roleName);
                 if (!result.Succeeded) throw new Exception(string.Join("\n", result.Errors));            
+            }
         }
 
         // Seedar en lärare
@@ -96,26 +98,32 @@ namespace LMS20.Data.Data
             return teacher;
         }
 
-        // Seedar en student
-        private static async Task<ApplicationUser> AddStudentAsync(string studentEmail, string studentPW)
+        // Seedar flera studenter
+        private static async Task<ICollection<ApplicationUser>> AddStudentsAsync(string studentEmail, string studentPW)
         {
             var found = await userManager.FindByEmailAsync(studentEmail);
 
             if (found != null) return null!;
 
-            var student = new ApplicationUser
+            var students = new List<ApplicationUser>();
+
+            for (int i = 1; i < 4; i++)
             {
-                FirstName = "Student",
-                LastName = "Studentsson",
-                UserName = studentEmail,
-                Email = studentEmail,
-                CourseId = 1
-            };
+                var student = new ApplicationUser
+                {
+                    FirstName = $"Student{i}",
+                    LastName = $"Studentsson{i}",
+                    UserName = $"{i}{studentEmail}",
+                    Email = $"{i}{studentEmail}",
+                    CourseId = i
+                };
 
-            var result = await userManager.CreateAsync(student, studentPW);
-            if (!result.Succeeded) throw new Exception(string.Join("\n", result.Errors));
+                var result = await userManager.CreateAsync(student, studentPW);
+                if (!result.Succeeded) throw new Exception(string.Join("\n", result.Errors));
+                students.Add(student);
+            }
 
-            return student;
+            return students;
         }
 
         // Seedar roller
@@ -131,22 +139,29 @@ namespace LMS20.Data.Data
             }
         }
 
-        // Seedar en kurs
-        private static Course GetCourse()
+        // Seedar flera kurser
+        private static ICollection<Course> GetCourses()
         {
             var faker = new Faker("sv");
 
-            var course = new Course
+            var courses = new List<Course>();
+
+            for(int i = 1; i < 4; i++)
             {
-                Name = "Programmering",
-                Description = faker.Company.Bs(),
-                StartDateTime = DateTime.Now,
-                Duration = new TimeSpan(0, 55, 0),
-                Modules = GetModules()
+                var course = new Course
+                {
+                    Name = $"Programmering {i}",
+                    Description = faker.Company.Bs(),
+                    StartDateTime = DateTime.Now,
+                    Duration = new TimeSpan(0, 55, 0),
+                    Modules = GetModules()
 
-            };
+                };
 
-            return course;
+                courses.Add(course);
+            }
+
+            return courses;
         }
 
         // Seedar moduler
