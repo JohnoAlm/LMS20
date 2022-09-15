@@ -12,7 +12,6 @@ namespace LMS20.Data.Repositories
     public class CourseRepository : ICourseRepository
     {
         private readonly ApplicationDbContext db;
-        private ApplicationDbContext db1;
 
         public CourseRepository(ApplicationDbContext db)
         {
@@ -23,5 +22,12 @@ namespace LMS20.Data.Repositories
         {
             return await db.Courses.Include(p => p.ApplicationUsers).ToListAsync();
         }
+
+        public async Task AddCourseAsync(Course course)
+        {
+            await db.Courses.AddAsync(course);
+        }
+
+
     }
 }

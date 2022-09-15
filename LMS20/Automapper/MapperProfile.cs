@@ -8,12 +8,8 @@ namespace LMS20.Web.Automapper
     {
         public MapperProfile()
         {
-             CreateMap<Course, CoursesViewModel>();  
+            CreateMap<Course, CoursesViewModel>().ReverseMap();  
 
         }
-
-
-        
-
     }
 }

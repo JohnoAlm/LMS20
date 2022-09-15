@@ -80,7 +80,6 @@ namespace LMS20.Web.Controllers
         // GET: Courses/Create
         public IActionResult Create()
         {
-            //return Request.IsAjax() ? PartialView("CreatePartial") : View();
             return View();
         }
 
@@ -89,15 +88,18 @@ namespace LMS20.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,StartDateTime,Duration")] Course course)
+        public async Task<IActionResult> Create(/*[Bind("Id,Name,Description,StartDateTime,Duration")]*/ CoursesViewModel viewModel)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
-                db.Add(course);
-                await db.SaveChangesAsync();
+                var course = mapper.Map<Course>(viewModel);
+
+                await uow.CourseRepository.AddCourseAsync(course);
+                await uow.CompleteAsync();
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(course);
+            return View(viewModel);
         }
 
         // GET: Courses/Edit/5

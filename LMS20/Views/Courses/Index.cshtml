@@ -1,5 +1,53 @@
 ﻿@model IEnumerable<LMS20.Core.ViewModels.CoursesViewModel>
 
+
+<!-- Modal View -->
+@{ var course = new CoursesViewModel{}; }
+<partial name="CreateCoursePartial" model="@course"/>
+
+@*<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ny kurs</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Stäng"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="@course.Name" class="control-label"></label>
+                        <input asp-for="@course.Name" class="form-control" />
+                        <span asp-validation-for="@course.Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@course.Description" class="control-label"></label>
+                        <input asp-for="@course.Description" class="form-control" />
+                        <span asp-validation-for="@course.Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@course.StartTime" class="control-label"></label>
+                        <input asp-for="@course.StartTime" class="form-control" />
+                        <span asp-validation-for="@course.StartTime" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@course.Duration" class="control-label"></label>
+                        <input asp-for="@course.Duration" class="form-control" />
+                        <span asp-validation-for="@course.Duration" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Spara</button>
+            </div>
+        </div>
+    </div>
+</div>*@
+
 <div class="row">
 <div class="col-2">
 
@@ -10,10 +58,10 @@
 
 	            <ul class="nav navbar-nav central">
 		            <li>
-                        <a asp-action="Create" class="nav-link text-black">
+                        <a class="nav-link text-black" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="central bi bi-mortarboard-fill"></i>
                             <div class="central-text">Skapa ny kurs</div>
-                        </a>
+                        </a>             
                     </li>
                     <li>
                         <a asp-action="Participants" class="nav-link text-black">
@@ -34,27 +82,47 @@
     <h1>Kurser</h1>
     <hr />
 
-    <span>Pågående</span><br />
-@foreach(var item in Model) {
+@{
+    bool isFound = false;
+    foreach(var item in Model) {
 
-    if(item.StartTime < DateTime.Now && item.EndTime > DateTime.Now) {
-        <partial name="CoursePartial" model="@item"/>    
+        if(item.StartTime < DateTime.Now && item.EndTime > DateTime.Now) {
+
+            if(!isFound) { 
+                <span>Pågående</span> 
+                isFound = true; 
+            }
+            
+            <partial name="CoursePartial" model="@item"/>
+        }
     }
-}
 
-    <span>Kommande</span><br />
-@foreach(var item in Model) {
+    isFound = false;
+    foreach(var item in Model) {
 
-    if(item.StartTime > DateTime.Now) {
-        <partial name="CoursePartial" model="@item"/>
+        if(item.StartTime > DateTime.Now) {
+
+            if(!isFound) { 
+                <span>Kommande</span> 
+                isFound = true; 
+            }
+            
+            <partial name="CoursePartial" model="@item"/>
+        }
     }
-}
 
-    <span>Avslutade</span><br />
-@foreach(var item in Model) {
+    isFound = false;
+    foreach(var item in Model) {
 
-    if(item.EndTime < DateTime.Now){
-        <partial name="CoursePartial" model="@item"/>
+        if(item.EndTime < DateTime.Now) {
+
+            if(!isFound) { 
+                <span>Avslutade</span> 
+                isFound = true; 
+            }
+            
+            <partial name="CoursePartial" model="@item"/>
+        }
     }
 }
 

@@ -19,6 +19,9 @@ namespace LMS20.Data.Repositories
             this.db = db;
         }
 
-
+        public async Task CompleteAsync()
+        {
+            await db.SaveChangesAsync();
+        }
     }
 }

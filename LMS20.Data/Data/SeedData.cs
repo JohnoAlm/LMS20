@@ -152,10 +152,9 @@ namespace LMS20.Data.Data
                 {
                     Name = $"Programmering {i}",
                     Description = faker.Company.Bs(),
-                    StartDateTime = DateTime.Now,
-                    Duration = new TimeSpan(0, 55, 0),
+                    StartDateTime = DateTime.Now.AddMinutes(5),
+                    Duration = new TimeSpan(0, 15, 0),
                     Modules = GetModules()
-
                 };
 
                 courses.Add(course);

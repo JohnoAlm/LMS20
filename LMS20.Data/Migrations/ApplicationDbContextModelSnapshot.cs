@@ -124,7 +124,7 @@ namespace LMS20.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Courses", (string)null);
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("LMS20.Core.Entities.Document", b =>
@@ -169,7 +169,7 @@ namespace LMS20.Data.Migrations
 
                     b.HasIndex("ModuleId");
 
-                    b.ToTable("Document", (string)null);
+                    b.ToTable("Document");
                 });
 
             modelBuilder.Entity("LMS20.Core.Entities.Module", b =>
@@ -201,7 +201,7 @@ namespace LMS20.Data.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("Modules", (string)null);
+                    b.ToTable("Modules");
                 });
 
             modelBuilder.Entity("LMS20.Core.Entities.ModuleActivity", b =>
@@ -233,7 +233,7 @@ namespace LMS20.Data.Migrations
 
                     b.HasIndex("ModuleId");
 
-                    b.ToTable("ModuleActivity", (string)null);
+                    b.ToTable("ModuleActivity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
