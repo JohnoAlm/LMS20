@@ -80,7 +80,8 @@ namespace LMS20.Web.Controllers
         // GET: Courses/Create
         public IActionResult Create()
         {
-            return View();
+            return Request.IsAjax() ? PartialView("CreatePartial") : View();
+            //return View();
         }
 
         // POST: Courses/Create
