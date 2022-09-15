@@ -1,34 +1,35 @@
-﻿@using LMS20.Core.ViewModels
-@model ParticipantsViewModel
+﻿@model ParticipantsViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
+
 <h1>Participants</h1>
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+@if (User.IsInRole("Teacher"))
+{
+     <a @*asp-action="En action till att lägga till användare med ajax"*@ class="my-5 btn btn-outline-dark float-end"><i title = "Lägg till en elev" class="bi bi-person-plus-fill"></i></a>
+}
 
+<table class="table my-5">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ApplicationUsers.FirstOrDefault()!.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ApplicationUsers.FirstOrDefault()!.LastName)
+                </th>
+                 <th>
+                    @Html.DisplayNameFor(model => model.ApplicationUsers.FirstOrDefault()!.Email)
+                </th>
 
-         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ApplicationUsers)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ApplicationUsers)
-        </dd>
-
-     
-    </dl>
-</div>
-<div>
-   
-</div>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <partial name="ParticipantsPartial" model="@Model.ApplicationUsers"/>
+        </tbody>
+    </table>
 
