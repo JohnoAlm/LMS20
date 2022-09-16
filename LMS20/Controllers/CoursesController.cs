@@ -90,6 +90,7 @@ namespace LMS20.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(/*[Bind("Id,Name,Description,StartDateTime,Duration")]*/ CoursesViewModel viewModel)
         {
+            viewModel.Id = 0;       // 
             if(ModelState.IsValid)
             {
                 var course = mapper.Map<Course>(viewModel);

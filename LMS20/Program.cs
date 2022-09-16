@@ -42,29 +42,29 @@ var app = builder.Build();
 
 // SeedData
 
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var db = services.GetRequiredService<ApplicationDbContext>();
+//using (var scope = app.Services.CreateScope())
+//{
+//    var services = scope.ServiceProvider;
+//    var db = services.GetRequiredService<ApplicationDbContext>();
 
-    db.Database.EnsureDeleted();
-    db.Database.Migrate();
+//    db.Database.EnsureDeleted();
+//    db.Database.Migrate();
 
-    var config = services.GetRequiredService<IConfiguration>();
-    var teacherPW = config["teacherPW"];
-    var studentPW = config["studentPW"];
+//    var config = services.GetRequiredService<IConfiguration>();
+//    var teacherPW = config["teacherPW"];
+//    var studentPW = config["studentPW"];
 
-    try
-    {
-        SeedData.InitAsync(db, services, teacherPW, studentPW).GetAwaiter().GetResult();
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine(ex);
-        throw;
-    }
+//    try
+//    {
+//        SeedData.InitAsync(db, services, teacherPW, studentPW).GetAwaiter().GetResult();
+//    }
+//    catch (Exception ex)
+//    {
+//        Console.WriteLine(ex);
+//        throw;
+//    }
 
-}
+//}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
