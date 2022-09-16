@@ -3,6 +3,7 @@ using LMS20.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 
 namespace LMS20.Data.Data
 {
@@ -17,6 +18,8 @@ namespace LMS20.Data.Data
             if (context is null) throw new ArgumentNullException(nameof(context));
             db = context;
 
+            if (db.Users.Any()) return;
+               
             ArgumentNullException.ThrowIfNull(nameof(services));
 
             roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();

@@ -30,33 +30,33 @@ namespace LMS20.Web.Controllers
 
         }
 
-        //[Authorize]
-        public IActionResult Index()
+        [Authorize(Roles ="Student")]
+        public async Task<IActionResult> Index()
         {
-            //Är vår user en student???
-            if (!User.IsInRole("Student"))
-            {
-                return View(nameof(Modules));//Bör vara lärare men för nu....
-            }
-            else
-            {
+           
+         
                 //Rätt kursid för den kurs vår användare går
-                var courseId = db.Users.First(u => u.Id == userManager.GetUserId(User))
-                    .CourseId;
+                // var courseId = db.Users.First(u => u.Id == userManager.GetUserId(User))
+                //   .CourseId; 
+
+                //var userId = userManager.GetUserId(User);
+                //var courseId = await db.Users.FirstOrDefaultAsync(u => u.Id ==userId)
+
+                var courseId = (await userManager.GetUserAsync(User)).CourseId;
 
                 
-                //
+                
                 var course = db.Course.Include(c => c.Modules) //ta alla kurser och haka på deras moduler
 
                     .ThenInclude(m => m.ModuleActivities) //Haka sedan på varje moduls aktiviteter
                     .FirstOrDefault(c => c.Id == courseId); //jämnför alla kursers id med vårt id
                                                             //===> course innehållervår kurs med dess 
                                                             // muduler och deras aktiviteter
-
+   
 
                 var dashInfo = new IndexViewModel //skapa en ny IndexViewModel som ska populeras
                 {
-                    CourseName = course.Name
+                    CourseName = course?.Name
                 };
                
                 //    { TodaysActivity = course.Modules.First().ModuleActivities.First() };
@@ -73,7 +73,7 @@ namespace LMS20.Web.Controllers
 
 
 
-        }
+       
 
         public IActionResult Participants()
         {
