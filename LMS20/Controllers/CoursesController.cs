@@ -11,6 +11,7 @@ using AutoMapper;
 using LMS20.Data.Repositories;
 using LMS20.Web.Models;
 using LMS20.Core.ViewModels;
+using System.Diagnostics;
 
 namespace LMS20.Web.Controllers
 {
@@ -204,6 +205,12 @@ namespace LMS20.Web.Controllers
             };
 
             return View(viewModel);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
