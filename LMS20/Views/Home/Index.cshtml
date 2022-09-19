@@ -4,7 +4,11 @@
 @{
     ViewData["Title"] = "Home Page";
     ViewData["CourseTitle"] = Html.DisplayFor(model => model.CourseName);
-   //var activity = Html.DisplayFor(model => model.Name);
+    ViewData["SetClassTime"] = Html.DisplayFor(model => model.ClassStart);
+    ViewData["S"] = Html.DisplayFor(model => model.ClassStart);
+
+    // ViewData["ActivityName"] = "Dummy 101"/*Html.DisplayFor(model => model.ActivityNames) @ViewData["ActivityName"]*/;
+    //var activity = Html.DisplayFor(model => model.Name);
 }
 
 <div class="text-center">
@@ -25,8 +29,8 @@
                 </div>
                 <ul class="list-group list-group-flush ">
                     <li class="list-group-item lectureType">
-                        <div class="dagens-rubrik ">blabla</div>
-                        <div class="dagens-info">09.00-11.00</div>
+                        <div class="dagens-rubrik ">Dummy 101</div>
+                        <div class="dagens-info">@ViewData["SetClassTime"]</div>
                     </li>
                     <li class="list-group-item taskType">
                         <div class="dagens-rubrik ">Uppgift 102</div>
@@ -40,35 +44,86 @@
         <div class="col-3">
             <h1 class="dash-titel ">VECKAN</h1>
             <hr class="mb-5">
-            <div class="card col-3" style="width: 18rem;">
-                <div class="card-header">
-                    Datum
-                </div>
-                <ul class="list-group list-group-flush">
+            <div class="datumrubrik">
+            <h7 class=" ">Tisdag 23 september </h7>
+            </div>
+            <div class="card col-3 lecture single-card " style="width: 18rem; ">
+             
+                <ul class="list-group list-group-flush  ">
 
-                    <li class="list-group-item">Uppgift 102</li>
-                    <li class="list-group-item">Uppgift 102</li>
-                    <li class="list-group-item"></li>
+                    <li class="list-group-item single-card single-info pt-1 pb-0">
+                        Lilla salen
+                        <h6 class="single-rubrik">Föreläsning 101 <a href=""><i class="bi bi-filter-square " style="font-size:20px; float: right; color:black;"></i></a></h6>
+                    </li>
                 </ul>
             </div>
+            <div class="card col-3 task single-card " style="width: 18rem; ">
+
+                <ul class="list-group list-group-flush  ">
+
+                    <li class="list-group-item single-card single-info pt-1 pb-0">
+                        Lilla salen
+                        <h6 class="single-rubrik">Uppgift 102 <a href=""><i class="bi bi-filter-square " style="font-size:20px; float: right; color:black;"></i></a></h6>
+                    </li>
+                </ul>
+            </div>
+            <div class="datumrubrik">
+                <h7 class=" ">Torsdag 25 september </h7>
+            </div>
+             <div class="card col-3 lecture single-card " style="width: 18rem; ">
+             
+                <ul class="list-group list-group-flush  ">
+
+                    <li class="list-group-item single-card single-info pt-1 pb-0">
+                        Lilla salen
+                        <h6 class="single-rubrik">Föreläsning 101 <a href=""><i class="bi bi-filter-square " style="font-size:20px; float: right; color:black;"></i></a></h6>
+                    </li>
+                </ul>
+            </div>
+            <div class="card col-3 task single-card " style="width: 18rem; ">
+
+                <ul class="list-group list-group-flush  ">
+
+                    <li class="list-group-item single-card single-info pt-1 pb-0">
+                        Lilla salen
+                        <h6 class="single-rubrik">Uppgift 102 <a href=""><i class="bi bi-filter-square " style="font-size:20px; float: right; color:black;"></i></a></h6>
+                    </li>
+                </ul>
+            </div>
+
+
         </div>
+       @* slut veckan*@
+
+
+
 
         <div class="col-3">
             <h1 class="dash-titel ">UPPGIFTER</h1>
             <hr class="mb-5">
-            <div class="card col-3" style="width: 18rem;">
-                <div class="card-header">
-                    Datum
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Banh My</li>
-                    <li class="list-group-item">Pho</li>
-                    <li class="list-group-item">Salad</li>
-                </ul>
+            <div class="datumrubrik pb-3">
+                <h7 class=" "> </h7> 
             </div>
+
+               @foreach (var task in Model.MyTasks){
+                <div class="card col-3 delayed single-card @(task.ActivityType == LMS20.Core.Entities.ActivityType.Delayed ? "delayed" :"task")" style="width: 18rem; ">
+
+                    <ul class="list-group list-group-flush  ">
+                        <li class="list-group-item single-card single-info pt-1 pb-0">
+
+                            Senast  @Html.DisplayFor(modelItem => task.EndDateTime, "MM/dd/yyyy HH:mm")
+                            <h6 class="single-rubrik">@Html.DisplayFor(modelItem => task.Name) <a><i class="bi bi-filter-square " style="font-size:20px; float: right; color:black;"></i></a></h6>
+                        </li>
+  
+                    </ul>
+                   
+                </div>
+            }
+          
+          
         </div>
     </div>
-</div>
+
 
 @*
 @section CourseTitle{

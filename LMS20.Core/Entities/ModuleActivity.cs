@@ -6,13 +6,14 @@
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public DateTime StartDateTime { get; set; }
-        public TimeSpan Duration { get; set; }
-        //public string Type { get; set; } = string.Empty; //Antingen Lecture eller Task OBS Ny
-         
+        public DateTime EndDateTime { get; set; }
+       
         public ICollection<Document> Documents { get; set; } = new List<Document>();
 
         public Module Module { get; set; }
 
         public int ModuleId { get; set; }
+        public ActivityType ActivityType { get; set; }
     }
+  
 }

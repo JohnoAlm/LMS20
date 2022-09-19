@@ -33,47 +33,87 @@ namespace LMS20.Web.Controllers
         [Authorize(Roles ="Student")]
         public async Task<IActionResult> Index()
         {
-           
-         
-                //Rätt kursid för den kurs vår användare går
-                // var courseId = db.Users.First(u => u.Id == userManager.GetUserId(User))
-                //   .CourseId; 
 
-                //var userId = userManager.GetUserId(User);
-                //var courseId = await db.Users.FirstOrDefaultAsync(u => u.Id ==userId)
 
-                var courseId = (await userManager.GetUserAsync(User)).CourseId;
+                var user = await userManager.GetUserAsync(User);
+                var courseId = user.CourseId;
+                var currentModule = db.Course.SelectMany(c => c.Modules)
+                                             .Where(m => m.StartDateTime < DateTime.Now && m.EndDateTime > DateTime.Now)
+                                             .FirstOrDefault(c => c.Id == courseId);
+                                      
 
-                
-                
-                var course = db.Course.Include(c => c.Modules) //ta alla kurser och haka på deras moduler
+           // if (currentModule == null) throw new ArgumentException("Inga moduler");
+
+
+            var course = db.Course.Include(c => c.Modules) //ta alla kurser och haka på deras moduler
 
                     .ThenInclude(m => m.ModuleActivities) //Haka sedan på varje moduls aktiviteter
                     .FirstOrDefault(c => c.Id == courseId); //jämnför alla kursers id med vårt id
                                                             //===> course innehållervår kurs med dess 
                                                             // muduler och deras aktiviteter
-   
+            if (course == null) throw new ArgumentException("Något är fel");
 
-                var dashInfo = new IndexViewModel //skapa en ny IndexViewModel som ska populeras
-                {
-                    CourseName = course?.Name
-                };
+                var myAllAktivities = course.Modules.SelectMany(m => m.ModuleActivities); //ALLA aktiviteter I EN LISTA
+                                                                                          // var res =  myModuleAktivities.Where(m => (m.ModuleActivities.Where(x => x.StartDateTime == DateTime.Now)).ToList().Count > 0);
+            var myModuleTasks = myAllAktivities.Where(a => a.ActivityType == ActivityType.Task)
+                                               .Where(a => a.StartDateTime >= currentModule.StartDateTime && currentModule.EndDateTime > a.EndDateTime);
+            //Is delayed                                  
+            foreach(var moduleTask in myModuleTasks)
+            {
+                if(moduleTask.EndDateTime < DateTime.Now)
+                    moduleTask.ActivityType = ActivityType.Delayed;
+
+            }
+
+            var dashInfo = new IndexViewModel //skapa en ny IndexViewModel som ska populeras
+            {
+                    CourseName = course?.Name,
+                    MyTasks = myModuleTasks
+                    //Activities = todaysaktivities,
+                    //ActivityNames = activityNames
+
+            };
                
-                //    { TodaysActivity = course.Modules.First().ModuleActivities.First() };
+               
 
 
 
                 return View(dashInfo);
             }
 
-            //obs här behöcver vi veta vilken kurse den inloggade går påom det äre en elev.
-            //Sätt det värdet på viewmodel
-            //2. Transformera tilll ViewModel
-            //3. Returnera viewmodel
+        // db.ModuleActivity.Where()
+        //var activities = new List<ModuleActivity>();
+        //var todaysaktivities = new List<ModuleActivity>();
+        //var activityNames = new List<string>();
+
+        //foreach (var module in course.Modules)
+        //{
+        //    foreach (var activity in module.ModuleActivities)
+        //    {
+        //        Check if activity meets criteria
+        //         activities.Add(activity);
+        //    }
+        //}
+
+        //foreach (var activity in activities)
+        //{
+
+        //    if (activity.StartDateTime > DateTime.Now && DateTime.Now < activity.EndDateTime)
+        //    {
+        //        todaysaktivities.Add(activity);
+        //        activityNames.Add(activity.Name);
+        //    }
+        //}
+        //    { TodaysActivity = course.Modules.First().ModuleActivities.First() };
+
+        //obs här behöcver vi veta vilken kurse den inloggade går påom det äre en elev.
+        //Sätt det värdet på viewmodel
+        //2. Transformera tilll ViewModel
+        //3. Returnera viewmodel
 
 
 
-       
+
 
         public IActionResult Participants()
         {
@@ -92,3 +132,4 @@ namespace LMS20.Web.Controllers
         }
     }
 }
+
