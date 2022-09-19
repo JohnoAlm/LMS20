@@ -36,6 +36,8 @@ namespace LMS20.Core.ViewModels
         [Display(Name = "Efternamn")]
         public string LastName { get; set; }
 
+        public int CourseId { get; set; }
+
         public bool AcceptUserAgreement { get; set; }
         public string RegistrationInValid { get; set; }
     }

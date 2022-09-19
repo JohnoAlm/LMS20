@@ -9,7 +9,6 @@ namespace LMS20.Data.Data
     {
         public DbSet<Course> Courses { get; set; } = default!;
         public DbSet<Module> Modules { get; set; } = default!;
-
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

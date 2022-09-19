@@ -12,6 +12,7 @@ using LMS20.Data.Repositories;
 using LMS20.Web.Models;
 using LMS20.Core.ViewModels;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Identity;
 
 namespace LMS20.Web.Controllers
 {
@@ -20,12 +21,14 @@ namespace LMS20.Web.Controllers
         private readonly ApplicationDbContext db;
         private readonly IMapper mapper;
         private readonly UnitOfWork uow;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public CoursesController(ApplicationDbContext context, IMapper mapper)
+        public CoursesController(ApplicationDbContext context, IMapper mapper, UserManager<ApplicationUser> userManager)
         {
             db = context;
             this.mapper = mapper;
             uow = new UnitOfWork(db);
+            this.userManager = userManager;
         }
 
         // GET: Courses
@@ -219,6 +222,42 @@ namespace LMS20.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RegisterUser(RegistrationViewModel registrationViewModel, int id)
+        {
+            var course = await db.Courses.FirstOrDefaultAsync(c => c.Id == id);
+
+            registrationViewModel.RegistrationInValid = "true";
+
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = registrationViewModel.Email,
+                    Email = registrationViewModel.Email,
+                    FirstName = registrationViewModel.FirstName,
+                    LastName = registrationViewModel.LastName,
+                    CourseId = course.Id
+                };
+
+                var result = await userManager.CreateAsync(user, registrationViewModel.Password);
+                await userManager.AddToRoleAsync(user, "Student");
+                await uow.CompleteAsync();
+
+                if (result.Succeeded)
+                {
+                    registrationViewModel.RegistrationInValid = "";
+
+                    return RedirectToAction(nameof(Participants));
+                }
+
+                ModelState.AddModelError("", "Registreringsförsök misslyckades");
+            }
+
+            return RedirectToAction(nameof(Participants));
         }
     }
 }

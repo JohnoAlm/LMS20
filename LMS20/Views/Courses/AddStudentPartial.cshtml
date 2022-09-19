@@ -3,13 +3,13 @@
 <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Lägg till en ny elev</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-       <form id = "addstudentform" name = "addstudentform" asp-controller = "UserAuth" asp-action = "RegisterUser">
+       <form id = "addstudentform" name = "addstudentform" asp-controller = "Courses" asp-action = "RegisterUser">
             <div asp-validation-summary = "ModelOnly" class = "text-danger"></div>
             <input type = "hidden" asp-for = "RegistrationInValid" />
             
@@ -61,12 +61,15 @@
                    </div> 
                 </div>
             </div>
+            <div class = "my-3 form-group-row">
+                <input type = "submit" value = "RegisterUser" class = "btn btn-primary" />s
+            </div>
        </form>
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button id = "register" name = "registrera" type="button" class="btn btn-primary">Save changes</button>
+       
+        
       </div>
     </div>
   </div>
