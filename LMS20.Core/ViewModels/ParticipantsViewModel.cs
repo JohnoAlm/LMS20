@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace LMS20.Core.ViewModels
 {
+#nullable disable
     public class ParticipantsViewModel
     {
         public int Id { get; set; }
