@@ -1,4 +1,6 @@
 ﻿@model ParticipantsViewModel
+@using LMS20.Data
+
 
 @{
     ViewData["Title"] = "Details";
@@ -77,7 +79,9 @@
 {
     <script src = "~/js/UserRegistration.js" asp-append-version = "true"></script>
 
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
 
 

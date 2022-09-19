@@ -4,7 +4,7 @@
 
     function onUserRegisterClick()
     {
-        var url = "/UserAuth/RegisterUser";
+        var url = "UserAuth/RegisterUser";
 
         var antiForgeryToken = $("#addstudent input[name = '__RequestVerificationToken']").val();
         var email = $("#addstudent input[name = 'Email']").val();
@@ -28,6 +28,8 @@
             type: "POST",
             url: url,
             data: user,
+            
+            
             success: function (data) {
 
                 var parsed = $.parseHTML(data);
