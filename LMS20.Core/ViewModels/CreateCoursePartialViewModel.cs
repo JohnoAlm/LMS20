@@ -19,10 +19,10 @@ namespace LMS20.Core.ViewModels
         [Required]
         [Display(Name = "Starttid")]
         [DataType(DataType.Date)]
-        public DateTime StartDateTime { get; set; } = DateTime.Now + TimeSpan.FromDays(1);
+        public DateTime Start { get; set; } = DateTime.Now + TimeSpan.FromDays(1);
 
         [Required]
         [Display(Name = "Sluttid")]
-        public DateTime EndDateTime { get; set; } 
+        public DateTime End { get; set; } 
     }
 }

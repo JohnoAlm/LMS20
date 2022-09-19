@@ -15,8 +15,8 @@ namespace LMS20.Web.Validations
 
                 if(vm is null || db is null) return new ValidationResult(ErrorMessage);
 
-                var startTime = vm.ModuleStartTime;
-                var endTime = vm.ModuleEndTime;
+                var startTime = vm.ModuleStart;
+                var endTime = vm.ModuleEnd;
 
                 if (startTime < DateTime.Now) return new ValidationResult(ErrorMessage);
 
@@ -29,8 +29,8 @@ namespace LMS20.Web.Validations
                 DateTime moduleStartTime, moduleEndTime;
                 foreach(var module in course.Modules)
                 {
-                    moduleStartTime = module.StartDateTime;
-                    moduleEndTime = module.EndDateTime;
+                    moduleStartTime = module.Start;
+                    moduleEndTime = module.End;
 
                     // Omsluter helt en existerande aktivitet
                     if (startTime < moduleStartTime && endTime > moduleEndTime) 

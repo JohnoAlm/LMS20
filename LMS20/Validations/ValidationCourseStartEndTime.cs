@@ -14,8 +14,8 @@ namespace LMS20.Web.Validations
                 var db = validationContext.GetService(typeof(ApplicationDbContext)) as ApplicationDbContext;
 
                 if(vm is null || db is null) return new ValidationResult(ErrorMessage);
-                if(vm.StartDateTime < DateTime.Now) return new ValidationResult(ErrorMessage); 
-                if(vm.EndDateTime <= vm.StartDateTime) return new ValidationResult(ErrorMessage);
+                if(vm.Start < DateTime.Now) return new ValidationResult(ErrorMessage); 
+                if(vm.End <= vm.Start) return new ValidationResult(ErrorMessage);
 
                 return ValidationResult.Success;
             }

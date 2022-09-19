@@ -11,8 +11,8 @@ namespace LMS20.Core.ViewModels
     {
         public int Id { get; set; }                         // Kursens PK
 
-        public DateTime ModuleStartTime { get; set; }       // Föreslagen modul starttime
-        public DateTime ModuleEndTime { get; set; }        // Föreslagen modul endtime
+        public DateTime ModuleStart { get; set; }       // Föreslagen modul starttime
+        public DateTime ModuleEnd { get; set; }        // Föreslagen modul endtime
 
         public ICollection<Module> Modules { get; set; } = new List<Module>();
 
