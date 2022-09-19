@@ -16,38 +16,37 @@ namespace LMS20.Web.Validations
                 if(vm is null || db is null) return new ValidationResult(ErrorMessage);
 
                 var startTime = vm.ModuleStartTime;
-                var endTime = vm.ModuleStartTime + vm.ModuleDuration;       // input ?
+                var endTime = vm.ModuleEndTime;
 
                 if (startTime < DateTime.Now) return new ValidationResult(ErrorMessage);
 
                 var course = db.Courses.FirstOrDefault(m => m.Id == vm.Id);
 
                 // Startar före eller slutar efter modulen
-                if(startTime < course.StartDateTime ||
-                    endTime > (course.StartDateTime + course.Duration))
+                if(startTime < course.StartDateTime || endTime > course.EndDateTime)
                     return new ValidationResult(ErrorMessage);
 
                 DateTime moduleStartTime, moduleEndTime;
                 foreach(var module in course.Modules)
                 {
                     moduleStartTime = module.StartDateTime;
-                    moduleEndTime = module.StartDateTime + module.Duration;
+                    moduleEndTime = module.EndDateTime;
 
                     // Omsluter helt en existerande aktivitet
-                    if (startTime < moduleStartTime &&
-                        endTime > moduleEndTime) return new ValidationResult(ErrorMessage);
+                    if (startTime < moduleStartTime && endTime > moduleEndTime) 
+                        return new ValidationResult(ErrorMessage);
 
                     // Omsluts helt av en existerande aktivitet
-                    if (startTime > moduleStartTime &&
-                        endTime < moduleEndTime) return new ValidationResult(ErrorMessage);
+                    if (startTime > moduleStartTime && endTime < moduleEndTime) 
+                        return new ValidationResult(ErrorMessage);
 
                     // Överlappar starten på en existerande aktivitet
-                    if (startTime < moduleStartTime &&
-                        (endTime > moduleStartTime)) return new ValidationResult(ErrorMessage);
+                    if (startTime < moduleStartTime && endTime > moduleStartTime) 
+                        return new ValidationResult(ErrorMessage);
 
                     // Överlappar slutet på en existerande aktivitet
-                    if (startTime < moduleEndTime &&
-                        endTime > moduleEndTime) return new ValidationResult(ErrorMessage);
+                    if (startTime < moduleEndTime && endTime > moduleEndTime) 
+                        return new ValidationResult(ErrorMessage);
                 }
 
                 return ValidationResult.Success;

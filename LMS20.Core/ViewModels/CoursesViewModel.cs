@@ -10,25 +10,7 @@ namespace LMS20.Core.ViewModels
 {
     public class CoursesViewModel
     {
-        public int Id { get; set; }
-
-        [Display(Name = "Namn")]
-        public string Name { get; set; } /*= "KURS 101";*/
-
-        [Display(Name = "Beskrivning")]
-        public string Description { get; set; } = string.Empty;
-
-        [Display(Name = "Starttid")]
-        public DateTime StartTime { get; set; }
-
-        [Display(Name = "Längd")]
-        public TimeSpan Duration { get; set; }
-
-        public DateTime EndTime { get { return (StartTime + Duration); } }
-
-        public int Progress { get; set; }
-
-        [Display(Name = "Antal deltagare")]
-        public int NrOfParticipants { get; set; }
+        public CreateCoursePartialViewModel createCourse { get; set; }
+        public IEnumerable<CoursePartialViewModel> courses { get; set; } = new List<CoursePartialViewModel>();
     }
 }

@@ -12,7 +12,7 @@ namespace LMS20.Core.ViewModels
         public int Id { get; set; }                         // Modulens PK
 
         public DateTime ActivityStartTime { get; set; }     // Föreslagen aktivitet starttime
-        public TimeSpan ActivityDuration { get; set; }      // Föreslagen aktivitet duration
+        public DateTime ActivityEndTime { get; set; }       // Föreslagen aktivitet endtime
 
         public ICollection<ModuleActivity> ModuleActivities { get; set; } = new List<ModuleActivity>();
 

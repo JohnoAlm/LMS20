@@ -31,11 +31,12 @@ namespace LMS20.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var courses = await uow.CourseRepository.GetAllCoursesAsync();
-            var coursesView = new List<CoursesViewModel>();
+            var coursesViewList = new List<CoursePartialViewModel>();
+            var coursesView = new CoursesViewModel();
 
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                CoursesViewModel viewModel;
+                CoursePartialViewModel viewModel;
                 foreach(var course in courses)
                 {
                     var duration = course.Duration;
@@ -43,18 +44,20 @@ namespace LMS20.Web.Controllers
                     double dProg = (prog / duration) * 100;
                     int progress = (int)Math.Round(dProg);
                     
-                    viewModel = new CoursesViewModel
+                    viewModel = new CoursePartialViewModel
                     {
                         Id = course.Id,
                         Name = course.Name,
-                        StartTime = course.StartDateTime,
+                        StartDateTime = course.StartDateTime,
                         Duration = course.Duration,
-                        Progress = progress /*68*/,
+                        Progress = progress,
                         NrOfParticipants = course.ApplicationUsers.Count 
                     };
-                    coursesView.Add(viewModel);
+                    coursesViewList.Add(viewModel);
                 }
             }
+
+            coursesView.courses = coursesViewList;
 
             return View(coursesView);
         }
@@ -88,9 +91,9 @@ namespace LMS20.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(/*[Bind("Id,Name,Description,StartDateTime,Duration")]*/ CoursesViewModel viewModel)
+        public async Task<IActionResult> Create(CreateCoursePartialViewModel viewModel)
         {
-            viewModel.Id = 0;       // 
+            //viewModel.Id = 0;       // Mysterious Bug-Fix
             if(ModelState.IsValid)
             {
                 var course = mapper.Map<Course>(viewModel);

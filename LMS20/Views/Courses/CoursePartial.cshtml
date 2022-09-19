@@ -1,19 +1,56 @@
-﻿@model CoursesViewModel 
+﻿@using LMS20.Core
+@model CoursePartialViewModel
 
-<div class="bd-callout bd-callout-primary">
+@{
+    string calloutLevel = string.Empty;
+    string participantsLevel = string.Empty;
+    bool hasProgressbar = false;
 
-    <table class="table table-borderless">
-        <tbody>
-            <tr>
-                <td><span class="course-title">@Model.Name</span></td>
-                <td align="right"><span class="badge rounded-pill bg-danger">@Model.NrOfParticipants</span></td>
-            </tr>
-        </tbody>
-    </table>
+    switch(Model.CourseStatus)
+    {
+        case Status.Comming:
+            calloutLevel = "info";
+            participantsLevel = "info";
+            hasProgressbar = false;
+            break;           
 
-    <div class="progress">
-        <div class="progress-bar" role="progressbar" style="width: @Model.Progress%" aria-valuemin="0" aria-valuemax="100">
+        case Status.Current:
+            calloutLevel = "success";
+            participantsLevel = "info";
+            hasProgressbar = true;
+            break;
+
+        case Status.Completed:
+            calloutLevel = "default";
+            participantsLevel = "secondary";
+            hasProgressbar = false;
+            break;
+    }
+
+}
+
+<div class="bd-callout bd-callout-@calloutLevel">
+
+    <div class="row">
+    <div class="col-10">
+        <span class="course-title">@Model.Name</span>
+    </div>
+    <div class="col-2 text-end" >
+        <span class="badge rounded-pill bg-@participantsLevel">@Model.NrOfParticipants</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="badge rounded-pill bg-danger">X</span>
+    </div>
+    </div>
+
+@if(hasProgressbar)
+{
+    <div class="row">
+    <div class="col-12">
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: @Model.Progress%" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
     </div>
+    </div>
+}
 
 </div>
