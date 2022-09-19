@@ -22,7 +22,7 @@ namespace LMS20.Core.ViewModels
         public DateTime StartDateTime { get; set; } = DateTime.Now + TimeSpan.FromDays(1);
 
         [Required]
-        [Display(Name = "Längd")]
-        public TimeSpan Duration { get; set; } 
+        [Display(Name = "Sluttid")]
+        public DateTime EndDateTime { get; set; } 
     }
 }

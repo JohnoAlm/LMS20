@@ -40,7 +40,7 @@ namespace LMS20.Web.Controllers
                 foreach(var course in courses)
                 {
                     var duration = course.Duration;
-                    var prog = DateTime.Now - course.StartDateTime;
+                    var prog = DateTime.Now - course.End;
                     double dProg = (prog / duration) * 100;
                     int progress = (int)Math.Round(dProg);
                     
@@ -48,7 +48,7 @@ namespace LMS20.Web.Controllers
                     {
                         Id = course.Id,
                         Name = course.Name,
-                        StartDateTime = course.StartDateTime,
+                        StartDateTime = course.Start,
                         Duration = course.Duration,
                         Progress = progress,
                         NrOfParticipants = course.ApplicationUsers.Count 
