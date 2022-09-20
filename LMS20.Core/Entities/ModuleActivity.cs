@@ -1,5 +1,6 @@
 ﻿namespace LMS20.Core.Entities
 {
+#nullable disable
     public class ModuleActivity
     {
         public int Id { get; set; }

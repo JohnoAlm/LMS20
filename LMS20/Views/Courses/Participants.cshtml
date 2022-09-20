@@ -1,4 +1,6 @@
 ﻿@model ParticipantsViewModel
+@using LMS20.Data
+
 
 @{
     ViewData["Title"] = "Details";
@@ -7,10 +9,18 @@
 
 <h1>Participants</h1>
 
+
 @if (User.IsInRole("Teacher"))
 {
-     <a @*asp-action="En action till att lägga till användare med ajax"*@ class="my-5 btn btn-outline-dark float-end"><i title = "Lägg till en elev" class="bi bi-person-plus-fill"></i></a>
+    <button 
+    asp-area="Identity" asp-page="/Account/Register"
+    type = "button" 
+    class = "float-end btn btn-outline-dark" 
+    data-bs-toggle = "modal" 
+    data-bs-target = "#addstudent"><i class="bi bi-person-plus-fill"></i>
+    </button>
 }
+
 
 <table class="table my-5">
         <thead>
@@ -28,8 +38,49 @@
                 <th></th>
             </tr>
         </thead>
+
         <tbody>
-            <partial name="ParticipantsPartial" model="@Model.ApplicationUsers"/>
+            @foreach (var item in Model.ApplicationUsers) {
+            <tr>
+              <td>
+                  @Html.DisplayFor(modelItem => item.FirstName)
+              </td>
+              <td>
+                  @Html.DisplayFor(modelItem => item.LastName)
+              </td>
+              <td>
+                  @Html.DisplayFor(modelItem => item.Email)
+              </td>
+              <td>
+                  @if (User.IsInRole("Teacher"))
+                  { 
+                      <a @*asp-action=" Här inne ska det vara en action till att redigera elever som en ajax vy"*@ asp-route-id="@item.Id" class="btn btn-outline-dark float-end"><i title = "Redigera elev" class="bi bi-pencil-square"></i></a>
+                  }
+              </td>
+            </tr>
+            }
         </tbody>
-    </table>
+</table>
+
+<div class = "modal fade" id = "addstudent" tabindex = "-1" role = "dialog" aria-labelledby = "exampleModalLabel" aria-hidden = "true">
+    <partial name = "AddStudentPartial" model = "new RegistrationViewModel{
+            
+            Email = String.Empty,
+            Password = String.Empty,
+            ConfirmPassword = String.Empty,
+            FirstName = String.Empty,
+            LastName = String.Empty,
+            AcceptUserAgreement = false
+}" />
+
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
 

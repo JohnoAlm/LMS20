@@ -153,7 +153,7 @@ namespace LMS20.Data.Data
                     Name = $"Programmering {i}",
                     Description = faker.Company.Bs(),
                     Start = DateTime.Now.AddMinutes(5),
-                    End = DateTime.Now + TimeSpan.FromMinutes(15),
+                    End = new DateTime(2023, 09, 19),
                     Modules = GetModules()
                 };
 
@@ -183,7 +183,7 @@ namespace LMS20.Data.Data
                     Name = "Modul 1",
                     Description = faker.Company.Bs(),
                     Start = DateTime.Now,
-                    End = DateTime.Now + TimeSpan.FromMinutes(15),
+                    End = new DateTime(2022, 10, 19),
                     //CourseId = course.Id
                     ModuleActivities = GetModuleActivities()
                     
@@ -211,9 +211,9 @@ namespace LMS20.Data.Data
                     Name = "Föreläsning",
                     Description = faker.Company.Bs(),
                     Start = DateTime.Now,
-                    End = DateTime.Now + TimeSpan.FromMinutes(15),
+                    End = new DateTime(2022, 09, 26),
                     //ModuleId = module.Id
-
+                    
                 };
 
                 moduleActivities.Add(temp);

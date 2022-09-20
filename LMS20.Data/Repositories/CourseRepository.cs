@@ -14,6 +14,7 @@ namespace LMS20.Data.Repositories
     /*: ICourseRepository*/
     {
         private readonly ApplicationDbContext db;
+        
 
         public CourseRepository(ApplicationDbContext db)
         {
