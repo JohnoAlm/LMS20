@@ -9,10 +9,9 @@ namespace LMS20.Core.ViewModels
 {
     public class TestCreateActivityViewModel
     {
-        public int Id { get; set; }                         // Modulens PK
-
-        public DateTime ActivityStart { get; set; }     // Föreslagen aktivitet starttime
-        public DateTime ActivityEnd { get; set; }       // Föreslagen aktivitet endtime
+        public int Id { get; set; }             // Modulens PK
+        public DateTime Start { get; set; }     // Föreslagen aktivitet starttime
+        public DateTime End { get; set; }       // Föreslagen aktivitet endtime
 
         public ICollection<ModuleActivity> ModuleActivities { get; set; } = new List<ModuleActivity>();
 

@@ -1,4 +1,5 @@
-﻿using LMS20.Data.Data;
+﻿using LMS20.Core.Repositories;
+using LMS20.Data.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace LMS20.Data.Repositories
     {
         private readonly ApplicationDbContext db;
 
-        public CourseRepository CourseRepository { get; }
+        public ICourseRepository CourseRepository { get; }
 
         public UnitOfWork(ApplicationDbContext db)
         {

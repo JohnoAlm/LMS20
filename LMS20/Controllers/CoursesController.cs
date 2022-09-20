@@ -11,6 +11,7 @@ using AutoMapper;
 using LMS20.Data.Repositories;
 using LMS20.Web.Models;
 using LMS20.Core.ViewModels;
+using LMS20.Web.Services;
 
 namespace LMS20.Web.Controllers
 {
@@ -39,8 +40,8 @@ namespace LMS20.Web.Controllers
                 CoursePartialViewModel viewModel;
                 foreach(var course in courses)
                 {
-                    var duration = course.Duration;
-                    var prog = DateTime.Now - course.End;
+                    TimeSpan duration = course.Duration;
+                    TimeSpan prog = DateTime.Now - course.End;
                     double dProg = (prog / duration) * 100;
                     int progress = (int)Math.Round(dProg);
                     
@@ -48,8 +49,8 @@ namespace LMS20.Web.Controllers
                     {
                         Id = course.Id,
                         Name = course.Name,
-                        StartDateTime = course.Start,
-                        Duration = course.Duration,
+                        Start = course.Start,
+                        End = course.End,
                         Progress = progress,
                         NrOfParticipants = course.ApplicationUsers.Count 
                     };
@@ -103,7 +104,21 @@ namespace LMS20.Web.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            return View(viewModel);
+            return PartialView("CreateCoursePartial", viewModel);
+        }
+
+        public async Task<JsonResult> ValidateCoursestart(DateTime start)
+        {
+            if(start < DateTime.Now) return Json("Tiden har redan passerat");
+
+            return Json(true);
+        }
+
+        public async Task<JsonResult> ValidateCourseEnd(DateTime end, DateTime start)
+        {
+            if(end <= start) return Json("Sluttiden får inte vara före starttiden");
+
+            return Json(true);
         }
 
         // GET: Courses/Edit/5

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LMS20.Core.Validations;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace LMS20.Core.ViewModels
 {
@@ -17,12 +15,16 @@ namespace LMS20.Core.ViewModels
         public string Description { get; set; } = string.Empty;
 
         [Required]
+        [Remote("ValidateCourseStart", "Courses")]
         [Display(Name = "Starttid")]
         [DataType(DataType.Date)]
         public DateTime Start { get; set; } = DateTime.Now + TimeSpan.FromDays(1);
 
         [Required]
+        [Remote("ValidateCourseEnd", "Courses")]
+        //[ValidateCourseDate(ErrorMessage = "Sluttid måste vara senare än starttid")]
         [Display(Name = "Sluttid")]
-        public DateTime End { get; set; } 
+        [DataType(DataType.Date)]
+        public DateTime End { get; set; } = DateTime.Now + TimeSpan.FromDays(7);
     }
 }

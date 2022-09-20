@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LMS20.Core.Types;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,8 @@ namespace LMS20.Core.ViewModels
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public DateTime StartDateTime { get; set; }
-        public TimeSpan Duration { get; set; }
-        public DateTime EndTime { get { return (StartDateTime + Duration); } }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
         public Status CourseStatus { get; set; }
         public int NrOfParticipants { get; set; }
         public int Progress { get; set; }

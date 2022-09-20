@@ -1,4 +1,4 @@
-﻿namespace LMS20.Core
+﻿namespace LMS20.Core.Types
 {
     public enum Status
     {

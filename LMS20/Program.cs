@@ -1,6 +1,9 @@
 using LMS20.Core.Entities;
+using LMS20.Core.Repositories;
+using LMS20.Core.Services;
 using LMS20.Data.Data;
 using LMS20.Web.Automapper;
+using LMS20.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,11 +33,11 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.Password.RequiredLength = 3;
 
 })
-
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddAutoMapper(typeof(MapperProfile));
+builder.Services.AddScoped<IValidateDateService, ValidateDate>();
 
 builder.Services.AddControllersWithViews();
 

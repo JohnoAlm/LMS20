@@ -9,10 +9,11 @@ namespace LMS20.Core.ViewModels
 {
     public class TestCreateModuleViewModel
     {
-        public int Id { get; set; }                         // Kursens PK
+        public int Id { get; set; }             // Kursens PK
 
-        public DateTime ModuleStart { get; set; }       // Föreslagen modul starttime
-        public DateTime ModuleEnd { get; set; }        // Föreslagen modul endtime
+        public DateTime Start { get; set; }     // Föreslagen modul starttime
+        
+        public DateTime End { get; set; }       // Föreslagen modul endtime
 
         public ICollection<Module> Modules { get; set; } = new List<Module>();
 

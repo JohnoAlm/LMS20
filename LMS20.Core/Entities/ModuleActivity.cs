@@ -9,9 +9,7 @@
         public DateTime End { get; set; }
 
         public ICollection<Document> Documents { get; set; } = new List<Document>();
-
         public Module Module { get; set; }
-
         public int ModuleId { get; set; }
     }
 }
