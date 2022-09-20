@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LMS20.Core.Entities;
 using LMS20.Data.Data;
@@ -11,7 +6,6 @@ using AutoMapper;
 using LMS20.Data.Repositories;
 using LMS20.Web.Models;
 using LMS20.Core.ViewModels;
-using LMS20.Web.Services;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 
@@ -98,7 +92,6 @@ namespace LMS20.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateCoursePartialViewModel viewModel)
         {
-            //viewModel.Id = 0;       // Mysterious Bug-Fix
             if(ModelState.IsValid)
             {
                 var course = mapper.Map<Course>(viewModel);
