@@ -1,4 +1,5 @@
-﻿using LMS20.Core.Entities;
+﻿using Bogus.DataSets;
+using LMS20.Core.Entities;
 using LMS20.Core.ViewModels;
 using LMS20.Data.Data;
 using LMS20.Web.Models;
@@ -34,7 +35,6 @@ namespace LMS20.Web.Controllers
         public async Task<IActionResult> Index()
         {
 
-
                 var user = await userManager.GetUserAsync(User);
                 var courseId = user.CourseId;
                 var currentModule = db.Course.SelectMany(c => c.Modules)
@@ -55,22 +55,68 @@ namespace LMS20.Web.Controllers
 
                 var myAllAktivities = course.Modules.SelectMany(m => m.ModuleActivities); //ALLA aktiviteter I EN LISTA
                                                                                           // var res =  myModuleAktivities.Where(m => (m.ModuleActivities.Where(x => x.StartDateTime == DateTime.Now)).ToList().Count > 0);
-            var myModuleTasks = myAllAktivities.Where(a => a.ActivityType == ActivityType.Task)
+            var myModuleTasks = myAllAktivities.Where(a => a.ActivityType != ActivityType.Lecture )
+                                               //.Where(a => a.ActivityType == ActivityType.Delayed)
+                                               .Where(a => a.StartDateTime >= currentModule.StartDateTime && currentModule.EndDateTime > a.EndDateTime).ToList();
+            var myModuleActivities = myAllAktivities
                                                .Where(a => a.StartDateTime >= currentModule.StartDateTime && currentModule.EndDateTime > a.EndDateTime);
-            //Is delayed                                  
-            foreach(var moduleTask in myModuleTasks)
+            //Is delayed?                                  
+
+
+            for (int i = 0; i < myModuleTasks.Count(); i++)
             {
-                if(moduleTask.EndDateTime < DateTime.Now)
-                    moduleTask.ActivityType = ActivityType.Delayed;
+
+                if (myModuleTasks[i].EndDateTime < DateTime.Now)
+                {
+                    myModuleTasks[i].ActivityType = ActivityType.Delayed;
+                    db.SaveChanges();
+                }
 
             }
+
+            //Denna vecka
+            //1.  Hitta datumen för denna vecka
+            DateTime myMonday = DateTime.Now.AddDays(DayOfWeek.Monday - DateTime.Now.DayOfWeek).Date;
+
+
+            var thisWeeksactivities = myModuleActivities.Where(a => a.EndDateTime.Date >= myMonday && a.EndDateTime.Date <= myMonday.AddDays(6))
+                                                        .OrderBy(a => a.EndDateTime).ToList();
+
+
+
+            var res = thisWeeksactivities.GroupBy(a => a.EndDateTime.ToShortDateString())
+                .Select(g => new MyWeek
+                {
+                    Date = g.Key,
+                    Activities = g.ToList()
+                });
+            var today = thisWeeksactivities.Where(a => a.EndDateTime.Date == DateTime.Now.Date)
+                                            .OrderBy(a => a.EndDateTime);   
+
+            //2. for (myM[i] ; i <=6,
+            //for (int i = 0; i < 7 ; i++)
+            //{
+            //    for (int j = 0; j < myAllAktivities.Count(); j++)
+            //    {
+            //        if (myMonday.AddDays[i] == myAllAktivities[j].)
+            //    }
+
+            //}
+            //if akt[i]. date == myM[i]
+            // skriv ut myM[i] => flagga 
+            //gör en il med infon i akt[i]
+            //
+
 
             var dashInfo = new IndexViewModel //skapa en ny IndexViewModel som ska populeras
             {
                     CourseName = course?.Name,
-                    MyTasks = myModuleTasks
-                    //Activities = todaysaktivities,
-                    //ActivityNames = activityNames
+                    MyTasks = myModuleTasks,
+                    MyWeek= thisWeeksactivities,
+                    MyWeek2 = res,
+                    Today = today
+                //Activities = todaysaktivities,
+                //ActivityNames = activityNames,
 
             };
                

@@ -172,18 +172,39 @@ namespace LMS20.Data.Data
                     new ModuleActivity{
                         Name = "Föreläsning 101",
                         Description = faker.Company.Bs(),
-                        StartDateTime = new DateTime(2022, 09, 01, 09, 0,0 ),
-                        EndDateTime = new DateTime(2022, 09, 01, 11, 0,0 ),
+                        StartDateTime = new DateTime(2022, 09, 19, 09, 0,0 ),
+                        EndDateTime = new DateTime(2022, 09, 19, 11, 0,0 ),
                         ActivityType = ActivityType.Lecture
                    },
 
                     new ModuleActivity{
                         Name = "Föreläsning 102",
                         Description = faker.Company.Bs(),
-                        StartDateTime = new DateTime(2022, 09, 01, 09, 0,0 ),
-                        EndDateTime = new DateTime(2022, 09, 01, 11, 0,0 ),
+                        StartDateTime = new DateTime(2022, 09, 20, 09, 0,0 ),
+                        EndDateTime = new DateTime(2022, 09, 20, 11, 0,0 ),
                         ActivityType = ActivityType.Lecture
                     },
+                    new ModuleActivity{
+                        Name = "Föreläsning 103",
+                        Description = faker.Company.Bs(),
+                        StartDateTime = new DateTime(2022, 09, 21, 09, 0,0 ),
+                        EndDateTime = new DateTime(2022, 09, 21, 11, 0,0 ),
+                        ActivityType = ActivityType.Lecture
+                   },
+                    new ModuleActivity{
+                        Name = "Föreläsning 104",
+                        Description = faker.Company.Bs(),
+                        StartDateTime = new DateTime(2022, 09, 22, 09, 0,0 ),
+                        EndDateTime = new DateTime(2022, 09, 22, 11, 0,0 ),
+                        ActivityType = ActivityType.Lecture
+                   },
+                    new ModuleActivity{
+                        Name = "Föreläsning 105",
+                        Description = faker.Company.Bs(),
+                        StartDateTime = new DateTime(2022, 09, 23, 09, 0,0 ),
+                        EndDateTime = new DateTime(2022, 09, 23, 11, 0,0 ),
+                        ActivityType = ActivityType.Lecture
+                   },
                     new ModuleActivity{
                         Name = "Uppgift 100",
                         Description = faker.Company.Bs(),
@@ -195,14 +216,14 @@ namespace LMS20.Data.Data
                         Name = "Uppgift 101",
                         Description = faker.Company.Bs(),
                         StartDateTime = new DateTime(2022, 09, 01, 09, 0,0 ),
-                        EndDateTime = new DateTime(2022, 09, 23, 18, 0,0 ),
+                        EndDateTime = new DateTime(2022, 09, 21, 18, 0,0 ),
                         ActivityType = ActivityType.Task
                     },
                    new ModuleActivity{
                         Name = "Uppgift 102",
                         Description = faker.Company.Bs(),
                         StartDateTime = new DateTime(2022, 09, 01, 09, 0,0 ),
-                        EndDateTime = new DateTime(2022, 09, 30, 18, 0,0 ),
+                        EndDateTime = new DateTime(2022, 09, 23, 18, 0,0 ),
                         ActivityType = ActivityType.Task
                     }}
                },

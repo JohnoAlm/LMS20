@@ -11,17 +11,19 @@ html {
 html {
   position: relative;
   min-height: 100%;
+  
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #f2f2f2 /*#f7f7f7*/;
 }
 .signin{
     background-color: #F5F5F5;
 
 }
 .nav-color {
-    background-color: #2C2C3F;
+    background-color: #264653; /*#2C2C3F*/
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
     height: 100px
@@ -63,8 +65,7 @@ body {
     width: 100%;
     height: 30px;
     text-align: center;
-    background-color: #2C2C3F;
-   
+    background-color: #264653;
 }
 
 .dash-titel {
@@ -81,26 +82,26 @@ body {
 /*SINGLE-CARDS*/
 
 .single-card {
-    background-color: #F3F3F3;
+    background-color: #D9D9D9;
     margin-bottom: 7px;
-  
 }
 .delayed {
-    border-left: 3px solid #FC1C1C /*#B64949*/;
+    border-left: 5px solid #FC1C1C /*#B64949*/;
   
 }
 .lectureType {
-    background-color: #91ABDA;
+    background-color: #2a9d8f; /*#31aec4 */
 }
 .lecture {
-    border-left: 3px solid #91ABDA;
-    
+    border-left: 5px solid #2a9d8f;
+    /* #91ABDA*/
 }
 .taskType {
-    background-color: #49B6B6;
+    background-color: #dba309 /*#e9c46a*/;
 }
 .task {
-    border-left: 3px solid #49B6B6 ;
+    border-left: 5px solid #dba309;
+    /*#49B6B6*/
 }
 .single-info{
     font-size: 12px;
@@ -115,7 +116,7 @@ body {
     font-weight: bold;
 }
 .dagens-footer {
-    height: 50px;
+    height: 40px;
 }
 .dagens-datum {
     font-weight: bold;

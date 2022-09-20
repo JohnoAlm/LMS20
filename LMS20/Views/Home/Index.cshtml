@@ -5,10 +5,9 @@
     ViewData["Title"] = "Home Page";
     ViewData["CourseTitle"] = Html.DisplayFor(model => model.CourseName);
     ViewData["SetClassTime"] = Html.DisplayFor(model => model.ClassStart);
-    ViewData["S"] = Html.DisplayFor(model => model.ClassStart);
+ 
 
-    // ViewData["ActivityName"] = "Dummy 101"/*Html.DisplayFor(model => model.ActivityNames) @ViewData["ActivityName"]*/;
-    //var activity = Html.DisplayFor(model => model.Name);
+
 }
 
 <div class="text-center">
@@ -22,42 +21,92 @@
         <div class="col-3">
             <h1 class="dash-titel ">DAGEN</h1>
             <hr class="mb-5">
+
+
             @* </div>*@
             <div class="card col-3 card-darkgrey " style="width: 18rem; border-radius:7px;">
                 <div class="card-header text-center dagens-datum "style="text-transform: capitalize;">
-                 @DateTime.Now.ToString("dddd dd MMMM yyyy")
+                 @DateTime.Now.ToString("dddd dd MMMM ")
                 </div>
+                
+                    
+                
                 <ul class="list-group list-group-flush ">
-                    <li class="list-group-item lectureType">
-                        <div class="dagens-rubrik ">Dummy 101</div>
-                        <div class="dagens-info">@ViewData["SetClassTime"]</div>
+                    @foreach (var activity in Model.Today)
+                    {
+                    <li class="list-group-item  @(activity.ActivityType == LMS20.Core.Entities.ActivityType.Task ? "taskType" :"lectureType")">
+                            <div class="dagens-rubrik "> @Html.DisplayFor(modelItem => activity.Name)<a href=""><i class="bi bi-filter-square " style="font-size:25px;float: right ;color: black;"></i></a></div>
+                            <div class="dagens-info">@(activity.ActivityType == LMS20.Core.Entities.ActivityType.Task ? "Senast 18.00" : "09.00 - 11.00")</div>
                     </li>
-                    <li class="list-group-item taskType">
+                    @*<li class="list-group-item taskType">
                         <div class="dagens-rubrik ">Uppgift 102</div>
                         <div class="dagens-info"><span>Senast </span>18.00</div>
-                    </li>
-                    <li class="list-group-item dagens-footer card-darkgrey "><a href=""><i class="bi bi-filter-square " style="font-size:25px; color: black;"></i></a></li>
+                    </li>*@
+                    }
+                    <li class="list-group-item dagens-footer card-darkgrey "></li>
                 </ul>
+               
             </div>
 
         </div>
+
+    @*    Slut Dagen*@
+
+
+
         <div class="col-3">
             <h1 class="dash-titel ">VECKAN</h1>
             <hr class="mb-5">
-            <div class="datumrubrik">
-            <h7 class=" ">Tisdag 23 september </h7>
-            </div>
-            <div class="card col-3 lecture single-card " style="width: 18rem; ">
-             
-                <ul class="list-group list-group-flush  ">
 
-                    <li class="list-group-item single-card single-info pt-1 pb-0">
-                        Lilla salen
-                        <h6 class="single-rubrik">Föreläsning 101 <a href=""><i class="bi bi-filter-square " style="font-size:20px; float: right; color:black;"></i></a></h6>
-                    </li>
-                </ul>
-            </div>
-            <div class="card col-3 task single-card " style="width: 18rem; ">
+           
+
+            @foreach (var key in Model.MyWeek2){
+                <div class="datumrubrik" style="text-transform: capitalize;">
+                    <h7 class=" ">@DateTime.Parse(key.Date).ToString("dddd dd MMMM") </h7>
+                 </div>
+                    @foreach (var activity in key.Activities)
+                    {
+                    <div class="card col-3  single-card @(activity.ActivityType == LMS20.Core.Entities.ActivityType.Task ? "task" :"lecture")" style="width: 18rem; ">
+
+                        <ul class="list-group list-group-flush  ">
+                            <li class="list-group-item single-card single-info pt-1 pb-0">
+
+                                @(activity.ActivityType == LMS20.Core.Entities.ActivityType.Task ? "Senast 18.00" : "Lilla salen")
+                                <h6 class="single-rubrik">@Html.DisplayFor(modelItem => activity.Name) <a href=""><i class="bi bi-filter-square " style="font-size:20px; float: right; color:black;"></i></a></h6>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                }
+                
+               
+        
+            }
+
+
+     @*       @foreach (var task in Model.MyWeek)
+            {
+                <div class="datumrubrik">
+                    <h7 class=" ">@task.EndDateTime.ToString("dddd dd MMMM") </h7>
+                </div>
+
+
+
+                <div class="card col-3  single-card @(task.ActivityType == LMS20.Core.Entities.ActivityType.Task ? "task" :"lecture")" style="width: 18rem; ">
+
+                    <ul class="list-group list-group-flush  ">
+                        <li class="list-group-item single-card single-info pt-1 pb-0">
+
+                            @(task.ActivityType == LMS20.Core.Entities.ActivityType.Task ? "Senast 18.00" : "Lilla salen")
+                            <h6 class="single-rubrik">@Html.DisplayFor(modelItem => task.Name) <a href=""><i class="bi bi-filter-square " style="font-size:20px; float: right; color:black;"></i></a></h6>
+                        </li>
+
+                    </ul>
+
+                </div>
+            }*@
+          @*  <div class="card col-3 task single-card " style="width: 18rem; ">
 
                 <ul class="list-group list-group-flush  ">
 
@@ -89,7 +138,7 @@
                         <h6 class="single-rubrik">Uppgift 102 <a href=""><i class="bi bi-filter-square " style="font-size:20px; float: right; color:black;"></i></a></h6>
                     </li>
                 </ul>
-            </div>
+            </div>*@
 
 
         </div>
@@ -106,13 +155,13 @@
             </div>
 
                @foreach (var task in Model.MyTasks){
-                <div class="card col-3 delayed single-card @(task.ActivityType == LMS20.Core.Entities.ActivityType.Delayed ? "delayed" :"task")" style="width: 18rem; ">
+                <div class="card col-3 delayed single-card @(task.ActivityType == LMS20.Core.Entities.ActivityType.Task ? "task" :"delayed")" style="width: 18rem; ">
 
                     <ul class="list-group list-group-flush  ">
                         <li class="list-group-item single-card single-info pt-1 pb-0">
 
                             Senast  @Html.DisplayFor(modelItem => task.EndDateTime, "MM/dd/yyyy HH:mm")
-                            <h6 class="single-rubrik">@Html.DisplayFor(modelItem => task.Name) <a><i class="bi bi-filter-square " style="font-size:20px; float: right; color:black;"></i></a></h6>
+                            <h6 class="single-rubrik">@Html.DisplayFor(modelItem => task.Name) <a href=""><i class="bi bi-filter-square " style="font-size:20px; float: right; color:black;"></i></a></h6>
                         </li>
   
                     </ul>

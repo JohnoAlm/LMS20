@@ -14,8 +14,11 @@ namespace LMS20.Core.ViewModels
 
         public string ClassStart { get; set; } = "09.00-12.00";
        // public IEnumerable <ModuleActivity> TodaysActivity { get; set; }
-       public string taskTime { get; set; } = "Senast ";
+      
         public IEnumerable<ModuleActivity>? MyTasks { get; set; }
+        public List<ModuleActivity>? MyWeek { get; set; }
+        public IEnumerable<MyWeek> MyWeek2 { get;  set; }
+        public IOrderedEnumerable<ModuleActivity> Today { get; set; }
 
         // public IEnumerable<IndexViewModel> Modules { get; set; }
 

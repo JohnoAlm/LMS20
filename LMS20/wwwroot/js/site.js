@@ -23,7 +23,7 @@
 
 //});
 /*});*/
-$(document).ready(function () {
-    const myPage = window.location;
-    console.log(myPage);
-});
+//$(document).ready(function () {
+//    const myPage = window.location;
+//    console.log(myPage);
+//});
