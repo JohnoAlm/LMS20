@@ -13,14 +13,13 @@
 @if(User.IsInRole("Teacher"))
 {
     <button 
-    asp-area="Identity" asp-page="/Account/Register"
-    type = "button" 
-    class = "float-end btn btn-outline-dark" 
-    data-bs-toggle = "modal" 
-    data-bs-target = "#addstudent"><i class="bi bi-person-plus-fill"></i>
+        asp-area="Identity" asp-page="/Account/Register"
+        type = "button" 
+        class = "float-end btn btn-outline-dark" 
+        data-bs-toggle = "modal" 
+        data-bs-target = "#addstudent"><i class="bi bi-person-plus-fill"></i>
     </button>
 }
-
 
 <table class="table my-5">
         <thead>
@@ -34,7 +33,6 @@
                  <th>
                     @Html.DisplayNameFor(model => model.ApplicationUsers.FirstOrDefault()!.Email)
                 </th>
-
                 <th></th>
             </tr>
         </thead>
@@ -63,16 +61,15 @@
 </table>
 
 <div class = "modal fade" id = "addstudent" tabindex = "-1" role = "dialog" aria-labelledby = "exampleModalLabel" aria-hidden = "true">
-    <partial name = "AddStudentPartial" model = "new RegistrationViewModel{
-            
-            Email = String.Empty,
-            Password = String.Empty,
-            ConfirmPassword = String.Empty,
-            FirstName = String.Empty,
-            LastName = String.Empty,
-            AcceptUserAgreement = false
-}" />
-
+    <partial name = "AddStudentPartial" model = "new RegistrationViewModel
+    {
+        Email = String.Empty,
+        Password = String.Empty,
+        ConfirmPassword = String.Empty,
+        FirstName = String.Empty,
+        LastName = String.Empty,
+        AcceptUserAgreement = false
+    }" />
 </div>
 
 @section Scripts
