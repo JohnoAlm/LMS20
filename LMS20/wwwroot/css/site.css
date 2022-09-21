@@ -178,3 +178,14 @@ border-left-color: #f0ad4e
     }
 }
 
+#courseBtn{
+    text-decoration: none; 
+}
+
+#callout:hover{
+    color: white;
+    background-color: darkgrey;
+    transition: 0.3s;
+}
+
+
