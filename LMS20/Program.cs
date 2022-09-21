@@ -14,18 +14,12 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.Configure<IdentityOptions>(options => {
-    options.User.RequireUniqueEmail = true;
-    options.Password.RequiredLength = 3;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireUppercase = false;
-});
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => 
 {
-
+    options.User.RequireUniqueEmail = true;
     options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequireDigit = false;
     options.Password.RequireNonAlphanumeric = false;
@@ -50,12 +44,12 @@ var app = builder.Build();
 //    var services = scope.ServiceProvider;
 //    var db = services.GetRequiredService<ApplicationDbContext>();
 
-//    db.Database.EnsureDeleted();
-//    db.Database.Migrate();
+    //db.Database.EnsureDeleted();
+    //db.Database.Migrate();
 
-//    var config = services.GetRequiredService<IConfiguration>();
-//    var teacherPW = config["teacherPW"];
-//    var studentPW = config["studentPW"];
+    var config = services.GetRequiredService<IConfiguration>();
+    var teacherPW = "abc123";
+    var studentPW = "abc123";
 
 //    try
 //    {

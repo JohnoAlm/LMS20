@@ -1,4 +1,6 @@
-﻿namespace LMS20.Core.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LMS20.Core.Entities
 {
 #nullable disable
     public class ModuleActivity
@@ -12,5 +14,7 @@
         public ICollection<Document> Documents { get; set; } = new List<Document>();
         public Module Module { get; set; }
         public int ModuleId { get; set; }
+        public ActivityType ActivityType { get; set; }
     }
+  
 }
