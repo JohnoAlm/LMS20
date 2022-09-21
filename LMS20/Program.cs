@@ -88,7 +88,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Courses}/{action=Participants}/{id=1}");
+    pattern: "{controller=Courses}/{action=Index}");
 app.MapRazorPages();
 
 app.Run();

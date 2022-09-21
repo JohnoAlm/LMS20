@@ -259,5 +259,54 @@ namespace LMS20.Web.Controllers
 
             return RedirectToAction(nameof(Participants));
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditUser(EditUserViewModel editUserViewModel, string id, ApplicationUser applicationUser, Course course)
+        {
+            if (id != applicationUser.Id)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    applicationUser.UserName = editUserViewModel.Email;
+                    applicationUser.Email = editUserViewModel.Email;
+                    applicationUser.FirstName = editUserViewModel.FirstName;
+                    applicationUser.LastName = editUserViewModel.LastName;
+                    applicationUser.CourseId = course.Id;
+
+                    db.Update(applicationUser);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction(nameof(Participants));
+                }
+            }
+
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(applicationUser.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToAction(nameof(Participants));
+        }
+
+        private bool UserExists(string id)
+        {
+            return (db.Users?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+
+
     }
 }
