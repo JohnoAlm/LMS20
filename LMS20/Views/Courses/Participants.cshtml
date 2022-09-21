@@ -1,5 +1,4 @@
 ﻿@model ParticipantsViewModel
-@using LMS20.Data
 
 
 @{
@@ -7,7 +6,7 @@
 }
 
 
-<h1>Participants</h1>
+<h1>Kursmedlemmar</h1>
 
 
 @if (User.IsInRole("Teacher"))
@@ -54,7 +53,12 @@
               <td>
                   @if (User.IsInRole("Teacher"))
                   { 
-                      <a @*asp-action=" Här inne ska det vara en action till att redigera elever som en ajax vy"*@ asp-route-id="@item.Id" class="btn btn-outline-dark float-end"><i title = "Redigera elev" class="bi bi-pencil-square"></i></a>
+                      <button
+                      asp-area  = "Identity"
+                      type = "button"
+                      class="btn btn-outline-dark float-end"
+                      data-bs-toggle = "modal"
+                      data-bs-target = "#editstudent"><i title = "Redigera elev" class="bi bi-pencil-square"></i></button>
                   }
               </td>
             </tr>
@@ -72,6 +76,10 @@
             LastName = String.Empty,
             AcceptUserAgreement = false
 }" />
+</div>
+
+<div class = "modal fade" id = "editstudent" tabindex = "-1" role = "dialog" aria-labelledby = "exampleModalLabel" aria-hidden = "true">
+   <partial name = "EditStudentPartial" model = "Model.EditUserViewModel" />
 
 </div>
 
