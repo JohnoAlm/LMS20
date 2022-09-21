@@ -156,12 +156,12 @@
 
                @foreach (var task in Model.MyTasks){
                 <div class="card col-3 delayed single-card @(task.ActivityType == LMS20.Core.Entities.ActivityType.Task ? "task" :"delayed")" style="width: 18rem; ">
-
-                    <ul class="list-group list-group-flush  ">
+                    <span class=" @(task.ActivityType == LMS20.Core.Entities.ActivityType.Task ? "" :"bi bi-exclamation-lg delayed-mark")" > </span>
+                <ul class="list-group list-group-flush  ">
                         <li class="list-group-item single-card single-info pt-1 pb-0">
 
-                            Senast  @Html.DisplayFor(modelItem => task.EndDateTime, "MM/dd/yyyy HH:mm")
-                            <h6 class="single-rubrik">@Html.DisplayFor(modelItem => task.Name) <a href=""><i class="bi bi-filter-square " style="font-size:20px; float: right; color:black;"></i></a></h6>
+                            Senast  @Html.DisplayFor(modelItem => task.EndDateTime, "")
+                            <h6 class="single-rubrik"> @Html.DisplayFor(modelItem => task.Name) <a href=""><i class="bi bi-filter-square " style="font-size:20px; float: right; color:black;"></i></a></h6>
                         </li>
   
                     </ul>

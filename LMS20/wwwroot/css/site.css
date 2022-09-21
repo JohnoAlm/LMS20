@@ -75,39 +75,44 @@ body {
 }
 .datumrubrik {
     font-size: 12px;
-    margin-bottom: 10px;
-    margin-top:50px;
-    
+    margin-bottom: 2px;
+    margin-top: 30px;
+    font-weight: bold;
 }
 /*SINGLE-CARDS*/
 
 .single-card {
     background-color: #D9D9D9;
-    margin-bottom: 7px;
+    margin-bottom: 5px;
 }
 .delayed {
     border-left: 5px solid #FC1C1C /*#B64949*/;
   
 }
+.delayed-mark {
+    font-size: 20px;
+   /* float: right;*/
+    color: #FC1C1C;
+}
 .lectureType {
-    background-color: #2a9d8f; /*#31aec4 */
+    background-color: #78909C /*#63aac4*/ /*#3d8bbf*/ /*#3b7eaa*/ /* #5884ac #2a9d8f*/; /*#31aec4 */
 }
 .lecture {
-    border-left: 5px solid #2a9d8f;
-    /* #91ABDA*/
+    border-left: 5px solid #78909C;
 }
 .taskType {
-    background-color: #dba309 /*#e9c46a*/;
+    background-color: #F2BE20 /*#dba309*/ /*#e9c46a*/;
 }
 .task {
-    border-left: 5px solid #dba309;
+    border-left: 5px solid #FFC107 /*#e2bc55*/;
     /*#49B6B6*/
 }
 .single-info{
-    font-size: 12px;
+    font-size: 9px;
 }
 .single-rubrik {
     font-weight: bold;
+    font-size:13px;
     
 }
 /*DAGENS-CARDS*/

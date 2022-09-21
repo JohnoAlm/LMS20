@@ -1,4 +1,6 @@
-﻿namespace LMS20.Core.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LMS20.Core.Entities
 {
     public class ModuleActivity
     {
@@ -6,6 +8,7 @@
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public DateTime StartDateTime { get; set; }
+        //[DisplayFormat(DataFormatString = "{0:yyyy}", ApplyFormatInEditMode = true)]
         public DateTime EndDateTime { get; set; }
        
         public ICollection<Document> Documents { get; set; } = new List<Document>();

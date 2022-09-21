@@ -53,13 +53,15 @@ namespace LMS20.Web.Controllers
                                                             // muduler och deras aktiviteter
             if (course == null) throw new ArgumentException("Något är fel");
 
-                var myAllAktivities = course.Modules.SelectMany(m => m.ModuleActivities); //ALLA aktiviteter I EN LISTA
+            var myAllAktivities = course.Modules.SelectMany(m => m.ModuleActivities); //ALLA aktiviteter I EN LISTA
                                                                                           // var res =  myModuleAktivities.Where(m => (m.ModuleActivities.Where(x => x.StartDateTime == DateTime.Now)).ToList().Count > 0);
             var myModuleTasks = myAllAktivities.Where(a => a.ActivityType != ActivityType.Lecture )
-                                               //.Where(a => a.ActivityType == ActivityType.Delayed)
                                                .Where(a => a.StartDateTime >= currentModule.StartDateTime && currentModule.EndDateTime > a.EndDateTime).ToList();
+           
             var myModuleActivities = myAllAktivities
                                                .Where(a => a.StartDateTime >= currentModule.StartDateTime && currentModule.EndDateTime > a.EndDateTime);
+           
+            
             //Is delayed?                                  
 
 
@@ -75,7 +77,7 @@ namespace LMS20.Web.Controllers
             }
 
             //Denna vecka
-            //1.  Hitta datumen för denna vecka
+        
             DateTime myMonday = DateTime.Now.AddDays(DayOfWeek.Monday - DateTime.Now.DayOfWeek).Date;
 
 
@@ -93,20 +95,7 @@ namespace LMS20.Web.Controllers
             var today = thisWeeksactivities.Where(a => a.EndDateTime.Date == DateTime.Now.Date)
                                             .OrderBy(a => a.EndDateTime);   
 
-            //2. for (myM[i] ; i <=6,
-            //for (int i = 0; i < 7 ; i++)
-            //{
-            //    for (int j = 0; j < myAllAktivities.Count(); j++)
-            //    {
-            //        if (myMonday.AddDays[i] == myAllAktivities[j].)
-            //    }
-
-            //}
-            //if akt[i]. date == myM[i]
-            // skriv ut myM[i] => flagga 
-            //gör en il med infon i akt[i]
-            //
-
+          
 
             var dashInfo = new IndexViewModel //skapa en ny IndexViewModel som ska populeras
             {
@@ -115,8 +104,7 @@ namespace LMS20.Web.Controllers
                     MyWeek= thisWeeksactivities,
                     MyWeek2 = res,
                     Today = today
-                //Activities = todaysaktivities,
-                //ActivityNames = activityNames,
+          
 
             };
                
