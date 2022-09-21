@@ -5,7 +5,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LMS20.Data.Migrations
 {
+<<<<<<<< HEAD:LMS20.Data/Migrations/20220919094635_Init.cs
     public partial class Init : Migration
+========
+    public partial class init2 : Migration
+>>>>>>>> Klara:LMS20.Data/Migrations/20220920111614_init2.cs
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,8 +35,13 @@ namespace LMS20.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+<<<<<<<< HEAD:LMS20.Data/Migrations/20220919094635_Init.cs
                     Start = table.Column<DateTime>(type: "datetime2", nullable: false),
                     End = table.Column<DateTime>(type: "datetime2", nullable: false)
+========
+                    StartDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+>>>>>>>> Klara:LMS20.Data/Migrations/20220920111614_init2.cs
                 },
                 constraints: table =>
                 {
@@ -101,8 +110,13 @@ namespace LMS20.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+<<<<<<<< HEAD:LMS20.Data/Migrations/20220919094635_Init.cs
                     Start = table.Column<DateTime>(type: "datetime2", nullable: false),
                     End = table.Column<DateTime>(type: "datetime2", nullable: false),
+========
+                    StartDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+>>>>>>>> Klara:LMS20.Data/Migrations/20220920111614_init2.cs
                     CourseId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -209,9 +223,16 @@ namespace LMS20.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+<<<<<<<< HEAD:LMS20.Data/Migrations/20220919094635_Init.cs
                     Start = table.Column<DateTime>(type: "datetime2", nullable: false),
                     End = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModuleId = table.Column<int>(type: "int", nullable: false)
+========
+                    StartDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModuleId = table.Column<int>(type: "int", nullable: false),
+                    ActivityType = table.Column<int>(type: "int", nullable: false)
+>>>>>>>> Klara:LMS20.Data/Migrations/20220920111614_init2.cs
                 },
                 constraints: table =>
                 {

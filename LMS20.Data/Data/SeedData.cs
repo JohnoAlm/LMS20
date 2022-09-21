@@ -3,6 +3,7 @@ using LMS20.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 
 namespace LMS20.Data.Data
 {
@@ -16,6 +17,8 @@ namespace LMS20.Data.Data
         {
             if (context is null) throw new ArgumentNullException(nameof(context));
             db = context;
+
+            if (db.Users.Any()) return;
 
             ArgumentNullException.ThrowIfNull(nameof(services));
 
@@ -55,7 +58,7 @@ namespace LMS20.Data.Data
         // Lägger till lärare till rollen "Teacher" och "Student"
         private static async Task AddToRolesAsyncTeacher(ApplicationUser teacher, string[] roleNames)
         {
-            foreach(var role in roleNames)
+            foreach (var role in roleNames)
             {
                 if (await userManager.IsInRoleAsync(teacher, role)) continue;
                 var result = await userManager.AddToRoleAsync(teacher, role);
@@ -127,7 +130,7 @@ namespace LMS20.Data.Data
         }
 
         // Seedar roller
-        private static async Task AddRolesAsync(string [] roleNames)
+        private static async Task AddRolesAsync(string[] roleNames)
         {
             foreach(var roleName in roleNames)
             {
@@ -156,11 +159,20 @@ namespace LMS20.Data.Data
                     End = new DateTime(2023, 09, 19),
                     Modules = GetModules()
                 };
+            var course = new Course
+            {
+                Name = "Programmering",
+                Description = faker.Company.Bs(),
+                StartDateTime = new DateTime(2022, 09, 01),
+                EndDateTime = new DateTime(2022, 12, 15),
+                Modules = GetModules()
 
                 courses.Add(course);
             }
 
             return courses;
+
+            return course;
         }
 
         // Seedar moduler
@@ -168,58 +180,105 @@ namespace LMS20.Data.Data
         {
             var faker = new Faker("sv");
 
-            var modules = new List<Module>();
+            var modules = new List<Module>()
 
-            ////var course = db.Module.Include(m => m.Course).ToListAsync();
-            //var module = db.Module
-            //    .Include(m => m.ModuleActivities).ThenInclude(ma => ma.Documents)
-            //    .Include(m => m.Documents)
-            //    .FirstOrDefault();
-
-            for (int i = 0; i < 2; i++)
             {
-                var module = new Module
+               new Module
                 {
                     Name = "Modul 1",
                     Description = faker.Company.Bs(),
-                    Start = DateTime.Now,
-                    End = new DateTime(2022, 10, 19),
+                    Start =new DateTime(2022, 09, 01 ),
+                    End = new DateTime(2022, 10, 15),
                     //CourseId = course.Id
-                    ModuleActivities = GetModuleActivities()
-                    
-                };
+                   ModuleActivities = new List<ModuleActivity>(){
+                    new ModuleActivity{
+                        Name = "Föreläsning 101",
+                        Description = faker.Company.Bs(),
+                        StartDateTime = new DateTime(2022, 09, 19, 09, 0,0 ),
+                        EndDateTime = new DateTime(2022, 09, 19, 11, 0,0 ),
+                        ActivityType = ActivityType.Lecture
+                   },
 
-                modules.Add(module);
-            }
+                    new ModuleActivity{
+                        Name = "Föreläsning 102",
+                        Description = faker.Company.Bs(),
+                        StartDateTime = new DateTime(2022, 09, 20, 09, 0,0 ),
+                        EndDateTime = new DateTime(2022, 09, 20, 11, 0,0 ),
+                        ActivityType = ActivityType.Lecture
+                    },
+                    new ModuleActivity{
+                        Name = "Föreläsning 103",
+                        Description = faker.Company.Bs(),
+                        StartDateTime = new DateTime(2022, 09, 21, 09, 0,0 ),
+                        EndDateTime = new DateTime(2022, 09, 21, 11, 0,0 ),
+                        ActivityType = ActivityType.Lecture
+                   },
+                    new ModuleActivity{
+                        Name = "Föreläsning 104",
+                        Description = faker.Company.Bs(),
+                        StartDateTime = new DateTime(2022, 09, 22, 09, 0,0 ),
+                        EndDateTime = new DateTime(2022, 09, 22, 11, 0,0 ),
+                        ActivityType = ActivityType.Lecture
+                   },
+                    new ModuleActivity{
+                        Name = "Föreläsning 105",
+                        Description = faker.Company.Bs(),
+                        StartDateTime = new DateTime(2022, 09, 23, 09, 0,0 ),
+                        EndDateTime = new DateTime(2022, 09, 23, 11, 0,0 ),
+                        ActivityType = ActivityType.Lecture
+                   },
+                    new ModuleActivity{
+                        Name = "Uppgift 100",
+                        Description = faker.Company.Bs(),
+                        StartDateTime = new DateTime(2022, 09, 01, 09, 0,0 ),
+                        EndDateTime = new DateTime(2022, 09, 15, 18, 0,0 ),
+                        ActivityType = ActivityType.Task
+                    },
+                   new ModuleActivity{
+                        Name = "Uppgift 101",
+                        Description = faker.Company.Bs(),
+                        StartDateTime = new DateTime(2022, 09, 01, 09, 0,0 ),
+                        EndDateTime = new DateTime(2022, 09, 21, 18, 0,0 ),
+                        ActivityType = ActivityType.Task
+                    },
+                   new ModuleActivity{
+                        Name = "Uppgift 102",
+                        Description = faker.Company.Bs(),
+                        StartDateTime = new DateTime(2022, 09, 01, 09, 0,0 ),
+                        EndDateTime = new DateTime(2022, 09, 23, 18, 0,0 ),
+                        ActivityType = ActivityType.Task
+                    }}
+               },
+                new Module
+                {
+                    Name = "Modul 2",
+                    Description = faker.Company.Bs(),
+                    StartDateTime =new DateTime(2022, 10, 16),
+                    EndDateTime = new DateTime(2022, 12, 15),
+                    //CourseId = course.Id
+                     ModuleActivities = new List<ModuleActivity>(){
+                    new ModuleActivity{
+                        Name = "Föreläsning 201",
+                        Description = faker.Company.Bs(),
+                        StartDateTime = new DateTime(2022, 10, 15, 09, 0,0 ),
+                        EndDateTime = new DateTime(2022, 10, 15, 11, 0,0 ),
+                        ActivityType = ActivityType.Lecture
+                        },
+                     new ModuleActivity{
+                        Name = "Uppgift 201",
+                        Description = faker.Company.Bs(),
+                        StartDateTime = new DateTime(2022, 10, 15, 09, 0,0 ),
+                        EndDateTime = new DateTime(2022, 10, 30, 18, 0,0 ),
+                        ActivityType = ActivityType.Lecture
+                         }
+                      }
 
+                }
+             };
             return modules;
         }
 
         // Seedar aktiviteter
-        private static ICollection<ModuleActivity> GetModuleActivities()
-        {
-            var faker = new Faker("sv");
 
-            var moduleActivities = new List<ModuleActivity>();
-
-            //var module = db.ModuleActivity.Include(m => m.Module).ToListAsync();
-
-            for(int i = 0; i < 2; i++)
-            {
-                var temp = new ModuleActivity
-                {
-                    Name = "Föreläsning",
-                    Description = faker.Company.Bs(),
-                    Start = DateTime.Now,
-                    End = new DateTime(2022, 09, 26),
-                    //ModuleId = module.Id
-                    
-                };
-
-                moduleActivities.Add(temp);
-            }
-
-            return moduleActivities;
-        }
     }
 }
