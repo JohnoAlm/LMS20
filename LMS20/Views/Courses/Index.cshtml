@@ -15,7 +15,13 @@
 
 	            <ul class="nav navbar-nav central">
 		            <li>
-                        <a class="nav-link text-black" data-bs-toggle="modal" data-bs-target="#exampleModal" href="">
+                        <a asp-action=""  class="nav-link text-black" data-bs-toggle="modal" data-bs-target="#exampleModal" href=""
+                                data-ajax="true"
+                                data-ajax-method="GET"
+                                data-ajax-update="#createajax"
+                                data-ajax-mode="replace"
+                                data-ajax-success="fixValidation">
+                        
                             <i class="central bi bi-mortarboard-fill"></i>
                             <div class="central-text">Skapa ny kurs</div>
                         </a>             

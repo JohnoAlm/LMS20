@@ -82,6 +82,7 @@ namespace LMS20.Web.Controllers
         // GET: Courses/Create
         public IActionResult Create()
         {
+            // return PartialView("CreatePartial")
             return View();
         }
 
