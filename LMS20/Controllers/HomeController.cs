@@ -37,15 +37,15 @@ namespace LMS20.Web.Controllers
 
                 var user = await userManager.GetUserAsync(User);
                 var courseId = user.CourseId;
-                var currentModule = db.Course.SelectMany(c => c.Modules)
-                                             .Where(m => m.StartDateTime < DateTime.Now && m.EndDateTime > DateTime.Now)
+                var currentModule = db.Courses.SelectMany(c => c.Modules)
+                                             .Where(m => m.Start < DateTime.Now && m.End > DateTime.Now)
                                              .FirstOrDefault(c => c.Id == courseId);
                                       
 
            // if (currentModule == null) throw new ArgumentException("Inga moduler");
 
 
-            var course = db.Course.Include(c => c.Modules) //ta alla kurser och haka på deras moduler
+            var course = db.Courses.Include(c => c.Modules) //ta alla kurser och haka på deras moduler
 
                     .ThenInclude(m => m.ModuleActivities) //Haka sedan på varje moduls aktiviteter
                     .FirstOrDefault(c => c.Id == courseId); //jämnför alla kursers id med vårt id
@@ -56,10 +56,10 @@ namespace LMS20.Web.Controllers
             var myAllAktivities = course.Modules.SelectMany(m => m.ModuleActivities); //ALLA aktiviteter I EN LISTA
                                                                                           // var res =  myModuleAktivities.Where(m => (m.ModuleActivities.Where(x => x.StartDateTime == DateTime.Now)).ToList().Count > 0);
             var myModuleTasks = myAllAktivities.Where(a => a.ActivityType != ActivityType.Lecture )
-                                               .Where(a => a.StartDateTime >= currentModule.StartDateTime && currentModule.EndDateTime > a.EndDateTime).ToList();
+                                               .Where(a => a.Start >= currentModule.Start && currentModule.End > a.End).ToList();
            
             var myModuleActivities = myAllAktivities
-                                               .Where(a => a.StartDateTime >= currentModule.StartDateTime && currentModule.EndDateTime > a.EndDateTime);
+                                               .Where(a => a.Start >= currentModule.Start && currentModule.End > a.End);
            
             
             //Is delayed?                                  
@@ -68,7 +68,7 @@ namespace LMS20.Web.Controllers
             for (int i = 0; i < myModuleTasks.Count(); i++)
             {
 
-                if (myModuleTasks[i].EndDateTime < DateTime.Now)
+                if (myModuleTasks[i].End < DateTime.Now)
                 {
                     myModuleTasks[i].ActivityType = ActivityType.Delayed;
                     db.SaveChanges();
@@ -81,19 +81,19 @@ namespace LMS20.Web.Controllers
             DateTime myMonday = DateTime.Now.AddDays(DayOfWeek.Monday - DateTime.Now.DayOfWeek).Date;
 
 
-            var thisWeeksactivities = myModuleActivities.Where(a => a.EndDateTime.Date >= myMonday && a.EndDateTime.Date <= myMonday.AddDays(6))
-                                                        .OrderBy(a => a.EndDateTime).ToList();
+            var thisWeeksactivities = myModuleActivities.Where(a => a.End.Date >= myMonday && a.End.Date <= myMonday.AddDays(6))
+                                                        .OrderBy(a => a.End).ToList();
 
 
 
-            var res = thisWeeksactivities.GroupBy(a => a.EndDateTime.ToShortDateString())
+            var res = thisWeeksactivities.GroupBy(a => a.End.ToShortDateString())
                 .Select(g => new MyWeek
                 {
                     Date = g.Key,
                     Activities = g.ToList()
                 });
-            var today = thisWeeksactivities.Where(a => a.EndDateTime.Date == DateTime.Now.Date)
-                                            .OrderBy(a => a.EndDateTime);   
+            var today = thisWeeksactivities.Where(a => a.End.Date == DateTime.Now.Date)
+                                            .OrderBy(a => a.End);   
 
           
 
