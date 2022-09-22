@@ -8,6 +8,7 @@ using LMS20.Web.Models;
 using LMS20.Core.ViewModels;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
+using LMS20.Core.Types;
 
 namespace LMS20.Web.Controllers
 {
@@ -33,22 +34,28 @@ namespace LMS20.Web.Controllers
             var coursesViewList = new List<CoursePartialViewModel>();
             var coursesView = new CoursesViewModel();
 
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 CoursePartialViewModel viewModel;
                 foreach(var course in courses)
                 {
                     TimeSpan duration = course.Duration;
-                    TimeSpan prog = course.End - DateTime.Now;
-                    double dProg = (prog / duration) * 100;
+                    TimeSpan cLeft = course.End - DateTime.Now;
+                    double dProg = (1 - (cLeft / duration)) * 100;
                     int progress = (int)Math.Round(dProg);
-                    
+
+                    Status cStatus = 0;
+                    if (course.Start > DateTime.Now) cStatus = Status.Comming;
+                    if (course.Start < DateTime.Now && course.End > DateTime.Now) cStatus = Status.Current;
+                    if (course.End < DateTime.Now) cStatus = Status.Completed;
+
                     viewModel = new CoursePartialViewModel
                     {
                         Id = course.Id,
                         Name = course.Name,
                         Start = course.Start,
                         End = course.End,
+                        CourseStatus = cStatus,
                         Progress = progress,
                         NrOfParticipants = course.ApplicationUsers.Count 
                     };
@@ -102,6 +109,7 @@ namespace LMS20.Web.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
+            Response.StatusCode = StatusCodes.Status400BadRequest;
             return PartialView("CreateCoursePartial", viewModel);
         }
 

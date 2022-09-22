@@ -15,16 +15,15 @@
 
 	            <ul class="nav navbar-nav central">
 		            <li>
-                        <a asp-action="CreateCoursePartial"  class="nav-link text-black" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                data-ajax="true"
-                                data-ajax-method="GET"
-                                data-ajax-update="#createajax"
-                                data-ajax-mode="replace"
-                                data-ajax-success="fixValidation">
-                        
+                        <a asp-action="CreateCoursePartial"  class="nav-link text-black" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="central bi bi-mortarboard-fill"></i>
                             <div class="central-text">Skapa ny kurs</div>
                         </a>             
+                                @*data-ajax="true"
+                                data-ajax-method="GET"
+                                data-ajax-update="#createajax"
+                                data-ajax-mode="replace"
+                                data-ajax-success="fixValidation"*@                    
                     </li>
                     <li>
                         <a asp-action="Participants" class="nav-link text-black">
@@ -43,21 +42,22 @@
 <!-- Courses List -->
 <div class="col-10" id="courses-list">
 
-    <h1>Kurser</h1>
+    <br />
+    <h1 class="dash-titel">Kurser</h1>
     <hr />
-
 @{
     bool isFound = false;
     foreach(var item in Model.courses) {
 
-        if(item.Start < DateTime.Now && item.End > DateTime.Now) {
+        //if(item.Start < DateTime.Now && item.End > DateTime.Now) {
+        if(item.CourseStatus == Status.Current) {
 
             if(!isFound) { 
                 <span class="coursegroup">Pågående</span> 
                 isFound = true; 
             }
             
-            item.CourseStatus = Status.Current;
+            //item.CourseStatus = Status.Current;
             <partial name="CoursePartial" model="@item"/>
         }
     }
@@ -65,14 +65,13 @@
     isFound = false;
     foreach(var item in Model.courses) {
 
-        if(item.Start > DateTime.Now) {
+        if(item.CourseStatus == Status.Comming) {
 
             if(!isFound) { 
-                        <span class="coursegroup">Kommande</span>
-                        isFound = true; 
+                <span class="coursegroup">Kommande</span>
+                isFound = true; 
             }
 
-            item.CourseStatus = Status.Comming;
             <partial name="CoursePartial" model="@item"/>
         }
     }
@@ -80,69 +79,17 @@
     isFound = false;
     foreach(var item in Model.courses) {
 
-        if(item.End < DateTime.Now) {
+        if(item.CourseStatus == Status.Completed) {
 
             if(!isFound) { 
                 <span class="coursegroup">Avslutade</span> 
                 isFound = true; 
             }
             
-            item.CourseStatus = Status.Completed;
+            //item.CourseStatus = Status.Completed;
             <partial name="CoursePartial" model="@item"/>
         }
     }
 }
 </div>
 </div>
-
-
-
-@*
-
-//<p>
-//    <a asp-action="Create">Create New</a>
-//</p>
-//<table class="table">
-//    <thead>
-//        <tr>
-//            <th>
-//                @Html.DisplayNameFor(model => model.Name)
-//            </th>
-//            <th>
-//                @Html.DisplayNameFor(model => model.Description)
-//            </th>
-//            <th>
-//                @Html.DisplayNameFor(model => model.Start)
-//            </th>
-//            <th>
-//                @Html.DisplayNameFor(model => model.End)
-//            </th>
-//            <th></th>
-//        </tr>
-//    </thead>
-//    <tbody>
-@foreach (var item in Model) {
-//        <tr>
-//            <td>
-//                @Html.DisplayFor(modelItem => item.Name)
-//            </td>
-//            <td>
-//                @Html.DisplayFor(modelItem => item.Description)
-//            </td>
-//            <td>
-//                @Html.DisplayFor(modelItem => item.Start)
-//            </td>
-//            <td>
-//                    @Html.DisplayFor(modelItem => item.End)
-//            </td>
-//            <td>
-//                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-//                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-//                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-//            </td>
-//        </tr>
-//}
-//    </tbody>
-//</table>
-*@
-

@@ -18,7 +18,7 @@ namespace LMS20.Core.Validations
 
             var result = validationService.ValidateCourseDate(vm.Start, vm.End).ToString();
 
-            if (result == "Ok") return ValidationResult.Success;
+            if(result == "Ok") return ValidationResult.Success;
 
             return new ValidationResult(result);
         }

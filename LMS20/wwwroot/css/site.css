@@ -123,6 +123,7 @@ border-left-color: #f0ad4e
 .course-title {
     font-family: KoHo, Arial, Helvetica, sans-serif;
     font-size: 100%;
+/*    font-weight: bold;*/
 }
 .badge {
     position: relative;
@@ -214,6 +215,8 @@ border-left-color: #f0ad4e
 }
 .coursegroup {
     margin-top: 3rem;
+    font-family: KoHo, Arial, Helvetica, sans-serif;
+    font-weight: bold;
 }
 /*Nav-bar*/
 .msb {
