@@ -19,6 +19,7 @@ namespace LMS20.Core.Entities
         [StringLength(250)]
         public string LastName { get; set; }
 
+  
         public ICollection<Document> Documents { get; set; } = new List<Document>();
         public Course Course { get; set; }
         public int? CourseId { get; set; }

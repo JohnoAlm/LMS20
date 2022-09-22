@@ -31,7 +31,7 @@ namespace LMS20.Data.Data
             var roleNames = new[] { "Student", "Teacher" };
 
             var teacherEmail = "larare@lms.se";
-            
+
             var studentPassword = "abc123";
 
             var courses = GetCourses().ToList();
@@ -114,8 +114,8 @@ namespace LMS20.Data.Data
             string userName;
             string email;
 
-           foreach (var course in courses)
-           {
+            foreach (var course in courses)
+            {
 
                 for (int i = 1; i < 4; i++)
                 {
@@ -137,8 +137,8 @@ namespace LMS20.Data.Data
                     if (!result.Succeeded) throw new Exception(string.Join("\n", result.Errors));
                     students.Add(student);
                 }
-           }
-           
+            }
+
             await AddToRoleAsyncStudent(students, "Student");
 
         }
@@ -156,125 +156,140 @@ namespace LMS20.Data.Data
             }
         }
 
+
         // Seedar flera kurser
         private static ICollection<Course> GetCourses()
         {
             var faker = new Faker("sv");
 
-            var courses = new List<Course>();
-
-
-            for (int i = 1; i < 4; i++)
+            var courses = new List<Course>()
             {
-                var course = new Course
+                 new Course
                 {
-                    Name = $"Programmering {i}",
+                    Name = "Grundkurs 101",
                     Description = faker.Company.Bs(),
-                    Start = new DateTime(2022, 09, 01),
-                    End = new DateTime(2022, 12, 15),
-                    Modules = GetModules()
-                  //  ApplicationUsers = AddStudentsAsync()
+                    Start = new DateTime(2022, 02, 16),
+                    End = new DateTime(2022, 06, 15),
+                    Modules =  new List<Module>()
 
-                    
-                };
-                courses.Add(course);
-            }
-            //var course = new Course
-            //{
-            //    Name = "Programmering",
-            //    Description = faker.Company.Bs(),
-            //    Modules = GetModules()
+                    {
+                        new Module{
+                        Name = "Modul old",
+                        Description = faker.Company.Bs(),
+                        Start = new DateTime(2022, 03, 16),
+                        End = new DateTime(2022, 06, 15),
+                        ModuleActivities = new List<ModuleActivity>()
+                        {
+                        new ModuleActivity{
+                            Name = "Föreläsning old1",
+                            Description = faker.Company.Bs(),
+                            Start = new DateTime(2022, 03, 17, 09, 0,0 ),
+                            End = new DateTime(2022, 03, 17, 11, 0,0 ),
+                            ActivityType = ActivityType.Lecture
+                            },
+                         new ModuleActivity{
+                            Name = "Uppgift old1",
+                            Description = faker.Company.Bs(),
+                            Start = new DateTime(2022, 05, 15, 09, 0,0 ),
+                            End = new DateTime(2022, 05, 30, 18, 0,0 ),
+                            ActivityType = ActivityType.Lecture
+                         }
+                        }
+                    }
+                        }
+                 },//modullistan 
+                     //nästa kurs
 
-            //    courses.Add(course);
-            //}
-
-            return courses;
-
-            //return course;
-        }
-
-        // Seedar moduler
-        private static ICollection<Module> GetModules()
-        {
-            var faker = new Faker("sv");
-
-            var modules = new List<Module>()
-
-            {
-               new Module
+                 new Course
                 {
-                    Name = "Modul 1",
+                    Name = "Programmering 101",
                     Description = faker.Company.Bs(),
-                    Start =new DateTime(2022, 09, 01 ),
-                    End = new DateTime(2022, 10, 15),
-                    //CourseId = course.Id
-                   ModuleActivities = new List<ModuleActivity>(){
-                    new ModuleActivity{
-                        Name = "Föreläsning 101",
-                        Description = faker.Company.Bs(),
-                        Start = new DateTime(2022, 09, 19, 09, 0,0 ),
-                        End = new DateTime(2022, 09, 19, 11, 0,0 ),
-                        ActivityType = ActivityType.Lecture
-                   },
+                     Start = new DateTime(2022, 08, 16),
+                     End = new DateTime(2022, 10, 15),
+                    Modules =  new List<Module>()
 
-                    new ModuleActivity{
-                        Name = "Föreläsning 102",
+                    {
+                     new Module
+                      {
+                        Name = "Modul 1",
                         Description = faker.Company.Bs(),
-                        Start = new DateTime(2022, 09, 20, 09, 0,0 ),
-                        End = new DateTime(2022, 09, 20, 11, 0,0 ),
-                        ActivityType = ActivityType.Lecture
+                        Start =new DateTime(2022, 09, 01 ),
+                        End = new DateTime(2022, 10, 15),
+
+
+                           ModuleActivities = new List<ModuleActivity>()
+                           {
+                            new ModuleActivity{
+                                Name = "Föreläsning 101",
+                                Description = faker.Company.Bs(),
+                                Start = new DateTime(2022, 09, 19, 09, 0,0 ),
+                                End = new DateTime(2022, 09, 19, 11, 0,0 ),
+                                ActivityType = ActivityType.Lecture
+                              },
+
+                            new ModuleActivity{
+                                Name = "Föreläsning 102",
+                                Description = faker.Company.Bs(),
+                                Start = new DateTime(2022, 09, 20, 09, 0,0 ),
+                                End = new DateTime(2022, 09, 20, 11, 0,0 ),
+                                ActivityType = ActivityType.Lecture
+                            },
+                            new ModuleActivity{
+                                Name = "Föreläsning 103",
+                                Description = faker.Company.Bs(),
+                                Start = new DateTime(2022, 09, 21, 09, 0,0 ),
+                                End = new DateTime(2022, 09, 21, 11, 0,0 ),
+                                ActivityType = ActivityType.Lecture
+                           },
+                            new ModuleActivity{
+                                Name = "Föreläsning 104",
+                                Description = faker.Company.Bs(),
+                                Start = new DateTime(2022, 09, 22, 09, 0,0 ),
+                                End = new DateTime(2022, 09, 22, 11, 0,0 ),
+                                ActivityType = ActivityType.Lecture
+                           },
+                            new ModuleActivity{
+                                Name = "Föreläsning 105",
+                                Description = faker.Company.Bs(),
+                                Start = new DateTime(2022, 09, 23, 09, 0,0 ),
+                                End = new DateTime(2022, 09, 23, 11, 0,0 ),
+                                ActivityType = ActivityType.Lecture
+                           },
+                            new ModuleActivity{
+                                Name = "Uppgift 100",
+                                Description = faker.Company.Bs(),
+                                Start = new DateTime(2022, 09, 01, 09, 0,0 ),
+                                End = new DateTime(2022, 09, 15, 18, 0,0 ),
+                                ActivityType = ActivityType.Task
+                            },
+                           new ModuleActivity{
+                                Name = "Uppgift 101",
+                                Description = faker.Company.Bs(),
+                                Start = new DateTime(2022, 09, 01, 09, 0,0 ),
+                                End = new DateTime(2022, 09, 21, 18, 0,0 ),
+                                ActivityType = ActivityType.Task
+                            },
+                           new ModuleActivity{
+                                Name = "Uppgift 102",
+                                Description = faker.Company.Bs(),
+                                Start = new DateTime(2022, 09, 01, 09, 0,0 ),
+                                End = new DateTime(2022, 09, 23, 18, 0,0 ),
+                                ActivityType = ActivityType.Task
+                            }//modulakt
+                           }//modulaktivlista
+                      
+
+
                     },
-                    new ModuleActivity{
-                        Name = "Föreläsning 103",
-                        Description = faker.Company.Bs(),
-                        Start = new DateTime(2022, 09, 21, 09, 0,0 ),
-                        End = new DateTime(2022, 09, 21, 11, 0,0 ),
-                        ActivityType = ActivityType.Lecture
-                   },
-                    new ModuleActivity{
-                        Name = "Föreläsning 104",
-                        Description = faker.Company.Bs(),
-                        Start = new DateTime(2022, 09, 22, 09, 0,0 ),
-                        End = new DateTime(2022, 09, 22, 11, 0,0 ),
-                        ActivityType = ActivityType.Lecture
-                   },
-                    new ModuleActivity{
-                        Name = "Föreläsning 105",
-                        Description = faker.Company.Bs(),
-                        Start = new DateTime(2022, 09, 23, 09, 0,0 ),
-                        End = new DateTime(2022, 09, 23, 11, 0,0 ),
-                        ActivityType = ActivityType.Lecture
-                   },
-                    new ModuleActivity{
-                        Name = "Uppgift 100",
-                        Description = faker.Company.Bs(),
-                        Start = new DateTime(2022, 09, 01, 09, 0,0 ),
-                        End = new DateTime(2022, 09, 15, 18, 0,0 ),
-                        ActivityType = ActivityType.Task
-                    },
-                   new ModuleActivity{
-                        Name = "Uppgift 101",
-                        Description = faker.Company.Bs(),
-                        Start = new DateTime(2022, 09, 01, 09, 0,0 ),
-                        End = new DateTime(2022, 09, 21, 18, 0,0 ),
-                        ActivityType = ActivityType.Task
-                    },
-                   new ModuleActivity{
-                        Name = "Uppgift 102",
-                        Description = faker.Company.Bs(),
-                        Start = new DateTime(2022, 09, 01, 09, 0,0 ),
-                        End = new DateTime(2022, 09, 23, 18, 0,0 ),
-                        ActivityType = ActivityType.Task
-                    }}
-               },
-                new Module
-                {
+                    new Module
+                    {
                     Name = "Modul 2",
                     Description = faker.Company.Bs(),
                     Start =new DateTime(2022, 10, 16),
                     End = new DateTime(2022, 12, 15),
                     //CourseId = course.Id
-                     ModuleActivities = new List<ModuleActivity>(){
+                     ModuleActivities = new List<ModuleActivity>()
+                     {
                     new ModuleActivity{
                         Name = "Föreläsning 201",
                         Description = faker.Company.Bs(),
@@ -288,13 +303,161 @@ namespace LMS20.Data.Data
                         Start = new DateTime(2022, 10, 15, 09, 0,0 ),
                         End = new DateTime(2022, 10, 30, 18, 0,0 ),
                         ActivityType = ActivityType.Lecture
-                         }
+                        }
                       }
 
-                }
+
+             }
+                    }
+                 } ,
+             new Course
+             {
+                 Name = "Programmering 102",
+                 Description = faker.Company.Bs(),
+                 Start = new DateTime(2022, 12, 16),
+                 End = new DateTime(2023, 01, 15),
+                 Modules = new List<Module>()
+
+                 {
+                     new Module
+                     {
+                         Name = "Modul 2",
+                         Description = faker.Company.Bs(),
+                         Start = new DateTime(2022, 10, 16),
+                         End = new DateTime(2022, 12, 15),
+                         //CourseId = course.Id
+                         ModuleActivities = new List<ModuleActivity>() {
+                             new ModuleActivity {
+                                 Name = "Föreläsning 201",
+                                 Description = faker.Company.Bs(),
+                                 Start = new DateTime(2022, 10, 15, 09, 0, 0),
+                                 End = new DateTime(2022, 10, 15, 11, 0, 0),
+                                 ActivityType = ActivityType.Lecture
+                             },
+                             new ModuleActivity {
+                                 Name = "Uppgift 201",
+                                 Description = faker.Company.Bs(),
+                                 Start = new DateTime(2022, 10, 15, 09, 0, 0),
+                                 End = new DateTime(2022, 10, 30, 18, 0, 0),
+                                 ActivityType = ActivityType.Lecture
+                             }
+
+
+                     }
+                 }
+                 }
+
+             }
              };
-            return modules;
+
+
+
+            return courses;
+
+
         }
+        // Seedar moduler
+        //private static ICollection<Module> GetModules()
+        //{
+        //    var faker = new Faker("sv");
+
+        //    var modules = new List<Module>()
+
+        //    {
+        //       new Module
+        //        {
+        //            Name = "Modul 1",
+        //            Description = faker.Company.Bs(),
+        //            Start =new DateTime(2022, 09, 01 ),
+        //            End = new DateTime(2022, 10, 15),
+        //            //CourseId = course.Id
+        //           ModuleActivities = new List<ModuleActivity>(){
+        //            new ModuleActivity{
+        //                Name = "Föreläsning 101",
+        //                Description = faker.Company.Bs(),
+        //                Start = new DateTime(2022, 09, 19, 09, 0,0 ),
+        //                End = new DateTime(2022, 09, 19, 11, 0,0 ),
+        //                ActivityType = ActivityType.Lecture
+        //           },
+
+        //            new ModuleActivity{
+        //                Name = "Föreläsning 102",
+        //                Description = faker.Company.Bs(),
+        //                Start = new DateTime(2022, 09, 20, 09, 0,0 ),
+        //                End = new DateTime(2022, 09, 20, 11, 0,0 ),
+        //                ActivityType = ActivityType.Lecture
+        //            },
+        //            new ModuleActivity{
+        //                Name = "Föreläsning 103",
+        //                Description = faker.Company.Bs(),
+        //                Start = new DateTime(2022, 09, 21, 09, 0,0 ),
+        //                End = new DateTime(2022, 09, 21, 11, 0,0 ),
+        //                ActivityType = ActivityType.Lecture
+        //           },
+        //            new ModuleActivity{
+        //                Name = "Föreläsning 104",
+        //                Description = faker.Company.Bs(),
+        //                Start = new DateTime(2022, 09, 22, 09, 0,0 ),
+        //                End = new DateTime(2022, 09, 22, 11, 0,0 ),
+        //                ActivityType = ActivityType.Lecture
+        //           },
+        //            new ModuleActivity{
+        //                Name = "Föreläsning 105",
+        //                Description = faker.Company.Bs(),
+        //                Start = new DateTime(2022, 09, 23, 09, 0,0 ),
+        //                End = new DateTime(2022, 09, 23, 11, 0,0 ),
+        //                ActivityType = ActivityType.Lecture
+        //           },
+        //            new ModuleActivity{
+        //                Name = "Uppgift 100",
+        //                Description = faker.Company.Bs(),
+        //                Start = new DateTime(2022, 09, 01, 09, 0,0 ),
+        //                End = new DateTime(2022, 09, 15, 18, 0,0 ),
+        //                ActivityType = ActivityType.Task
+        //            },
+        //           new ModuleActivity{
+        //                Name = "Uppgift 101",
+        //                Description = faker.Company.Bs(),
+        //                Start = new DateTime(2022, 09, 01, 09, 0,0 ),
+        //                End = new DateTime(2022, 09, 21, 18, 0,0 ),
+        //                ActivityType = ActivityType.Task
+        //            },
+        //           new ModuleActivity{
+        //                Name = "Uppgift 102",
+        //                Description = faker.Company.Bs(),
+        //                Start = new DateTime(2022, 09, 01, 09, 0,0 ),
+        //                End = new DateTime(2022, 09, 23, 18, 0,0 ),
+        //                ActivityType = ActivityType.Task
+        //            }}
+        //       },
+        //        new Module
+        //        {
+        //            Name = "Modul 2",
+        //            Description = faker.Company.Bs(),
+        //            Start =new DateTime(2022, 10, 16),
+        //            End = new DateTime(2022, 12, 15),
+        //            //CourseId = course.Id
+        //             ModuleActivities = new List<ModuleActivity>(){
+        //            new ModuleActivity{
+        //                Name = "Föreläsning 201",
+        //                Description = faker.Company.Bs(),
+        //                Start = new DateTime(2022, 10, 15, 09, 0,0 ),
+        //                End = new DateTime(2022, 10, 15, 11, 0,0 ),
+        //                ActivityType = ActivityType.Lecture
+        //                },
+        //             new ModuleActivity{
+        //                Name = "Uppgift 201",
+        //                Description = faker.Company.Bs(),
+        //                Start = new DateTime(2022, 10, 15, 09, 0,0 ),
+        //                End = new DateTime(2022, 10, 30, 18, 0,0 ),
+        //                ActivityType = ActivityType.Lecture
+        //                 }
+        //              }
+
+        //        }
+        //     };
+        //    return modules;
+        //}
 
         // Seedar aktiviteter
 
