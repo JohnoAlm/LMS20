@@ -4,7 +4,7 @@ using LMS20.Core.Entities;
 using LMS20.Data.Data;
 using AutoMapper;
 using LMS20.Data.Repositories;
-using LMS20.Web.Models;
+//using LMS20.Web.Models;
 using LMS20.Core.ViewModels;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
@@ -227,10 +227,10 @@ namespace LMS20.Web.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        //public IActionResult Error()
+        //{
+        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]

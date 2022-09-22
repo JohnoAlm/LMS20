@@ -2,7 +2,7 @@
 using LMS20.Core.Entities;
 using LMS20.Core.ViewModels;
 using LMS20.Data.Data;
-using LMS20.Web.Models;
+//using LMS20.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -113,7 +113,7 @@ namespace LMS20.Web.Controllers
 
 
                 return View(dashInfo);
-            }
+          }
 
         // db.ModuleActivity.Where()
         //var activities = new List<ModuleActivity>();
@@ -159,11 +159,11 @@ namespace LMS20.Web.Controllers
         }
 
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //public IActionResult Error()
+        //{
+        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        //}
     }
 }
 
