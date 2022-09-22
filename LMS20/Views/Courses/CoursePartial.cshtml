@@ -30,7 +30,9 @@
 
 }
 
-<div class="bd-callout bd-callout-@calloutLevel">
+<a id = "courseBtn" asp-controller = "Courses" asp-action = "Participants" asp-route-id = "@Model.Id">
+
+<div id = "callout" class="bd-callout bd-callout-@calloutLevel">
 
     <div class="row">
     <div class="col-10">
@@ -55,3 +57,5 @@
 }
 
 </div>
+
+</a>

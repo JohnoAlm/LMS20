@@ -11,17 +11,16 @@ html {
 html {
   position: relative;
   min-height: 100%;
+  
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #f2f2f2 /*#f7f7f7*/;
 }
-.signin{
-    background-color: #F5F5F5;
 
-}
 .nav-color {
-    background-color: #2C2C3F;
+    background-color: #264653; /*#2C2C3F*/
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
     height: 100px
@@ -29,7 +28,12 @@ body {
 .nav-height{
     height: 20px;
 }
-.title{
+
+.active{
+    border-bottom: 2px solid #F3F3F3;
+}
+
+.title {
     font-family: KoHo, Arial, Helvetica, sans-serif;
     font-size: 250%;
     margin-left: 300px;
@@ -129,9 +133,76 @@ border-left-color: #f0ad4e
     margin-top: 1rem;
     margin-bottom: 0rem;
 }
-
 .footer {
     position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    background-color: #264653;
+}
+
+.dash-titel {
+    font-family: KoHo, Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+}
+.datumrubrik {
+    font-size: 12px;
+    margin-bottom: 2px;
+    margin-top: 30px;
+    font-weight: bold;
+}
+/*SINGLE-CARDS*/
+
+.single-card {
+    background-color: #D9D9D9;
+    margin-bottom: 5px;
+}
+.delayed {
+    border-left: 5px solid #FC1C1C /*#B64949*/;
+  
+}
+.delayed-mark {
+    font-size: 20px;
+   /* float: right;*/
+    color: #FC1C1C;
+}
+.lectureType {
+    background-color: #78909C /*#63aac4*/ /*#3d8bbf*/ /*#3b7eaa*/ /* #5884ac #2a9d8f*/; /*#31aec4 */
+}
+.lecture {
+    border-left: 5px solid #78909C;
+}
+.taskType {
+    background-color: #F2BE20 /*#dba309*/ /*#e9c46a*/;
+}
+.task {
+    border-left: 5px solid #FFC107 /*#e2bc55*/;
+    /*#49B6B6*/
+}
+.single-info{
+    font-size: 9px;
+}
+.single-rubrik {
+    font-weight: bold;
+    font-size:13px;
+    
+}
+/*DAGENS-CARDS*/
+.dagens-rubrik {
+    font-size: 20px;
+    font-weight: bold;
+}
+.dagens-footer {
+    height: 40px;
+}
+.dagens-datum {
+    font-weight: bold;
+}
+.card-darkgrey {
+    background-color: #D9D9D9;
+}
     bottom: 0;
     width: 100%;
     height: 50px;
@@ -180,4 +251,15 @@ border-left-color: #f0ad4e
         align-content: center;
     }
 }
+
+#courseBtn{
+    text-decoration: none; 
+}
+
+#callout:hover{
+    color: white;
+    background-color: darkgrey;
+    transition: 0.3s;
+}
+
 
