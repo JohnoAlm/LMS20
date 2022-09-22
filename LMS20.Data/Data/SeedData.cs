@@ -31,7 +31,7 @@ namespace LMS20.Data.Data
             var roleNames = new[] { "Student", "Teacher" };
 
             var teacherEmail = "larare@lms.se";
-            var studentEmail = "student@lms.se";
+            //var studentEmail = "student@lms.se";
 
             var studentPassword = "abc123";
 
@@ -45,7 +45,7 @@ namespace LMS20.Data.Data
             await db.AddRangeAsync(students);
             await db.SaveChangesAsync();
 
-            var modules = GetModules();
+            //var modules = GetModules();
             //await db.AddRangeAsync(modules);
 
             //var moduleActivities = GetModuleActivities();
@@ -138,11 +138,10 @@ namespace LMS20.Data.Data
                     var result = await userManager.CreateAsync(student, studentPW);
                     if (!result.Succeeded) throw new Exception(string.Join("\n", result.Errors));
                     students.Add(student);
-                    await AddToRoleAsyncStudent(students, "Student");
                 }
            }
-
-
+           
+            await AddToRoleAsyncStudent(students, "Student");
 
             return students;
         }
