@@ -1,7 +1,5 @@
 ﻿@using LMS20.Core.Entities
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,9 +16,9 @@
 <body>
     <header>
         @*Inloggningsbar*@
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-black nav-height border-bottom box-shadow ">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark nav-height border-bottom box-shadow">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Brandname</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">LMS</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -46,8 +44,8 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted ">
-        <div class="container footer ">
+    <footer class="border-top footer text-muted">
+        <div class="container footer">
             &copy; 2022 - LMS20 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
@@ -56,6 +54,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>

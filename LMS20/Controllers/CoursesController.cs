@@ -107,22 +107,22 @@ namespace LMS20.Web.Controllers
                 await uow.CourseRepository.AddCourseAsync(course);
                 await uow.CompleteAsync();
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));  // CoursePartialViewModel
             }
             Response.StatusCode = StatusCodes.Status400BadRequest;
             return PartialView("CreateCoursePartial", viewModel);
         }
 
-        public async Task<JsonResult> ValidateCoursestart(DateTime start)
+        public async Task<JsonResult> ValidateCourseStart(DateTime start)
         {
             if(start < DateTime.Now) return Json("Tiden har redan passerat");
 
             return Json(true);
         }
 
-        public async Task<JsonResult> ValidateCourseEnd(DateTime end, DateTime start)
+        public async Task<JsonResult> ValidateCourseEnd(DateTime End, DateTime Start)
         {
-            if(end <= start) return Json("Sluttiden får inte vara före starttiden");
+            if(End <= Start) return Json("Sluttiden får inte vara före starttiden");
 
             return Json(true);
         }

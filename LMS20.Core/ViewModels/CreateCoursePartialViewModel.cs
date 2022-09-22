@@ -21,7 +21,7 @@ namespace LMS20.Core.ViewModels
         public DateTime Start { get; set; } = DateTime.Now + TimeSpan.FromDays(1);
 
         [Required]
-        [Remote("ValidateCourseEnd", "Courses")]
+        [Remote("ValidateCourseEnd", "Courses", AdditionalFields = "Start")]
         //[ValidateCourseDate(ErrorMessage = "Sluttid måste vara senare än starttid")]
         [Display(Name = "Sluttid")]
         [DataType(DataType.Date)]

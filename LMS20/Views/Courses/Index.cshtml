@@ -53,30 +53,32 @@
         if(item.CourseStatus == Status.Current) {
 
             if(!isFound) { 
-                <span class="coursegroup">Pågående</span> 
+                        <span class="coursegroup">Pågående</span> 
                 isFound = true; 
             }
             
-            //item.CourseStatus = Status.Current;
             <partial name="CoursePartial" model="@item"/>
         }
     }
-
-    isFound = false;
+}
+    <div id="CommingCourses">
+@{  isFound = false;
     foreach(var item in Model.courses) {
 
         if(item.CourseStatus == Status.Comming) {
 
             if(!isFound) { 
-                <span class="coursegroup">Kommande</span>
+                    <span class="coursegroup">Kommande</span>
                 isFound = true; 
             }
 
             <partial name="CoursePartial" model="@item"/>
         }
     }
+}
+    </div>
 
-    isFound = false;
+@{    isFound = false;
     foreach(var item in Model.courses) {
 
         if(item.CourseStatus == Status.Completed) {
@@ -86,10 +88,13 @@
                 isFound = true; 
             }
             
-            //item.CourseStatus = Status.Completed;
             <partial name="CoursePartial" model="@item"/>
         }
     }
 }
 </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
