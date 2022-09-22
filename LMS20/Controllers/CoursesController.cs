@@ -107,7 +107,11 @@ namespace LMS20.Web.Controllers
                 await uow.CourseRepository.AddCourseAsync(course);
                 await uow.CompleteAsync();
 
-                return RedirectToAction(nameof(Index));  // CoursePartialViewModel
+                var partial = mapper.Map<CoursePartialViewModel>(course);
+
+                
+                return PartialView("CommingCourses", partial);
+                /*return RedirectToAction(nameof(Index));*/  // CoursePartialViewModel
             }
             Response.StatusCode = StatusCodes.Status400BadRequest;
             return PartialView("CreateCoursePartial", viewModel);
