@@ -39,7 +39,7 @@ namespace LMS20.Web.Controllers
                 foreach(var course in courses)
                 {
                     TimeSpan duration = course.Duration;
-                    TimeSpan prog = DateTime.Now - course.End;
+                    TimeSpan prog = course.End - DateTime.Now;
                     double dProg = (prog / duration) * 100;
                     int progress = (int)Math.Round(dProg);
                     
