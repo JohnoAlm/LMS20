@@ -32,11 +32,18 @@ namespace LMS20.Data.Data
             var roleNames = new[] { "Student", "Teacher" };
 
             var teacherEmail = "larare@lms.se";
-            var studentEmail = "student@lms.se";
+            
+            var studentPassword = "abc123";
 
-            var courses = GetCourses();
+            var courses = GetCourses().ToList();
             await db.AddRangeAsync(courses);
             await db.SaveChangesAsync();
+
+            await AddRolesAsync(roleNames);
+
+            await AddStudentsAsync(studentPassword, courses);
+            //await db.AddRangeAsync(students);
+            //await db.SaveChangesAsync();
 
             //var modules = GetModules();
             //await db.AddRangeAsync(modules);
@@ -44,17 +51,10 @@ namespace LMS20.Data.Data
             //var moduleActivities = GetModuleActivities();
             //await db.AddRangeAsync(moduleActivities);
 
-            await AddRolesAsync(roleNames);
 
             var teacher = await AddTeacherAsync(teacherEmail, teacherPW);
-
             await AddToRolesAsyncTeacher(teacher, roleNames);
 
-            var students = await AddStudentsAsync(studentEmail, studentPW);
-
-            await AddToRoleAsyncStudent(students, "Student");
-
-            await db.SaveChangesAsync();
         }
 
         // Lägger till lärare till rollen "Teacher" och "Student"
@@ -104,34 +104,44 @@ namespace LMS20.Data.Data
         }
 
         // Seedar flera studenter
-        private static async Task<ICollection<ApplicationUser>> AddStudentsAsync(string studentEmail, string studentPW, List<Course> courses)
+        private static async Task AddStudentsAsync(string studentPW, List<Course> courses)
         {
-            var found = await userManager.FindByEmailAsync(studentEmail);
-
-            if (found != null) return null!;
+            var faker = new Faker("sv");
 
             var students = new List<ApplicationUser>();
 
-            //Random num = new Random();
-            //var rnd = num.Next(1, 1000000);
-            for (int i = 1; i < 4; i++)
-            {
-                var student = new ApplicationUser
+            string firstName;
+            string lastName;
+            string userName;
+            string email;
+
+           foreach (var course in courses)
+           {
+
+                for (int i = 1; i < 4; i++)
                 {
-                    FirstName = $"Student{i}",
-                    LastName = $"Studentsson{i}",
-                    UserName = $"{i}{studentEmail}",
-                    Email = $"{i}{studentEmail}",
-                    Course = courses.ElementAtOrDefault(i)
+                    firstName = faker.Name.FirstName();
+                    lastName = faker.Name.LastName();
+                    userName = $"{firstName}.{lastName}@lms.se";
+                    email = userName;
 
-                };
+                    var student = new ApplicationUser
+                    {
+                        FirstName = firstName,
+                        LastName = lastName,
+                        UserName = userName,
+                        Email = email,
+                        Course = course
+                    };
 
-                var result = await userManager.CreateAsync(student, studentPW);
-                if (!result.Succeeded) throw new Exception(string.Join("\n", result.Errors));
-                students.Add(student);
-            }
+                    var result = await userManager.CreateAsync(student, studentPW);
+                    if (!result.Succeeded) throw new Exception(string.Join("\n", result.Errors));
+                    students.Add(student);
+                }
+           }
+           
+            await AddToRoleAsyncStudent(students, "Student");
 
-            return students;
         }
 
         // Seedar roller
@@ -270,81 +280,33 @@ namespace LMS20.Data.Data
                       
 
 
-                    },
-                    new Module
-                    {
-                    Name = "Modul 2",
+            for (int i = 1; i < 4; i++)
+            {
+                var course = new Course
+                {
+                    Name = $"Programmering {i}",
                     Description = faker.Company.Bs(),
-                    Start =new DateTime(2022, 10, 16),
+                    Start = new DateTime(2022, 09, 01),
                     End = new DateTime(2022, 12, 15),
-                    //CourseId = course.Id
-                     ModuleActivities = new List<ModuleActivity>()
-                     {
-                    new ModuleActivity{
-                        Name = "Föreläsning 201",
-                        Description = faker.Company.Bs(),
-                        Start = new DateTime(2022, 10, 15, 09, 0,0 ),
-                        End = new DateTime(2022, 10, 15, 11, 0,0 ),
-                        ActivityType = ActivityType.Lecture
-                        },
-                     new ModuleActivity{
-                        Name = "Uppgift 201",
-                        Description = faker.Company.Bs(),
-                        Start = new DateTime(2022, 10, 15, 09, 0,0 ),
-                        End = new DateTime(2022, 10, 30, 18, 0,0 ),
-                        ActivityType = ActivityType.Lecture
-                        }
-                      }
+                    Modules = GetModules()
+                  //  ApplicationUsers = AddStudentsAsync()
 
+                    
+                };
+                courses.Add(course);
+            }
+            //var course = new Course
+            //{
+            //    Name = "Programmering",
+            //    Description = faker.Company.Bs(),
+            //    Modules = GetModules()
 
-             }
-                    }
-                 } ,
-             new Course
-             {
-                 Name = "Programmering 102",
-                 Description = faker.Company.Bs(),
-                 Start = new DateTime(2022, 12, 16),
-                 End = new DateTime(2023, 01, 15),
-                 Modules = new List<Module>()
-
-                 {
-                     new Module
-                     {
-                         Name = "Modul 2",
-                         Description = faker.Company.Bs(),
-                         Start = new DateTime(2022, 10, 16),
-                         End = new DateTime(2022, 12, 15),
-                         //CourseId = course.Id
-                         ModuleActivities = new List<ModuleActivity>() {
-                             new ModuleActivity {
-                                 Name = "Föreläsning 201",
-                                 Description = faker.Company.Bs(),
-                                 Start = new DateTime(2022, 10, 15, 09, 0, 0),
-                                 End = new DateTime(2022, 10, 15, 11, 0, 0),
-                                 ActivityType = ActivityType.Lecture
-                             },
-                             new ModuleActivity {
-                                 Name = "Uppgift 201",
-                                 Description = faker.Company.Bs(),
-                                 Start = new DateTime(2022, 10, 15, 09, 0, 0),
-                                 End = new DateTime(2022, 10, 30, 18, 0, 0),
-                                 ActivityType = ActivityType.Lecture
-                             }
-
-
-                     }
-                 }
-                 }
-
-             }
-             };
-                 
-
+            //    courses.Add(course);
+            //}
 
             return courses;
 
-
+            //return course;
         }
 
         // Seedar moduler

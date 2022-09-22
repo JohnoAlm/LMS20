@@ -5,11 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LMS20.Data.Migrations
 {
-<<<<<<<< HEAD:LMS20.Data/Migrations/20220919094635_Init.cs
     public partial class Init : Migration
-========
-    public partial class init2 : Migration
->>>>>>>> Klara:LMS20.Data/Migrations/20220920111614_init2.cs
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,13 +31,8 @@ namespace LMS20.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-<<<<<<<< HEAD:LMS20.Data/Migrations/20220919094635_Init.cs
                     Start = table.Column<DateTime>(type: "datetime2", nullable: false),
                     End = table.Column<DateTime>(type: "datetime2", nullable: false)
-========
-                    StartDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
->>>>>>>> Klara:LMS20.Data/Migrations/20220920111614_init2.cs
                 },
                 constraints: table =>
                 {
@@ -74,8 +65,8 @@ namespace LMS20.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     CourseId = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -110,13 +101,8 @@ namespace LMS20.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-<<<<<<<< HEAD:LMS20.Data/Migrations/20220919094635_Init.cs
                     Start = table.Column<DateTime>(type: "datetime2", nullable: false),
                     End = table.Column<DateTime>(type: "datetime2", nullable: false),
-========
-                    StartDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
->>>>>>>> Klara:LMS20.Data/Migrations/20220920111614_init2.cs
                     CourseId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -155,8 +141,8 @@ namespace LMS20.Data.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -200,8 +186,8 @@ namespace LMS20.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -221,18 +207,12 @@ namespace LMS20.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-<<<<<<<< HEAD:LMS20.Data/Migrations/20220919094635_Init.cs
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Start = table.Column<DateTime>(type: "datetime2", nullable: false),
                     End = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModuleId = table.Column<int>(type: "int", nullable: false)
-========
-                    StartDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModuleId = table.Column<int>(type: "int", nullable: false),
                     ActivityType = table.Column<int>(type: "int", nullable: false)
->>>>>>>> Klara:LMS20.Data/Migrations/20220920111614_init2.cs
                 },
                 constraints: table =>
                 {
