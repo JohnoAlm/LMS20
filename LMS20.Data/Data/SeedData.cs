@@ -31,8 +31,7 @@ namespace LMS20.Data.Data
             var roleNames = new[] { "Student", "Teacher" };
 
             var teacherEmail = "larare@lms.se";
-            //var studentEmail = "student@lms.se";
-
+            
             var studentPassword = "abc123";
 
             var courses = GetCourses().ToList();
@@ -41,9 +40,9 @@ namespace LMS20.Data.Data
 
             await AddRolesAsync(roleNames);
 
-            var students = await AddStudentsAsync(studentPassword, courses);
-            await db.AddRangeAsync(students);
-            await db.SaveChangesAsync();
+            await AddStudentsAsync(studentPassword, courses);
+            //await db.AddRangeAsync(students);
+            //await db.SaveChangesAsync();
 
             //var modules = GetModules();
             //await db.AddRangeAsync(modules);
@@ -52,9 +51,8 @@ namespace LMS20.Data.Data
             //await db.AddRangeAsync(moduleActivities);
 
 
-            // var teacher = await AddTeacherAsync(teacherEmail, teacherPW);
-
-            //   await AddToRolesAsyncTeacher(teacher, roleNames);
+            var teacher = await AddTeacherAsync(teacherEmail, teacherPW);
+            await AddToRolesAsyncTeacher(teacher, roleNames);
 
         }
 
@@ -105,7 +103,7 @@ namespace LMS20.Data.Data
         }
 
         // Seedar flera studenter
-        private static async Task<ICollection<ApplicationUser>> AddStudentsAsync(string studentPW, List<Course> courses)
+        private static async Task AddStudentsAsync(string studentPW, List<Course> courses)
         {
             var faker = new Faker("sv");
 
@@ -143,7 +141,6 @@ namespace LMS20.Data.Data
            
             await AddToRoleAsyncStudent(students, "Student");
 
-            return students;
         }
 
         // Seedar roller
