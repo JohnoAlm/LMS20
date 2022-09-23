@@ -8,6 +8,7 @@ using LMS20.Data.Repositories;
 using LMS20.Core.ViewModels;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LMS20.Web.Controllers
 {
@@ -27,8 +28,14 @@ namespace LMS20.Web.Controllers
         }
 
         // GET: Courses
+      
         public async Task<IActionResult> Index()
         {
+            if(User.IsInRole("Student"))
+            {
+                return RedirectToRoute(new { controller = "Home", action = "Dashboard" });
+
+            }
             var courses = await uow.CourseRepository.GetAllCoursesAsync();
             var coursesViewList = new List<CoursePartialViewModel>();
             var coursesView = new CoursesViewModel();

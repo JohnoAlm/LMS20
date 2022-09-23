@@ -31,11 +31,16 @@ namespace LMS20.Web.Controllers
 
         }
 
-        [Authorize(Roles ="Student")]
+        //[Authorize(Roles ="Student")]
         public async Task<IActionResult> Dashboard()
         {
 
-                var user = await userManager.GetUserAsync(User);
+            if (User.IsInRole("Teacher"))
+            {
+                return RedirectToRoute(new { controller = "Courses", action = "Index" });
+
+            }
+            var user = await userManager.GetUserAsync(User);
                 var courseId = user.CourseId;
                 var currentModule = db.Courses.SelectMany(c => c.Modules)
                                              .Where(m => m.Start < DateTime.Now && m.End > DateTime.Now)
