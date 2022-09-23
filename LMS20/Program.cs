@@ -44,12 +44,13 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var db = services.GetRequiredService<ApplicationDbContext>();
 
-    db.Database.EnsureDeleted();
-    db.Database.Migrate();
+    //db.Database.EnsureDeleted();
+    //db.Database.Migrate();
 
     var config = services.GetRequiredService<IConfiguration>();
-var teacherPW = "abc123";
-var studentPW = "abc123";
+
+    var teacherPW = "abc123";
+    var studentPW = "abc123";
 
     try
     {
@@ -85,7 +86,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Courses}/{action=Index}");
+    pattern: "{controller=Home}/{action=Dashboard}");
 app.MapRazorPages();
 
 app.Run();

@@ -140,8 +140,8 @@
         </div>
        @* slut veckan*@
 
-
-
+@*
+       Början Uppgifter*@
 
         <div class="col-3">
             <h1 class="dash-titel ">UPPGIFTER</h1>
@@ -152,7 +152,7 @@
 
                @foreach (var task in Model.MyTasks){
                 <div class="card col-3 delayed single-card @(task.ActivityType == LMS20.Core.Entities.ActivityType.Task ? "task" :"delayed")" style="width: 18rem; ">
-                    <span class=" @(task.ActivityType == LMS20.Core.Entities.ActivityType.Task ? "" :"bi bi-exclamation-lg delayed-mark")" > </span>
+                   @* <span class=" @(task.ActivityType == LMS20.Core.Entities.ActivityType.Task ? "" :"bi bi-exclamation-lg delayed-mark")" > </span>*@
                 <ul class="list-group list-group-flush  ">
                         <li class="list-group-item single-card single-info pt-1 pb-0">
 

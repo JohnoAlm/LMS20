@@ -2,7 +2,7 @@
 using LMS20.Core.Entities;
 using LMS20.Core.ViewModels;
 using LMS20.Data.Data;
-using LMS20.Web.Models;
+//using LMS20.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -31,9 +31,14 @@ namespace LMS20.Web.Controllers
 
         }
 
-        [Authorize(Roles ="Student")]
-        public async Task<IActionResult> Index()
+        [Authorize]
+        public async Task<IActionResult> Dashboard()
         {
+
+            if (User.IsInRole("Teacher"))
+            {
+                return RedirectToAction("Index", "Courses");
+            }
 
                 var user = await userManager.GetUserAsync(User);
                 var courseId = user.CourseId;
@@ -113,37 +118,9 @@ namespace LMS20.Web.Controllers
 
 
                 return View(dashInfo);
-            }
+          }
 
-        // db.ModuleActivity.Where()
-        //var activities = new List<ModuleActivity>();
-        //var todaysaktivities = new List<ModuleActivity>();
-        //var activityNames = new List<string>();
-
-        //foreach (var module in course.Modules)
-        //{
-        //    foreach (var activity in module.ModuleActivities)
-        //    {
-        //        Check if activity meets criteria
-        //         activities.Add(activity);
-        //    }
-        //}
-
-        //foreach (var activity in activities)
-        //{
-
-        //    if (activity.StartDateTime > DateTime.Now && DateTime.Now < activity.EndDateTime)
-        //    {
-        //        todaysaktivities.Add(activity);
-        //        activityNames.Add(activity.Name);
-        //    }
-        //}
-        //    { TodaysActivity = course.Modules.First().ModuleActivities.First() };
-
-        //obs här behöcver vi veta vilken kurse den inloggade går påom det äre en elev.
-        //Sätt det värdet på viewmodel
-        //2. Transformera tilll ViewModel
-        //3. Returnera viewmodel
+      
 
 
 
@@ -159,11 +136,11 @@ namespace LMS20.Web.Controllers
         }
 
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        //    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //    public IActionResult Error()
+        //    {
+        //        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        //    }
     }
 }
 

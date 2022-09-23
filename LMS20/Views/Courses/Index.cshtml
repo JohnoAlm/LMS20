@@ -1,8 +1,11 @@
 ﻿@using LMS20.Core.Types
 @model CoursesViewModel
 
-@*Modal View*@
-@{ var course = new CreateCoursePartialViewModel{}; }
+<!-- Modal View -->
+@{
+    Layout = "_LayoutTeacher";
+    var course = new CreateCoursePartialViewModel{}; 
+}
 <partial name="CreateCoursePartial" model="@course"/>
 
 <div class="row">
