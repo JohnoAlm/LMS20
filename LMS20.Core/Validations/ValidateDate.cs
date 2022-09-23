@@ -16,9 +16,9 @@ namespace LMS20.Core.Validations
             var vm = validationContext.ObjectInstance as CreateCoursePartialViewModel;
             var validationService = (IValidateDateService)validationContext.GetService(typeof(IValidateDateService));
 
-            var result = validationService.ValidateCourseDate(vm.Start, vm.End).ToString();
+            string result = validationService.ValidateCourseDate(vm.Start, vm.End).Result;
 
-            if(result == "Ok") return ValidationResult.Success;
+            if (result == "Ok") return ValidationResult.Success;
 
             return new ValidationResult(result);
         }
@@ -31,7 +31,7 @@ namespace LMS20.Core.Validations
             var vm = validationContext.ObjectInstance as TestCreateModuleViewModel;
             var validationService = (IValidateDateService)validationContext.GetService(typeof(IValidateDateService));
 
-            var result = validationService.ValidateModuleDate(vm.Start, vm.End, vm.Id).ToString();
+            var result = validationService.ValidateModuleDate(vm.Start, vm.End, vm.Id).Result;
 
             if (result == "Ok") return ValidationResult.Success;
 
@@ -46,7 +46,7 @@ namespace LMS20.Core.Validations
             var vm = validationContext.ObjectInstance as TestCreateActivityViewModel;
             var validationService = (IValidateDateService)validationContext.GetService(typeof(IValidateDateService));
 
-            var result = validationService.ValidateActivityDate(vm.Start, vm.End, vm.Id).ToString();
+            var result = validationService.ValidateActivityDate(vm.Start, vm.End, vm.Id).Result;
 
             if (result == "Ok") return ValidationResult.Success;
 
