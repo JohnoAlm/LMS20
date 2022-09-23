@@ -31,9 +31,14 @@ namespace LMS20.Web.Controllers
 
         }
 
-        [Authorize(Roles ="Student")]
+        [Authorize]
         public async Task<IActionResult> Index()
         {
+
+            if (User.IsInRole("Teacher"))
+            {
+                return RedirectToAction("Index", "Courses");
+            }
 
                 var user = await userManager.GetUserAsync(User);
                 var courseId = user.CourseId;
