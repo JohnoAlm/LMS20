@@ -32,7 +32,7 @@ namespace LMS20.Web.Controllers
         }
 
         [Authorize(Roles ="Student")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Dashboard()
         {
 
                 var user = await userManager.GetUserAsync(User);
@@ -115,35 +115,7 @@ namespace LMS20.Web.Controllers
                 return View(dashInfo);
           }
 
-        // db.ModuleActivity.Where()
-        //var activities = new List<ModuleActivity>();
-        //var todaysaktivities = new List<ModuleActivity>();
-        //var activityNames = new List<string>();
-
-        //foreach (var module in course.Modules)
-        //{
-        //    foreach (var activity in module.ModuleActivities)
-        //    {
-        //        Check if activity meets criteria
-        //         activities.Add(activity);
-        //    }
-        //}
-
-        //foreach (var activity in activities)
-        //{
-
-        //    if (activity.StartDateTime > DateTime.Now && DateTime.Now < activity.EndDateTime)
-        //    {
-        //        todaysaktivities.Add(activity);
-        //        activityNames.Add(activity.Name);
-        //    }
-        //}
-        //    { TodaysActivity = course.Modules.First().ModuleActivities.First() };
-
-        //obs här behöcver vi veta vilken kurse den inloggade går påom det äre en elev.
-        //Sätt det värdet på viewmodel
-        //2. Transformera tilll ViewModel
-        //3. Returnera viewmodel
+      
 
 
 

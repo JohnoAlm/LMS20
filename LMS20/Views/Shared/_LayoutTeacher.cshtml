@@ -28,14 +28,9 @@
                     <partial name="_LoginPartial" />     
             </div>
         </nav>
-        @*Styrningsnavbar, *@
-        @if(User.IsInRole("Student"))
-        {
-            <partial name="_NavbarDashboard" />
-            @*Html.RenderPartial("_NavbarDashboard");*@
-        }
-      
-
+        @*Styrningsnavbar *@
+        <partial name="_NavbarTeacher" />
+       
     </header>
 
     <div class="container">
