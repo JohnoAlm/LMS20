@@ -15,13 +15,13 @@ namespace LMS20.Core.ViewModels
         public string Description { get; set; } = string.Empty;
 
         [Required]
-        [Remote("ValidateCourseStart", "Courses")]
+        //[Remote("ValidateCourseStart", "Courses")]
         [Display(Name = "Starttid")]
         [DataType(DataType.Date)]
         public DateTime Start { get; set; } = DateTime.Now + TimeSpan.FromDays(1);
 
         [Required]
-        [Remote("ValidateCourseEnd", "Courses", AdditionalFields = "Start")]
+        //[Remote("ValidateCourseEnd", "Courses", AdditionalFields = "Start")]
         [ValidateCourseDate(ErrorMessage = "Sluttid måste vara senare än starttid")]
         [Display(Name = "Sluttid")]
         [DataType(DataType.Date)]

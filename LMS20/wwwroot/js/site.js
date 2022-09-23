@@ -28,15 +28,21 @@
 //    console.log(myPage);
 //});
 
-let exampleModal = document.querySelector("#exampleModal");
-
-function fixValidation() {
-    const form = exampleModal.querySelector('form');
-    $.validator.unobtrusive.parse(form);
-}
+const exampleModal = document.querySelector("#exampleModal");
+const validationSummary = document.querySelector('#validationSummary');
 
 function removeForm() {
 
     // Workaround for modal hide bug
-    $('#exampleModal').trigger('click');
+    $('#exampleModal').modal('hide');
+    $('#exampleModal').on('hidden.bs.modal', function () {
+        $('.btn-close').trigger('click');
+    });
+
+}
+
+function failCreate(response) {
+
+    validationSummary.innerHTML = response.responseText;      // funkar ej
+
 }

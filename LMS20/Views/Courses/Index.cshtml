@@ -2,8 +2,8 @@
 @model CoursesViewModel
 
 @*Modal View*@
-@{ var course = new CreateCoursePartialViewModel{}; }
-<partial name="CreateCoursePartial" model="@course"/>
+<partial name="CreateCoursePartial" model="new CreateCoursePartialViewModel{}" />
+
 
 <div class="row">
 <div class="col-2">
