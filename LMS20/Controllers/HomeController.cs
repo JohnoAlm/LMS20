@@ -32,7 +32,7 @@ namespace LMS20.Web.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Dashboard()
         {
 
             if (User.IsInRole("Teacher"))
