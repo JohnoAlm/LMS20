@@ -1,10 +1,5 @@
 ﻿using LMS20.Core.Repositories;
 using LMS20.Data.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LMS20.Data.Repositories
 {

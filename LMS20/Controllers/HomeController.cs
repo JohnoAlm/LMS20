@@ -31,16 +31,16 @@ namespace LMS20.Web.Controllers
 
         }
 
-        //[Authorize(Roles ="Student")]
-        public async Task<IActionResult> Dashboard()
+        [Authorize]
+        public async Task<IActionResult> Index()
         {
 
             if (User.IsInRole("Teacher"))
             {
-                return RedirectToRoute(new { controller = "Courses", action = "Index" });
-
+                return RedirectToAction("Index", "Courses");
             }
-            var user = await userManager.GetUserAsync(User);
+
+                var user = await userManager.GetUserAsync(User);
                 var courseId = user.CourseId;
                 var currentModule = db.Courses.SelectMany(c => c.Modules)
                                              .Where(m => m.Start < DateTime.Now && m.End > DateTime.Now)
@@ -136,11 +136,11 @@ namespace LMS20.Web.Controllers
         }
 
 
-        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        //public IActionResult Error()
-        //{
-        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        //}
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
     }
 }
 

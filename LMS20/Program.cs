@@ -48,8 +48,9 @@ using (var scope = app.Services.CreateScope())
     //db.Database.Migrate();
 
     var config = services.GetRequiredService<IConfiguration>();
-var teacherPW = "abc123";
-var studentPW = "abc123";
+
+    var teacherPW = "abc123";
+    var studentPW = "abc123";
 
     try
     {

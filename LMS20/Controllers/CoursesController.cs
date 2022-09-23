@@ -4,11 +4,11 @@ using LMS20.Core.Entities;
 using LMS20.Data.Data;
 using AutoMapper;
 using LMS20.Data.Repositories;
-//using LMS20.Web.Models;
+using LMS20.Web.Models;
 using LMS20.Core.ViewModels;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization;
+using LMS20.Core.Types;
 
 namespace LMS20.Web.Controllers
 {
@@ -28,34 +28,34 @@ namespace LMS20.Web.Controllers
         }
 
         // GET: Courses
-      
         public async Task<IActionResult> Index()
         {
-            if(User.IsInRole("Student"))
-            {
-                return RedirectToRoute(new { controller = "Home", action = "Dashboard" });
-
-            }
             var courses = await uow.CourseRepository.GetAllCoursesAsync();
             var coursesViewList = new List<CoursePartialViewModel>();
             var coursesView = new CoursesViewModel();
 
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 CoursePartialViewModel viewModel;
                 foreach(var course in courses)
                 {
                     TimeSpan duration = course.Duration;
-                    TimeSpan prog = DateTime.Now - course.End;
-                    double dProg = (prog / duration) * 100;
+                    TimeSpan cLeft = course.End - DateTime.Now;
+                    double dProg = (1 - (cLeft / duration)) * 100;
                     int progress = (int)Math.Round(dProg);
-                    
+
+                    Status cStatus = 0;
+                    if (course.Start > DateTime.Now) cStatus = Status.Comming;
+                    if (course.Start < DateTime.Now && course.End > DateTime.Now) cStatus = Status.Current;
+                    if (course.End < DateTime.Now) cStatus = Status.Completed;
+
                     viewModel = new CoursePartialViewModel
                     {
                         Id = course.Id,
                         Name = course.Name,
                         Start = course.Start,
                         End = course.End,
+                        CourseStatus = cStatus,
                         Progress = progress,
                         NrOfParticipants = course.ApplicationUsers.Count 
                     };
@@ -89,6 +89,7 @@ namespace LMS20.Web.Controllers
         // GET: Courses/Create
         public IActionResult Create()
         {
+            // return PartialView("CreatePartial")
             return View();
         }
 
@@ -108,6 +109,7 @@ namespace LMS20.Web.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
+            Response.StatusCode = StatusCodes.Status400BadRequest;
             return PartialView("CreateCoursePartial", viewModel);
         }
 
@@ -239,29 +241,23 @@ namespace LMS20.Web.Controllers
         //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         //}
 
+
+
+        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RegisterUser(RegistrationViewModel registrationViewModel, int id)
+        public async Task<IActionResult> RegisterUser(RegistrationViewModel registrationViewModel)
         {
-            var course = await db.Courses.FirstOrDefaultAsync(c => c.Id == id);
-
             registrationViewModel.RegistrationInValid = "true";
 
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser
-                {
-                    UserName = registrationViewModel.Email,
-                    Email = registrationViewModel.Email,
-                    FirstName = registrationViewModel.FirstName,
-                    LastName = registrationViewModel.LastName,
-                    CourseId = course.Id
-                };
+                var user = mapper.Map<ApplicationUser>(registrationViewModel);
 
                 var result = await userManager.CreateAsync(user, registrationViewModel.Password);
                 await userManager.AddToRoleAsync(user, "Student");
-                await uow.CompleteAsync();
-
+               
                 if (result.Succeeded)
                 {
                     registrationViewModel.RegistrationInValid = "";
@@ -275,6 +271,26 @@ namespace LMS20.Web.Controllers
             return RedirectToAction(nameof(Participants));
         }
 
+
+
+
+
+
+
+        public async Task<IActionResult> EditUser(int? id)
+        {
+            if (id == null || db.Users == null)
+            {
+                return NotFound();
+            }
+
+            var user = await db.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
