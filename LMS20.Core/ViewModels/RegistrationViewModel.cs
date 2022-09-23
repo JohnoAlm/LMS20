@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LMS20.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -35,6 +36,8 @@ namespace LMS20.Core.ViewModels
         [StringLength(50, MinimumLength = 2)]
         [Display(Name = "Efternamn")]
         public string LastName { get; set; }
+
+        public Course Course { get; set; }
 
         public int CourseId { get; set; }
 

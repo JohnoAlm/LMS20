@@ -11,6 +11,7 @@
       <div class="modal-body">
        <form id = "addstudentform" name = "addstudentform" asp-controller = "Courses" asp-action = "RegisterUser">
             <div asp-validation-summary = "ModelOnly" class = "text-danger"></div>
+
             <input type = "hidden" asp-for = "RegistrationInValid" />
             
             <div class = "my-3 form-group row">
@@ -53,14 +54,8 @@
                 </div>
             </div>
            
-               <div class = "my-3 form-group-row">
-                <div class = "col-sm-12">
-                   <div class = "form-check">
-                    <input asp-for = "AcceptUserAgreement" class = "form-check-input" />
-                    <label asp-for = "AcceptUserAgreement" class = "form-check-label">Jag accepterar skolans<a href = "#"> villkor</a> och <a href = "#">integritetspolicy</a></label>
-                   </div> 
-                </div>
-            </div>
+            <input type = "hidden" asp-for = "CourseId" />
+
             <div class = "my-3 form-group-row">
                 <input type = "submit" value = "Lägg till" class = "btn btn-primary" />
             </div>

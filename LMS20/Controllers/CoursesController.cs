@@ -232,29 +232,23 @@ namespace LMS20.Web.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+
+
+        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RegisterUser(RegistrationViewModel registrationViewModel, int id)
+        public async Task<IActionResult> RegisterUser(RegistrationViewModel registrationViewModel)
         {
-            var course = await db.Courses.FirstOrDefaultAsync(c => c.Id == id);
-
             registrationViewModel.RegistrationInValid = "true";
 
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser
-                {
-                    UserName = registrationViewModel.Email,
-                    Email = registrationViewModel.Email,
-                    FirstName = registrationViewModel.FirstName,
-                    LastName = registrationViewModel.LastName,
-                    CourseId = course.Id
-                };
+                var user = mapper.Map<ApplicationUser>(registrationViewModel);
 
                 var result = await userManager.CreateAsync(user, registrationViewModel.Password);
                 await userManager.AddToRoleAsync(user, "Student");
-                await uow.CompleteAsync();
-
+               
                 if (result.Succeeded)
                 {
                     registrationViewModel.RegistrationInValid = "";
@@ -268,6 +262,26 @@ namespace LMS20.Web.Controllers
             return RedirectToAction(nameof(Participants));
         }
 
+
+
+
+
+
+
+        public async Task<IActionResult> EditUser(int? id)
+        {
+            if (id == null || db.Users == null)
+            {
+                return NotFound();
+            }
+
+            var user = await db.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

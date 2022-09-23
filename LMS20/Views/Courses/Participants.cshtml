@@ -6,14 +6,14 @@
 }
 
 
-<h1 id = "participantsTitle" class = "my-3">Kursmedlemmar</h1>
+<h1 id = "participantsTitle" class = "my-5">Kursmedlemmar</h1>
 <hr />
 
 
 @if(User.IsInRole("Teacher"))
 {
     <button 
-    asp-area="Identity" asp-page="/Account/Register"
+    asp-area="Identity"
     type = "button" 
     class = "float-end btn btn-outline-dark" 
     data-bs-toggle = "modal" 
@@ -25,6 +25,9 @@
 <table class="table my-5">
         <thead>
             <tr>
+                <th>
+
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.ApplicationUsers.FirstOrDefault()!.FirstName)
                 </th>
@@ -42,6 +45,10 @@
         <tbody>
             @foreach (var item in Model.ApplicationUsers) {
             <tr>
+              <td>
+                  <i class = "bi bi-person-fill"></i>
+              </td>
+
               <td>
                   @Html.DisplayFor(modelItem => item.FirstName)
               </td>
@@ -68,19 +75,11 @@
 </table>
 
 <div class = "modal fade" id = "addstudent" tabindex = "-1" role = "dialog" aria-labelledby = "exampleModalLabel" aria-hidden = "true">
-    <partial name = "AddStudentPartial" model = "new RegistrationViewModel{
-            
-            Email = String.Empty,
-            Password = String.Empty,
-            ConfirmPassword = String.Empty,
-            FirstName = String.Empty,
-            LastName = String.Empty,
-            AcceptUserAgreement = false
-}" />
+    <partial name = "AddStudentPartial" model = "new RegistrationViewModel{}" />
 </div>
 
 <div class = "modal fade" id = "editstudent" tabindex = "-1" role = "dialog" aria-labelledby = "exampleModalLabel" aria-hidden = "true">
-   <partial name = "EditStudentPartial" model = "Model.EditUserViewModel" />
+   <partial name = "EditStudentPartial" model = "@Model.EditUserViewModel" />
 
 </div>
 
