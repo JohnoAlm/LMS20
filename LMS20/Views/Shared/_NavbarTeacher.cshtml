@@ -1,38 +1,11 @@
 ﻿@using LMS20.Core.Entities
-@*@model LMS20.Core.ViewModels.IndexViewModel*@
+@model CoursesViewModel
 
 @{
-    var cssClass = Context.Request.Path.ToString().Contains("Index") ? "active" : "";
+    ViewData["CourseTitle"] = Html.DisplayFor(model => model.Name);
+    //var cssClass = Context.Request.Path.ToString().Contains("Index") ? "active" : "";
 }
-@*@{
-    var courseName = Html.DisplayFor(model => model.Name);
-}
- *@
-@*<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - LMS20</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/LMS20.styles.css" asp-append-version="true" />   
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=KoHo" />   
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-</head>
-<body>
-    <header>
-        @*INloggningsbar
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-black nav-height border-bottom box-shadow ">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Brandname</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                    <partial name="_LoginPartial" />     <i class="bi bi-files"></i>   <i class="bi bi-people-fill"></i> <i class="bi bi-stack"></i> <i class="bi bi-house-door-fill"></i>
-            </div>
-        </nav>*@
+
         @*Styrningsnavbar*@
       
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm nav-color border-bottom box-shadow mb-3">
@@ -41,7 +14,7 @@
             
                
 
-              <div class = "title text-white">@ViewData["CourseTitle"] </div> 
+              <div class = "title title-spacing text-white">@ViewData["CourseTitle"] </div> 
             
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
