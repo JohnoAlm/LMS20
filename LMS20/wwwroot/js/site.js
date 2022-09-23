@@ -27,3 +27,16 @@
 //    const myPage = window.location;
 //    console.log(myPage);
 //});
+
+let exampleModal = document.querySelector("#exampleModal");
+
+function fixValidation() {
+    const form = exampleModal.querySelector('form');
+    $.validator.unobtrusive.parse(form);
+}
+
+function removeForm() {
+
+    // Workaround for modal hide bug
+    $('#exampleModal').trigger('click');
+}

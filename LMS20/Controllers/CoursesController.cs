@@ -109,10 +109,9 @@ namespace LMS20.Web.Controllers
 
                 var partial = mapper.Map<CoursePartialViewModel>(course);
 
-                
-                return PartialView("CommingCourses", partial);
-                /*return RedirectToAction(nameof(Index));*/  // CoursePartialViewModel
+                return PartialView("CoursePartial", partial);
             }
+
             Response.StatusCode = StatusCodes.Status400BadRequest;
             return PartialView("CreateCoursePartial", viewModel);
         }

@@ -1,29 +1,30 @@
 ﻿@using LMS20.Core.Types
 @model CoursesViewModel
 
-<!-- Modal View -->
+@*Modal View*@
 @{ var course = new CreateCoursePartialViewModel{}; }
 <partial name="CreateCoursePartial" model="@course"/>
 
 <div class="row">
 <div class="col-2">
 
-    <!-- Nav-bar -->
+    @*Nav-bar*@
     <div class="msb" id="msb">
 	    <nav class="navbar navbar-default" role="navigation">
             <div class="side-menu-container">
 
 	            <ul class="nav navbar-nav central">
 		            <li>
-                        <a asp-action="CreateCoursePartial"  class="nav-link text-black" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class="central bi bi-mortarboard-fill"></i>
-                            <div class="central-text">Skapa ny kurs</div>
-                        </a>             
+                        <a asp-action="CreateCoursePartial" class="nav-link text-black" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 @*data-ajax="true"
                                 data-ajax-method="GET"
-                                data-ajax-update="#createajax"
+                                data-ajax-update="#CreateCoursePartial"
                                 data-ajax-mode="replace"
-                                data-ajax-success="fixValidation"*@                    
+                                data-ajax-success="fixValidation"*@
+
+                            <i class="central bi bi-mortarboard-fill"></i>
+                            <div class="central-text">Skapa ny kurs</div>
+                        </a>                               
                     </li>
                     <li>
                         <a asp-action="Participants" class="nav-link text-black">
@@ -39,7 +40,7 @@
 
 </div>
 
-<!-- Courses List -->
+@*Courses List*@
 <div class="col-10" id="courses-list">
 
     <br /><br />
