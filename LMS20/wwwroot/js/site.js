@@ -28,10 +28,21 @@
 //    console.log(myPage);
 //});
 
-let exampleModal = document.querySelector("#createCourseModal");
-let validationSummary = document.querySelector('#validationSummary');
+/*document.getElementById("formClose").addEventListener("click", clearForm);*/
+
+function clearForm() {
+
+    let form = document.querySelector("#createCourseForm");
+    form.reset;
+
+    console.log("killroy was here");
+
+}
 
 function removeForm() {
+
+    //let form = document.querySelector("#createCourseForm");
+    //form.reset;
 
     // Workaround for modal hide bug
     $('#createCourseModal').modal('hide');
@@ -43,7 +54,7 @@ function removeForm() {
 
 function failCreate(response) {
 
-    //console.log(response, 'failed to create');
+    let validationSummary = document.querySelector('#validationSummary');
     validationSummary.innerHTML = "Någonting gick fel";
 
 }
