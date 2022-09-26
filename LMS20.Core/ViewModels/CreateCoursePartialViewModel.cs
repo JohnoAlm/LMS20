@@ -2,27 +2,27 @@
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-
 namespace LMS20.Core.ViewModels
 {
     public class CreateCoursePartialViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Namn är obligatoriskt")]
         [Display(Name = "Namn")]
         public string Name { get; set; } = string.Empty;
 
         [Display(Name = "Beskrivning")]
         public string Description { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Starttid är obligatoriskt")]
         [Remote("ValidateCourseStart", "Courses")]
+        [ValidateCourseDate]
         [Display(Name = "Starttid")]
         [DataType(DataType.Date)]
         public DateTime Start { get; set; } = DateTime.Now + TimeSpan.FromDays(1);
 
-        [Required]
+        [Required(ErrorMessage = "Slutttid är obligatoriskt")]
         [Remote("ValidateCourseEnd", "Courses", AdditionalFields = "Start")]
-        //[ValidateCourseDate(ErrorMessage = "Sluttid måste vara senare än starttid")]
+        [ValidateCourseDate]
         [Display(Name = "Sluttid")]
         [DataType(DataType.Date)]
         public DateTime End { get; set; } = DateTime.Now + TimeSpan.FromDays(7);
