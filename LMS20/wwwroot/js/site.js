@@ -28,14 +28,14 @@
 //    console.log(myPage);
 //});
 
-const exampleModal = document.querySelector("#exampleModal");
-const validationSummary = document.querySelector('#validationSummary');
+let exampleModal = document.querySelector("#createCourseModal");
+let validationSummary = document.querySelector('#validationSummary');
 
 function removeForm() {
 
     // Workaround for modal hide bug
-    $('#exampleModal').modal('hide');
-    $('#exampleModal').on('hidden.bs.modal', function () {
+    $('#createCourseModal').modal('hide');
+    $('#createCourseModal').on('hidden.bs.modal', function () {
         $('.btn-close').trigger('click');
     });
 
@@ -43,6 +43,7 @@ function removeForm() {
 
 function failCreate(response) {
 
-    validationSummary.innerHTML = response.responseText;      // funkar ej
+    //console.log(response, 'failed to create');
+    validationSummary.innerHTML = "Någonting gick fel";
 
 }

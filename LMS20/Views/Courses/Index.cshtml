@@ -4,7 +4,6 @@
 @*Modal View*@
 <partial name="CreateCoursePartial" model="new CreateCoursePartialViewModel{}" />
 
-
 <div class="row">
 <div class="col-2">
 
@@ -15,13 +14,7 @@
 
 	            <ul class="nav navbar-nav central">
 		            <li>
-                        <a asp-action="CreateCoursePartial" class="nav-link text-black" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                @*data-ajax="true"
-                                data-ajax-method="GET"
-                                data-ajax-update="#CreateCoursePartial"
-                                data-ajax-mode="replace"
-                                data-ajax-success="fixValidation"*@
-
+                        <a asp-action="CreateCoursePartial" class="nav-link text-black" data-bs-toggle="modal" data-bs-target="#createCourseModal">
                             <i class="central bi bi-mortarboard-fill"></i>
                             <div class="central-text">Skapa ny kurs</div>
                         </a>                               
