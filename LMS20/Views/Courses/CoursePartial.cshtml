@@ -29,7 +29,7 @@
     }
 }
 
-<a id = "courseBtn" asp-controller = "Courses" asp-action = "Participants" asp-route-id = "@Model.Id">
+@*<a id = "courseBtn" asp-controller = "Courses" asp-action = "Participants" asp-route-id = "@Model.Id">*@
 
 <div id = "callout" class="bd-callout bd-callout-@calloutLevel">
 
@@ -38,7 +38,8 @@
         <span class="course-title">@Model.Name</span>
     </div>
     <div class="col-2 text-end" >
-        <span class="badge rounded-pill bg-@participantsLevel">@Model.NrOfParticipants</span>
+        <a id = "courseBtn" asp-controller = "Courses" asp-action = "Participants" asp-route-id = "@Model.Id">
+            <span class="badge rounded-pill bg-@participantsLevel">@Model.NrOfParticipants</span></a>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <span class="badge rounded-pill bg-danger">X</span>
     </div>
@@ -57,4 +58,4 @@
 
 </div>
 
-</a>
+@*</a>*@
