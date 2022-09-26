@@ -11,6 +11,8 @@ namespace LMS20.Core.ViewModels
 #nullable disable
     public class RegistrationViewModel
     {
+        public string UserName { get { return Email; }  }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Användarnamn")]
@@ -39,9 +41,10 @@ namespace LMS20.Core.ViewModels
 
         public Course Course { get; set; }
 
-        public int CourseId { get; set; }
+        public int? CourseId { get; set; }
 
         public bool AcceptUserAgreement { get; set; }
+
         public string RegistrationInValid { get; set; }
     }
 }

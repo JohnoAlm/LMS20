@@ -13,7 +13,6 @@
 @if(User.IsInRole("Teacher"))
 {
     <button 
-    asp-area="Identity"
     type = "button" 
     class = "float-end btn btn-outline-dark" 
     data-bs-toggle = "modal" 
@@ -59,8 +58,7 @@
               <td>
                   @if (User.IsInRole("Teacher"))
                   { 
-                      <button
-                      asp-area  = "Identity"
+                      <button    
                       type = "button"
                       class="btn btn-outline-dark float-end"
                       data-bs-toggle = "modal"
@@ -73,12 +71,11 @@
 </table>
 
 <div class = "modal fade" id = "addstudent" tabindex = "-1" role = "dialog" aria-labelledby = "exampleModalLabel" aria-hidden = "true">
-    <partial name = "AddStudentPartial" model = "new RegistrationViewModel{}" />
+    <partial name = "AddStudentPartial" model = "new RegistrationViewModel{CourseId = @Model.Id}" />
 </div>
 
 <div class = "modal fade" id = "editstudent" tabindex = "-1" role = "dialog" aria-labelledby = "exampleModalLabel" aria-hidden = "true">
-   <partial name = "EditStudentPartial" model = "@Model.EditUserViewModel" />
-
+   <partial name = "EditStudentPartial" model = "new EditUserViewModel{}" />
 </div>
 
 @section Scripts

@@ -243,17 +243,31 @@ namespace LMS20.Web.Controllers
 
 
 
-        
+        public async Task<IActionResult> RegisterUser(int? id)
+        {
+            var course = await db.Courses.FirstOrDefaultAsync(m => m.Id == id);
+
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegisterUser(RegistrationViewModel registrationViewModel)
         {
+           
+
             registrationViewModel.RegistrationInValid = "true";
 
             if (ModelState.IsValid)
             {
-                var user = mapper.Map<ApplicationUser>(registrationViewModel);
+                var user = new ApplicationUser
+                {
+                    UserName = registrationViewModel.Email,
+                    Email = registrationViewModel.Email,
+                    FirstName = registrationViewModel.FirstName,
+                    LastName = registrationViewModel.LastName,
+                    CourseId = registrationViewModel.CourseId
+                };
 
                 var result = await userManager.CreateAsync(user, registrationViewModel.Password);
                 await userManager.AddToRoleAsync(user, "Student");
@@ -262,7 +276,7 @@ namespace LMS20.Web.Controllers
                 {
                     registrationViewModel.RegistrationInValid = "";
 
-                    return RedirectToAction(nameof(Participants));
+                    return RedirectToAction(nameof(Participants), new { id = registrationViewModel.CourseId });
                 }
 
                 ModelState.AddModelError("", "Registreringsförsök misslyckades");
