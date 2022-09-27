@@ -257,8 +257,6 @@ namespace LMS20.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegisterUser(RegistrationViewModel registrationViewModel)
         {
-           
-
             registrationViewModel.RegistrationInValid = "true";
 
             if (ModelState.IsValid)
@@ -288,71 +286,59 @@ namespace LMS20.Web.Controllers
             return RedirectToAction(nameof(Participants));
         }
 
-
-
-
-
-
-
-        public async Task<IActionResult> EditUser(int? id)
+        // EditUser GET metod
+        public async Task<IActionResult> EditUser(string? id)
         {
             if (id == null || db.Users == null)
             {
                 return NotFound();
             }
 
-            var user = await db.Users.FindAsync(id);
+            var user = await userManager.FindByIdAsync(id);
+
             if (user == null)
             {
                 return NotFound();
             }
-            return View(user);
+
+            var editUserViewModel = new EditUserViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                CourseId = user.CourseId,
+            };
+
+            return View(editUserViewModel);
         }
 
+        // EditUser POST metod
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditUser(EditUserViewModel editUserViewModel, string id, ApplicationUser applicationUser, Course course)
+        public async Task<IActionResult> EditUser(string id, EditUserViewModel editUserViewModel)
         {
-            if (id != applicationUser.Id)
-            {
-                return NotFound();
-            }
+            var user = await userManager.FindByIdAsync(editUserViewModel.Id);
 
-            try
-            {
+            
                 if (ModelState.IsValid)
                 {
-                    applicationUser.UserName = editUserViewModel.Email;
-                    applicationUser.Email = editUserViewModel.Email;
-                    applicationUser.FirstName = editUserViewModel.FirstName;
-                    applicationUser.LastName = editUserViewModel.LastName;
-                    applicationUser.CourseId = course.Id;
+                    user.UserName = editUserViewModel.Email;
+                    user.Email = editUserViewModel.Email;
+                    user.FirstName = editUserViewModel.FirstName;
+                    user.LastName = editUserViewModel.LastName;
 
-                    db.Update(applicationUser);
+                    await userManager.UpdateAsync(user);
                     await db.SaveChangesAsync();
-                    return RedirectToAction(nameof(Participants));
-                }
-            }
 
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(applicationUser.Id))
-                {
-                    return NotFound();
+                    return RedirectToAction(nameof(Participants), new { id = editUserViewModel.CourseId });
                 }
-                else
-                {
-                    throw;
-                }
-            }
 
             return RedirectToAction(nameof(Participants));
         }
 
-        private bool UserExists(string id)
-        {
-            return (db.Users?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
+        //public async Task<IdentityResult> ChangePasswordAsync
+
 
 
 
