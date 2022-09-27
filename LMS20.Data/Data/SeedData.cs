@@ -29,6 +29,7 @@ namespace LMS20.Data.Data
             ArgumentNullException.ThrowIfNull(userManager);
 
             var roleNames = new[] { "Student", "Teacher" };
+            var roleName = new[] {  "Teacher" };
 
             var teacherEmail = "larare@lms.se";
 
@@ -52,20 +53,29 @@ namespace LMS20.Data.Data
 
 
             var teacher = await AddTeacherAsync(teacherEmail, teacherPW);
-            await AddToRolesAsyncTeacher(teacher, roleNames);
+            await AddToRolesAsyncTeacher(teacher, roleName);
 
         }
 
         // Lägger till lärare till rollen "Teacher" och "Student"
-        private static async Task AddToRolesAsyncTeacher(ApplicationUser teacher, string[] roleNames)
+        private static async Task AddToRolesAsyncTeacher(ApplicationUser teacher, string[] roleName)
         {
-            foreach (var role in roleNames)
+            foreach (var role in roleName)
             {
                 if (await userManager.IsInRoleAsync(teacher, role)) continue;
                 var result = await userManager.AddToRoleAsync(teacher, role);
                 if (!result.Succeeded) throw new Exception(string.Join("\n", result.Errors));
             }
         }
+        //private static async Task AddToRolesAsyncTeacher(ApplicationUser teacher, string[] roleNames)
+        //{
+        //    foreach (var role in roleNames)
+        //    {
+        //        if (await userManager.IsInRoleAsync(teacher, role)) continue;
+        //        var result = await userManager.AddToRoleAsync(teacher, role);
+        //        if (!result.Succeeded) throw new Exception(string.Join("\n", result.Errors));
+        //    }
+        //}
 
 
         // Lägger till student till rollen "Student"

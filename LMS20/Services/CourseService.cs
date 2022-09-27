@@ -28,27 +28,39 @@ namespace LMS20.Web.Services
             var user =  await db.Users
                 .Include(u => u.Course)
                 .FirstOrDefaultAsync(u => u.Id == userId);
-            var courseName = user.Course.Name;
-           
+            if (User.IsInRole("Teacher"))
+            {
+                var courseName = "Programmering 102";
+                return courseName;
+            }
+            else
+            {
+                var courseName = user.Course.Name;
+                return courseName;
+            };
 
-            return courseName;
+            
         }
 
       
         public async Task<string> getCourseId(ClaimsPrincipal User)
         {
-            // var courseName = getCourseName(User);
-            // var course = await db.Courses
-            //                 .FirstOrDefaultAsync(c => c.Name.Equals(courseName));
-            //string courseId = course.Id.ToString();
+            if (User.IsInRole("Teacher"))
+            {
+                var courseId = "1";
+                return courseId;
+            }
+            else
+            {
 
-            var userId = userManager.GetUserId(User);
-            var user = await db.Users
-                .Include(u => u.Course)
-                .FirstOrDefaultAsync(u => u.Id == userId);
-            var courseId = user.Course.Id.ToString();
+                var userId = userManager.GetUserId(User);
+                var user = await db.Users
+                    .Include(u => u.Course)
+                    .FirstOrDefaultAsync(u => u.Id == userId);
+                var courseId = user.Course.Id.ToString();
 
-            return courseId;
+                return courseId;
+            }
         }
     }
 }
