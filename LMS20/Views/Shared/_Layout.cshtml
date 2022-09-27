@@ -15,17 +15,16 @@
 </head>
 <body>
     <header>
+
+
         @*Inloggningsbar*@
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark nav-height border-bottom box-shadow">
+        <nav class="navbar navbar-expand-sm navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">LMS</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                    <partial name="_LoginPartial" />     
+                <a class = "navbar-brand"><img src = "https://cdn.freelogodesign.org/files/72a5449d23ee4ca0bd28c0d21485c916/thumb/logo_200x200.png?v=637998814450000000" class = "img-fluid" width = "64px" height = "64px"/></a>
+                <partial name="_LoginPartial" />     
             </div>
         </nav>
+        <hr class = "text-white" />
         @*Styrningsnavbar, *@
         @if(User.IsInRole("Student"))
         {

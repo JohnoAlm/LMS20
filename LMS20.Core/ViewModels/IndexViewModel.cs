@@ -4,6 +4,7 @@ namespace LMS20.Core.ViewModels
 {
     public class IndexViewModel
     {
+        public int Id { get; set; }
         public string CourseName { get; set; }
 
        //public List<ModuleActivity> Activities { get; set; } = new List<ModuleActivity>();

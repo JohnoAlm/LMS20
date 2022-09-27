@@ -1,13 +1,10 @@
-﻿using Bogus.DataSets;
-using LMS20.Core.Entities;
+﻿using LMS20.Core.Entities;
 using LMS20.Core.ViewModels;
 using LMS20.Data.Data;
-//using LMS20.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 
 namespace LMS20.Web.Controllers
 {
@@ -28,7 +25,6 @@ namespace LMS20.Web.Controllers
         {
             db = context;
             this.userManager = userManager;
-
         }
 
         [Authorize]
@@ -46,7 +42,6 @@ namespace LMS20.Web.Controllers
                                              .Where(m => m.Start < DateTime.Now && m.End > DateTime.Now)
                                              .FirstOrDefault(c => c.Id == courseId);
                                       
-
            // if (currentModule == null) throw new ArgumentException("Inga moduler");
 
 
@@ -69,10 +64,8 @@ namespace LMS20.Web.Controllers
             
             //Is delayed?                                  
 
-
             for (int i = 0; i < myModuleTasks.Count(); i++)
             {
-
                 if (myModuleTasks[i].End < DateTime.Now)
                 {
                     myModuleTasks[i].ActivityType = ActivityType.Delayed;
@@ -85,11 +78,8 @@ namespace LMS20.Web.Controllers
         
             DateTime myMonday = DateTime.Now.AddDays(DayOfWeek.Monday - DateTime.Now.DayOfWeek).Date;
 
-
             var thisWeeksactivities = myModuleActivities.Where(a => a.End.Date >= myMonday && a.End.Date <= myMonday.AddDays(6))
                                                         .OrderBy(a => a.End).ToList();
-
-
 
             var res = thisWeeksactivities.GroupBy(a => a.End.ToShortDateString())
                 .Select(g => new MyWeek
@@ -100,36 +90,34 @@ namespace LMS20.Web.Controllers
             var today = thisWeeksactivities.Where(a => a.End.Date == DateTime.Now.Date)
                                             .OrderBy(a => a.End);   
 
-          
-
             var dashInfo = new IndexViewModel //skapa en ny IndexViewModel som ska populeras
             {
+                    Id = course.Id,
                     CourseName = course?.Name,
                     MyTasks = myModuleTasks,
                     MyWeek= thisWeeksactivities,
                     MyWeek2 = res,
                     Today = today
-          
+            };
+              
+            return View(dashInfo);
+        }
+
+        public async Task<IActionResult> Participants(int? id)
+        {
+            var course = await db.Courses.FirstOrDefaultAsync(m => m.Id == id);
+
+            var viewModel = new ParticipantsViewModel
+            {
+                Id = course.Id,
+                Name = course.Name,
+                ApplicationUsers = await db.Users.Where(u => u.CourseId == id).ToListAsync()
 
             };
-               
-               
 
-
-
-                return View(dashInfo);
-          }
-
-      
-
-
-
-
-
-        public IActionResult Participants()
-        {
-            return View();
+            return View(viewModel);
         }
+
         public IActionResult Modules()
         {
             return View();
