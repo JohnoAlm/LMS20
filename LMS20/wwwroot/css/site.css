@@ -239,13 +239,15 @@ header {
     z-index: 1;
     border-right: 1px solid #ddd;
     align-content: center;
-     .navbar {
-        border: none;
-        margin-left: 0;
-        width: 100%;
-        align-content: center;
-        background-color: inherit;
-    }
+}
+
+.navbar {
+    border: none;
+    margin-left: 0;
+    width: 100%;
+    align-content: center;
+    background-color: #264653;
+}
     /*.navbar-nav {
         li {
             display: block;
