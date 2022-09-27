@@ -14,5 +14,6 @@ namespace LMS20.Core.ViewModels
         public IEnumerable<Module>? CourseModules { get; set; }
         public Course Course { get; set; }
         public string CourseName { get; set; }
+        public string Description { get; set; }
     }
 }

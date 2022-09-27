@@ -29,7 +29,7 @@
                         </li>
                
                 <li class="nav-item @(Context.Request.Path.ToString().Contains("Participants") ? "active" : "")">
-                    <a class="nav-link text-white" asp-area="" asp-controller="Courses" asp-action="Participants" asp-route-id="@await courseService.getCourseId(User)"><i class="central bi bi-people-fill"></i><div class="central-text">Participants</div></a>
+                    <a class="nav-link text-white" asp-area="" asp-controller="Courses" asp-action="Participants" asp-route-id="@await courseService.getCourseId(User)"><i class="central bi bi-people-fill"></i><div class="central-text">Studenter</div></a>
                         </li>
                @* <li class="nav-item @(Context.Request.Path.ToString().Contains("Modules") ? "active" : "") ">
                     <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Modules"><i class=" central2 bi bi-x-diamond-fill"></i><div class="central-text">Modules</div></a>
