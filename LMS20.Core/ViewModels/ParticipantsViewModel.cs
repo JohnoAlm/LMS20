@@ -11,5 +11,6 @@ namespace LMS20.Core.ViewModels
         public RegistrationViewModel RegistrationViewModel { get; set; }
         public EditUserViewModel EditUserViewModel { get; set; }
 
+        public Course Course { get; set; }
     }
 }

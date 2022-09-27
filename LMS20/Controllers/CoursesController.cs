@@ -107,22 +107,25 @@ namespace LMS20.Web.Controllers
                 await uow.CourseRepository.AddCourseAsync(course);
                 await uow.CompleteAsync();
 
-                return RedirectToAction(nameof(Index));
+                var partial = mapper.Map<CoursePartialViewModel>(course);
+
+                return PartialView("CoursePartial", partial);
             }
+
             Response.StatusCode = StatusCodes.Status400BadRequest;
             return PartialView("CreateCoursePartial", viewModel);
         }
 
-        public async Task<JsonResult> ValidateCoursestart(DateTime start)
+        public async Task<JsonResult> ValidateCourseStart(DateTime start)
         {
             if(start < DateTime.Now) return Json("Tiden har redan passerat");
 
             return Json(true);
         }
 
-        public async Task<JsonResult> ValidateCourseEnd(DateTime end, DateTime start)
+        public async Task<JsonResult> ValidateCourseEnd(DateTime End, DateTime Start)
         {
-            if(end <= start) return Json("Sluttiden får inte vara före starttiden");
+            if(End <= Start) return Json("Sluttiden får inte vara före starttiden");
 
             return Json(true);
         }
@@ -226,13 +229,11 @@ namespace LMS20.Web.Controllers
 
             var viewModel = new ParticipantsViewModel
             {
-                CourseId = course.Id,
-                CourseName = course.Name,
+                Id = course.Id,
+                Name = course.Name,
                 ApplicationUsers = await db.Users.Where(u => u.CourseId == id).ToListAsync()
                 
 
-            };
-            //ViewData["CourseName"] = course.Name;
             return View(viewModel);
         }
 
@@ -244,7 +245,12 @@ namespace LMS20.Web.Controllers
 
 
 
-        
+        public async Task<IActionResult> RegisterUser(int? id)
+        {
+            var course = await db.Courses.FirstOrDefaultAsync(m => m.Id == id);
+
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -254,7 +260,14 @@ namespace LMS20.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                var user = mapper.Map<ApplicationUser>(registrationViewModel);
+                var user = new ApplicationUser
+                {
+                    UserName = registrationViewModel.Email,
+                    Email = registrationViewModel.Email,
+                    FirstName = registrationViewModel.FirstName,
+                    LastName = registrationViewModel.LastName,
+                    CourseId = registrationViewModel.CourseId
+                };
 
                 var result = await userManager.CreateAsync(user, registrationViewModel.Password);
                 await userManager.AddToRoleAsync(user, "Student");
@@ -263,7 +276,7 @@ namespace LMS20.Web.Controllers
                 {
                     registrationViewModel.RegistrationInValid = "";
 
-                    return RedirectToAction(nameof(Participants));
+                    return RedirectToAction(nameof(Participants), new { id = registrationViewModel.CourseId });
                 }
 
                 ModelState.AddModelError("", "Registreringsförsök misslyckades");
@@ -272,63 +285,53 @@ namespace LMS20.Web.Controllers
             return RedirectToAction(nameof(Participants));
         }
 
-
-
-
-
-
-
-        public async Task<IActionResult> EditUser(int? id)
+        // EditUser GET metod
+        public async Task<IActionResult> EditUser(string? id)
         {
             if (id == null || db.Users == null)
             {
                 return NotFound();
             }
 
-            var user = await db.Users.FindAsync(id);
+            var user = await userManager.FindByIdAsync(id);
+
             if (user == null)
             {
                 return NotFound();
             }
-            return View(user);
+
+            var editUserViewModel = new EditUserViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                CourseId = user.CourseId,
+            };
+
+            return View(editUserViewModel);
         }
 
+        // EditUser POST metod
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditUser(EditUserViewModel editUserViewModel, string id, ApplicationUser applicationUser, Course course)
+        public async Task<IActionResult> EditUser(string id, EditUserViewModel editUserViewModel)
         {
-            if (id != applicationUser.Id)
-            {
-                return NotFound();
-            }
+            var user = await userManager.FindByIdAsync(editUserViewModel.Id);
 
-            try
-            {
+            
                 if (ModelState.IsValid)
                 {
-                    applicationUser.UserName = editUserViewModel.Email;
-                    applicationUser.Email = editUserViewModel.Email;
-                    applicationUser.FirstName = editUserViewModel.FirstName;
-                    applicationUser.LastName = editUserViewModel.LastName;
-                    applicationUser.CourseId = course.Id;
+                    user.UserName = editUserViewModel.Email;
+                    user.Email = editUserViewModel.Email;
+                    user.FirstName = editUserViewModel.FirstName;
+                    user.LastName = editUserViewModel.LastName;
 
-                    db.Update(applicationUser);
+                    await userManager.UpdateAsync(user);
                     await db.SaveChangesAsync();
-                    return RedirectToAction(nameof(Participants));
-                }
-            }
 
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(applicationUser.Id))
-                {
-                    return NotFound();
+                    return RedirectToAction(nameof(Participants), new { id = editUserViewModel.CourseId });
                 }
-                else
-                {
-                    throw;
-                }
-            }
 
             return RedirectToAction(nameof(Participants));
         }
@@ -340,7 +343,7 @@ namespace LMS20.Web.Controllers
         public IActionResult Modules(int? id)
              
         {
-            //ViewData["CourseName"] = db.Courses.FirstOrDefault(n => n.Id ==id).Name;
+            
 
             return View();
         }

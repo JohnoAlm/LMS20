@@ -15,8 +15,8 @@ namespace LMS20.Web.Services
 
         public async Task<string> ValidateCourseDate(DateTime start, DateTime end)
         {
-            if (start < DateTime.Now) return "Tiden har redan passerat";
-            if (end <= start) return "Sluttiden får inte vara före starttiden";
+            if(start < DateTime.Now) return "Tiden har redan passerat";
+            if(end <= start) return "Sluttiden får inte vara före starttiden";
 
             return "Ok";
         }
@@ -29,7 +29,7 @@ namespace LMS20.Web.Services
             // Startar före eller slutar efter kursen
             if (start < course.Start || end > course.End) return "Tiden måste ligga inom kursen";
 
-            foreach (var module in course.Modules)
+            foreach(var module in course.Modules)
             {
                 if (start < module.Start && end > module.End)                   // Omsluter helt en existerande modul
                     return "Tiden överlappar en existerande modul"; 

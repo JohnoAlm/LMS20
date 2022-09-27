@@ -27,3 +27,23 @@
 //    const myPage = window.location;
 //    console.log(myPage);
 //});
+
+let exampleModal = document.querySelector("#createCourseModal");
+let validationSummary = document.querySelector('#validationSummary');
+
+function removeForm() {
+
+    // Workaround for modal hide bug
+    $('#createCourseModal').modal('hide');
+    $('#createCourseModal').on('hidden.bs.modal', function () {
+        $('.btn-close').trigger('click');
+    });
+
+}
+
+function failCreate(response) {
+
+    //console.log(response, 'failed to create');
+    validationSummary.innerHTML = "Någonting gick fel";
+
+}

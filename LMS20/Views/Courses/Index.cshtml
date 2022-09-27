@@ -1,33 +1,23 @@
 ﻿@using LMS20.Core.Types
-
 @model CoursesViewModel
 
-<!-- Modal View -->
-@{
-    Layout = "_LayoutTeacher";
-    var course = new CreateCoursePartialViewModel{}; 
-}
-<partial name="CreateCoursePartial" model="@course"/>
+@*Modal View*@
+<partial name="CreateCoursePartial" model="new CreateCoursePartialViewModel{}" />
 
 <div class="row">
 <div class="col-2">
 
-    <!-- Nav-bar -->
+    @*Nav-bar*@
     <div class="msb" id="msb">
 	    <nav class="navbar navbar-default" role="navigation">
             <div class="side-menu-container">
 
 	            <ul class="nav navbar-nav central">
 		            <li>
-                        <a asp-action="CreateCoursePartial"  class="nav-link text-black" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <a asp-action="CreateCoursePartial" class="nav-link text-black" data-bs-toggle="modal" data-bs-target="#createCourseModal">
                             <i class="central bi bi-mortarboard-fill"></i>
                             <div class="central-text">Skapa ny kurs</div>
-                        </a>             
-                                @*data-ajax="true"
-                                data-ajax-method="GET"
-                                data-ajax-update="#createajax"
-                                data-ajax-mode="replace"
-                                data-ajax-success="fixValidation"*@                    
+                        </a>                               
                     </li>
                     <li>
                         <a asp-action="Participants" class="nav-link text-black">
@@ -43,57 +33,55 @@
 
 </div>
 
-<!-- Courses List -->
+@*Courses List*@
 <div class="col-10" id="courses-list">
 
-    <br />
+    <br /><br />
     <h1 class="dash-titel">Kurser</h1>
     <hr />
+    <br />
 @{
     bool isFound = false;
-    foreach(var item in Model.courses) {
-
-        //if(item.Start < DateTime.Now && item.End > DateTime.Now) {
+    foreach(var item in Model.courses) 
+    {
         if(item.CourseStatus == Status.Current) {
-
-            if(!isFound) { 
+            if(!isFound) { isFound = true; 
                 <span class="coursegroup">Pågående</span> 
-                isFound = true; 
             }
-            
-            //item.CourseStatus = Status.Current;
             <partial name="CoursePartial" model="@item"/>
         }
     }
+}
 
-    isFound = false;
-    foreach(var item in Model.courses) {
-
+    <div id="CommingCourses">
+@{  isFound = false;
+    foreach(var item in Model.courses) 
+    {
         if(item.CourseStatus == Status.Comming) {
-
-            if(!isFound) { 
+            if(!isFound) { isFound = true; 
                 <span class="coursegroup">Kommande</span>
-                isFound = true; 
             }
-
             <partial name="CoursePartial" model="@item"/>
         }
     }
+}
+    </div>
 
+@{
     isFound = false;
-    foreach(var item in Model.courses) {
-
+    foreach(var item in Model.courses) 
+    {
         if(item.CourseStatus == Status.Completed) {
-
-            if(!isFound) { 
+            if(!isFound) { isFound = true; 
                 <span class="coursegroup">Avslutade</span> 
-                isFound = true; 
             }
-            
-            //item.CourseStatus = Status.Completed;
             <partial name="CoursePartial" model="@item"/>
         }
     }
 }
 </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

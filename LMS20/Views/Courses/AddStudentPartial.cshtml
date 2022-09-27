@@ -11,9 +11,11 @@
       <div class="modal-body">
        <form id = "addstudentform" name = "addstudentform" asp-controller = "Courses" asp-action = "RegisterUser">
             <div asp-validation-summary = "ModelOnly" class = "text-danger"></div>
-
+            <input type = "hidden" asp-for = "CourseId" />
             <input type = "hidden" asp-for = "RegistrationInValid" />
-            
+
+            <input type = "hidden" asp-for = "UserName" />
+
                 <div class = "my-3 form-group row">
                     <label asp-for = "Email" class = "col-md-4 col-form-label"></label>
                     <div class = "col-md-8">
@@ -53,18 +55,12 @@
                         <span asp-validation-for = "LastName" class = "text-danger"></span>
                     </div>
                 </div>
-           
-            <input type = "hidden" asp-for = "CourseId" />
 
             <div class = "my-3 form-group-row">
                 <input type = "submit" value = "Lägg till" class = "btn btn-primary" />
             </div>
        </form>
 
-        </div>
-        <div class="modal-footer">
-       
-        
         </div>
     </div>
 </div>

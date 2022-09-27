@@ -1,10 +1,10 @@
 ﻿@model CreateCoursePartialViewModel 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="createCourseModal" tabindex="-1" aria-labelledby="createCourseModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ny kurs</h5>
+                <h5 class="modal-title" id="createCourseModalLabel">Ny kurs</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -12,11 +12,12 @@
                         data-ajax="true"
                         data-ajax-method="post"
                         data-ajax-mode="after"
-                        data-ajax-update="#Courses"
+                        data-ajax-update="#CommingCourses"
                         data-ajax-success="removeForm"
                         data-ajax-failure="failCreate">
 
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="text-danger" id="validationSummary"></div>
                     <div class="form-group">
                         <label asp-for="Name" class="control-label"></label>
                         <input asp-for="Name" class="form-control" />
