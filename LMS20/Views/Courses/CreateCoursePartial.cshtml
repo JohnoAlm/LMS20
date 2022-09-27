@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createCourseModalLabel">Ny kurs</h5>
+                <h5 class="dash-titel" id="createCourseModalLabel">Ny kurs</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="formClose"></button>
             </div>
             <div class="modal-body">
@@ -13,8 +13,7 @@
                         data-ajax-method="post"
                         data-ajax-mode="after"
                         data-ajax-update="#CommingCourses"
-                        data-ajax-loading="clearForm"
-                        data-ajax-success="removeForm"
+                        data-ajax-success="removeCreateCourseForm"
                         data-ajax-failure="failCreate">
 
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -43,7 +42,7 @@
                 <br />
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            @*<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" id="formClose">Avbryt</button>*@
             <button type="submit" class="btn btn-primary" form="createCourseForm">Spara</button>
            </div>
         </div>
@@ -52,17 +51,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-
 }
 
-<script>
-
-        $(document).ready(function(){
-        $("#formClose").click(function(){
-        $("#createCourseForm").trigger("reset");
-
-        console.log("Killroy igen");
-    });
-    });
-</script>

@@ -130,6 +130,34 @@ namespace LMS20.Web.Controllers
             return Json(true);
         }
 
+        // GET: Courses/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if(id == null || db.Courses == null) return NotFound();
+
+            var course = await db.Courses.FirstOrDefaultAsync(m => m.Id == id);
+            if(course == null) return NotFound();
+
+            //var partial = mapper.Map<ConfirmDeletePartialViewModel>(course);
+
+            //return PartialView("ConfirmDeletePartial", partial); 
+            return View(course);
+        }
+
+        // POST: Courses/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id,/*ConfirmDeletePartialViewModel*/ ConfirmDeletePartialViewModel viewModel /*int id*/)
+        {
+            var course = mapper.Map<Course>(viewModel);
+
+            if(course == null) return Problem("Entity set 'ApplicationDbContext.Courses' is null.");
+            else db.Courses.Remove(course);
+
+            await db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
         // GET: Courses/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -181,43 +209,6 @@ namespace LMS20.Web.Controllers
             return View(course);
         }
 
-        // GET: Courses/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || db.Courses == null)
-            {
-                return NotFound();
-            }
-
-            var course = await db.Courses
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (course == null)
-            {
-                return NotFound();
-            }
-
-            return View(course);
-        }
-
-        // POST: Courses/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (db.Courses == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.Courses'  is null.");
-            }
-            var course = await db.Courses.FindAsync(id);
-            if (course != null)
-            {
-                db.Courses.Remove(course);
-            }
-            
-            await db.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
         private bool CourseExists(int id)
         {
             return (db.Courses?.Any(e => e.Id == id)).GetValueOrDefault();
@@ -257,7 +248,6 @@ namespace LMS20.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegisterUser(RegistrationViewModel registrationViewModel)
         {
-           
 
             registrationViewModel.RegistrationInValid = "true";
 
@@ -287,12 +277,6 @@ namespace LMS20.Web.Controllers
 
             return RedirectToAction(nameof(Participants));
         }
-
-
-
-
-
-
 
         public async Task<IActionResult> EditUser(int? id)
         {
@@ -353,8 +337,6 @@ namespace LMS20.Web.Controllers
         {
             return (db.Users?.Any(e => e.Id == id)).GetValueOrDefault();
         }
-
-
 
     }
 }

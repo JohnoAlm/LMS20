@@ -10,6 +10,7 @@ namespace LMS20.Web.Automapper
         {
             CreateMap<Course, CreateCoursePartialViewModel>().ReverseMap();
             CreateMap<Course, CoursePartialViewModel>();
+            CreateMap<Course, ConfirmDeletePartialViewModel>().ReverseMap();
 
             CreateMap<ApplicationUser, RegistrationViewModel>().ReverseMap();
 

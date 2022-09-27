@@ -78,11 +78,8 @@
    <partial name = "EditStudentPartial" model = "new EditUserViewModel{}" />
 </div>
 
-@section Scripts
-{
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
 
 
