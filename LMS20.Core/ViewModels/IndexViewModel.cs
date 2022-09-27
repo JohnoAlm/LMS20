@@ -19,6 +19,8 @@ namespace LMS20.Core.ViewModels
         public List<ModuleActivity>? MyWeek { get; set; }
         public IEnumerable<MyWeek> MyWeek2 { get;  set; }
         public IOrderedEnumerable<ModuleActivity> Today { get; set; }
+        public int? CourseId { get; set; }
+        public string? UserId { get; set; }
 
         // public IEnumerable<IndexViewModel> Modules { get; set; }
 

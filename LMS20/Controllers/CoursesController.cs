@@ -226,12 +226,13 @@ namespace LMS20.Web.Controllers
 
             var viewModel = new ParticipantsViewModel
             {
-                Id = course.Id,
-                Name = course.Name,
+                CourseId = course.Id,
+                CourseName = course.Name,
                 ApplicationUsers = await db.Users.Where(u => u.CourseId == id).ToListAsync()
+                
 
             };
-
+            //ViewData["CourseName"] = course.Name;
             return View(viewModel);
         }
 
@@ -336,8 +337,15 @@ namespace LMS20.Web.Controllers
         {
             return (db.Users?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+        public IActionResult Modules(int? id)
+             
+        {
+            //ViewData["CourseName"] = db.Courses.FirstOrDefault(n => n.Id ==id).Name;
+
+            return View();
+        }
 
 
-
+       
     }
 }

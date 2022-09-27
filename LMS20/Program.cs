@@ -1,3 +1,4 @@
+using lms20.web.services;
 using LMS20.Core.Entities;
 using LMS20.Core.Repositories;
 using LMS20.Core.Services;
@@ -32,6 +33,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 
 builder.Services.AddAutoMapper(typeof(MapperProfile));
 builder.Services.AddScoped<IValidateDateService, ValidateDate>();
+builder.Services.AddScoped<ICourseService, CourseService>();
 
 builder.Services.AddControllersWithViews();
 
@@ -44,8 +46,8 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var db = services.GetRequiredService<ApplicationDbContext>();
 
-    db.Database.EnsureDeleted();
-    db.Database.Migrate();
+    //db.Database.EnsureDeleted();
+    //db.Database.Migrate();
 
     var config = services.GetRequiredService<IConfiguration>();
 
