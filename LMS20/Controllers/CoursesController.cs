@@ -168,16 +168,11 @@ namespace LMS20.Web.Controllers
         [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || db.Courses == null)
-            {
-                return NotFound();
-            }
+            if(id == null || db.Courses == null) return NotFound();
 
             var course = await db.Courses.FindAsync(id);
-            if (course == null)
-            {
-                return NotFound();
-            }
+            if(course == null) return NotFound();
+
             return View(course);
         }
 

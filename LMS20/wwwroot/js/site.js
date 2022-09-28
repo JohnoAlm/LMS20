@@ -32,7 +32,11 @@
 
 document.querySelectorAll('.deleteBtn').forEach(b => b.addEventListener('click', function () {
 
-    console.log("CoursId: " + this.id);
+    //console.log("CoursId: " + this.id);
+
+    var myCourseId = $(this).data('id');
+    var myCourseName = $(this).data('name');
+    console.log("CoursId: " + myCourseId + ", CourseName: " + myCourseName);
 
 }));
 
@@ -70,15 +74,15 @@ function removeCreateCourseForm() {
     console.log("killroy was here");
 }
 
-//function removeDeleteCourseForm() {
+function removeDeleteCourseForm() {
 
-//    // Workaround for modal hide bug
-//    $('#confirmDeleteModal').modal('hide');
-//    $('#confirmDeleteModal').on('hidden.bs.modal', function () {
-//        $('.btn-close').trigger('click');
-//    });
+    // Workaround for modal hide bug
+    $('#confirmDeleteModal').modal('hide');
+    $('#confirmDeleteModal').on('hidden.bs.modal', function () {
+        $('.btn-close').trigger('click');
+    });
 
-//}
+}
 
 function failCreate(response) {
 

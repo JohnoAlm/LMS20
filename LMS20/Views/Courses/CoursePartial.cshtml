@@ -42,7 +42,7 @@
             <span class="badge rounded-pill bg-@participantsLevel">@Model.NrOfParticipants</span></a>
         &nbsp;&nbsp;&nbsp;&nbsp;
         @*<a id = "deleteBtn" asp-controller = "Courses" asp-action = "Delete" asp-route-id = "@Model.Id">*@
-        <a id="@Model.Id" class="deleteBtn" asp-action="ConfirmDeletePartial" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+        <a data-id="@Model.Id" data-name="@Model.Name" class="deleteBtn" asp-action="ConfirmDeletePartial" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
             <span class="badge rounded-pill bg-danger">X</span></a>
     </div>
     </div>
