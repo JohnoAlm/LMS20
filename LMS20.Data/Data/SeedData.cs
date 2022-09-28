@@ -29,6 +29,7 @@ namespace LMS20.Data.Data
             ArgumentNullException.ThrowIfNull(userManager);
 
             var roleNames = new[] { "Student", "Teacher" };
+            var roleName = new[] {  "Teacher" };
 
             var teacherEmail = "larare@lms.se";
 
@@ -52,20 +53,29 @@ namespace LMS20.Data.Data
 
 
             var teacher = await AddTeacherAsync(teacherEmail, teacherPW);
-            await AddToRolesAsyncTeacher(teacher, roleNames);
+            await AddToRolesAsyncTeacher(teacher, roleName);
 
         }
 
         // Lägger till lärare till rollen "Teacher" och "Student"
-        private static async Task AddToRolesAsyncTeacher(ApplicationUser teacher, string[] roleNames)
+        private static async Task AddToRolesAsyncTeacher(ApplicationUser teacher, string[] roleName)
         {
-            foreach (var role in roleNames)
+            foreach (var role in roleName)
             {
                 if (await userManager.IsInRoleAsync(teacher, role)) continue;
                 var result = await userManager.AddToRoleAsync(teacher, role);
                 if (!result.Succeeded) throw new Exception(string.Join("\n", result.Errors));
             }
         }
+        //private static async Task AddToRolesAsyncTeacher(ApplicationUser teacher, string[] roleNames)
+        //{
+        //    foreach (var role in roleNames)
+        //    {
+        //        if (await userManager.IsInRoleAsync(teacher, role)) continue;
+        //        var result = await userManager.AddToRoleAsync(teacher, role);
+        //        if (!result.Succeeded) throw new Exception(string.Join("\n", result.Errors));
+        //    }
+        //}
 
 
         // Lägger till student till rollen "Student"
@@ -222,23 +232,23 @@ namespace LMS20.Data.Data
                             new ModuleActivity{
                                 Name = "Föreläsning 101",
                                 Description = faker.Company.Bs(),
-                                Start = new DateTime(2022, 09, 19, 09, 0,0 ),
-                                End = new DateTime(2022, 09, 19, 11, 0,0 ),
+                                Start = new DateTime(2022, 09, 26, 09, 0,0 ),
+                                End = new DateTime(2022, 09, 26, 11, 0,0 ),
                                 ActivityType = ActivityType.Lecture
                               },
 
                             new ModuleActivity{
                                 Name = "Föreläsning 102",
                                 Description = faker.Company.Bs(),
-                                Start = new DateTime(2022, 09, 20, 09, 0,0 ),
-                                End = new DateTime(2022, 09, 20, 11, 0,0 ),
+                                Start = new DateTime(2022, 09, 28, 09, 0,0 ),
+                                End = new DateTime(2022, 09, 28, 11, 0,0 ),
                                 ActivityType = ActivityType.Lecture
                             },
                             new ModuleActivity{
                                 Name = "Föreläsning 103",
                                 Description = faker.Company.Bs(),
-                                Start = new DateTime(2022, 09, 21, 09, 0,0 ),
-                                End = new DateTime(2022, 09, 21, 11, 0,0 ),
+                                Start = new DateTime(2022, 09, 29, 09, 0,0 ),
+                                End = new DateTime(2022, 09, 29, 11, 0,0 ),
                                 ActivityType = ActivityType.Lecture
                            },
                             new ModuleActivity{
@@ -266,14 +276,14 @@ namespace LMS20.Data.Data
                                 Name = "Uppgift 101",
                                 Description = faker.Company.Bs(),
                                 Start = new DateTime(2022, 09, 01, 09, 0,0 ),
-                                End = new DateTime(2022, 09, 21, 18, 0,0 ),
+                                End = new DateTime(2022, 09, 28, 18, 0,0 ),
                                 ActivityType = ActivityType.Task
                             },
                            new ModuleActivity{
                                 Name = "Uppgift 102",
                                 Description = faker.Company.Bs(),
                                 Start = new DateTime(2022, 09, 01, 09, 0,0 ),
-                                End = new DateTime(2022, 09, 23, 18, 0,0 ),
+                                End = new DateTime(2022, 09, 30, 18, 0,0 ),
                                 ActivityType = ActivityType.Task
                             }//modulakt
                            }//modulaktivlista

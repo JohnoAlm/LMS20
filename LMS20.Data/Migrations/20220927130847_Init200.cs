@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LMS20.Data.Migrations
 {
-    public partial class Init : Migration
+    public partial class Init200 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

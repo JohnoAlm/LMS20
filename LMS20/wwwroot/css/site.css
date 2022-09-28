@@ -38,9 +38,16 @@ body {
     font-size: 250%;
   
 }
+.title-main {
+    margin-top: 80px;
+    font-weight: bold;
+}
 .title-spacing {
     margin-left: 300px;
     margin-right: 300px;
+}
+.gap{
+    margin-top:50px;
 }
 .central { 
     padding-left:5px;
@@ -145,9 +152,9 @@ body {
     text-align: center;
     background-color: #264653;
 }
-header {
+/*header {
     background-color: #264653;
-}
+}*/
 
 .dash-titel {
     font-family: KoHo, Arial, Helvetica, sans-serif;
@@ -259,9 +266,9 @@ header {
     }
 }*/
 
-#courseBtn{
+/*#courseBtn{
     text-decoration: none; 
-}
+}*/
 
 #callout:hover{
     color: white;
