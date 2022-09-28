@@ -343,9 +343,19 @@ namespace LMS20.Web.Controllers
         public IActionResult Modules(int? id)
              
         {
-            
+            var course =  db.Courses.FirstOrDefault(m => m.Id == id);
 
-            return View();
+
+            var modulesModel = new ModulesViewModel
+            {
+                Course = course,
+                CourseName = course.Name,
+                Description = course.Description,
+            };
+
+
+
+            return View(modulesModel);
         }
 
 
