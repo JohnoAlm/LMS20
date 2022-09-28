@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using System.Security.Principal;
 
+
+
 namespace LMS20.Web.Services
 {
     public class CourseService : ICourseService
@@ -30,6 +32,7 @@ namespace LMS20.Web.Services
                 .FirstOrDefaultAsync(u => u.Id == userId);
             if (User.IsInRole("Teacher"))
             {
+               
                 var courseName = "Programmering 102";
                 return courseName;
             }
@@ -62,5 +65,6 @@ namespace LMS20.Web.Services
                 return courseId;
             }
         }
+        
     }
 }
