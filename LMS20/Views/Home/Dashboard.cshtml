@@ -18,14 +18,10 @@
             <h1 class="dash-titel">DAGEN</h1>
             <hr class="mb-5">
 
-
-            @* </div>*@
             <div class="card col-3 card-darkgrey " style="width: 18rem; border-radius:7px;">
                 <div class="card-header text-center dagens-datum "style="text-transform: capitalize;">
                  @DateTime.Now.ToString("dddd dd MMMM ")
-                </div>
-                
-                    
+                </div>                                  
                 
                 <ul class="list-group list-group-flush ">
                     @foreach (var activity in Model.Today)
@@ -34,10 +30,7 @@
                             <div class="dagens-rubrik "> @Html.DisplayFor(modelItem => activity.Name)<a href=""><i class="bi bi-filter-square " style="font-size:25px;float: right ;color: black;"></i></a></div>
                             <div class="dagens-info">@(activity.ActivityType == LMS20.Core.Entities.ActivityType.Task ? "Senast 18.00" : "09.00 - 11.00")</div>
                     </li>
-                    @*<li class="list-group-item taskType">
-                        <div class="dagens-rubrik ">Uppgift 102</div>
-                        <div class="dagens-info"><span>Senast </span>18.00</div>
-                    </li>*@
+                 
                     }
                     <li class="list-group-item dagens-footer card-darkgrey "></li>
                 </ul>
