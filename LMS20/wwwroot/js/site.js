@@ -18,21 +18,9 @@
         //this.className += "active" ;
 //    })
 //}
-//$(document).ready(function () {
 
-
-//});
-/*});*/
-//$(document).ready(function () {
-//    const myPage = window.location;
-//    console.log(myPage);
-//});
-
-/*document.getElementById("formClose").addEventListener("click", clearForm);*/
 
 document.querySelectorAll('.deleteBtn').forEach(b => b.addEventListener('click', function () {
-
-    //console.log("CoursId: " + this.id);
 
     var myCourseId = $(this).data('id');
     var myCourseName = $(this).data('name');
@@ -56,19 +44,7 @@ $(document).ready(function () {
 //    $('#myInput').trigger('focus')
 //})
 
-//function clearForm() {
-
-//    let form = document.querySelector("#createCourseForm");
-//    form.reset;
-
-//    console.log("killroy was here");
-
-//}
-
 function removeCreateCourseForm() {
-
-    //let form = document.querySelector("#createCourseForm");
-    //form.reset;
 
     // Workaround for modal hide bug
     $('#createCourseModal').modal('hide');
@@ -80,17 +56,14 @@ function removeCreateCourseForm() {
 
 function removeDeleteCourseForm() {
 
-    // Workaround for modal hide bug
     $('#confirmDeleteModal').modal('hide');
     $('#confirmDeleteModal').on('hidden.bs.modal', function () {
         $('.btn-close').trigger('click');
     });
-
 }
 
 function failCreate(response) {
 
     let validationSummary = document.querySelector('#validationSummary');
     validationSummary.innerHTML = "Någonting gick fel";
-
 }
