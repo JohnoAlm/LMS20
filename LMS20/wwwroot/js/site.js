@@ -36,6 +36,10 @@ document.querySelectorAll('.deleteBtn').forEach(b => b.addEventListener('click',
 
     var myCourseId = $(this).data('id');
     var myCourseName = $(this).data('name');
+
+    $("#courseId").val(myCourseId);
+    $("#courseName").text(myCourseName);
+    
     console.log("CoursId: " + myCourseId + ", CourseName: " + myCourseName);
 
 }));

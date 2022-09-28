@@ -9,7 +9,8 @@
             </div>
             <div class="modal-body">
                 Varning, du håller på att ta bort kursen <br/>
-                @Model.Name
+                <span id="courseName"></span> <br/>
+                Är du säker?
  
                 <form asp-action="Delete" id="deleteCourseForm"
                     data-ajax="true"
@@ -19,8 +20,8 @@
                     data-ajax-success="removeDeleteCourseForm">
                     @*data-ajax-failure="failCreate"*@
 
-                    <input type="hidden" asp-for="Id" />
-                    <input type="hidden" asp-for="Name" />
+                    <input type="hidden" asp-for="Id" id="courseId"/>
+                    @*<input type="hidden" asp-for="Name"/>*@
                     @*<input type="submit" value="Delete" class="btn btn-danger" /> |*@
                     @*<a asp-action="Index">Back to List</a>*@
                 </form>                
