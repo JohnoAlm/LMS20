@@ -13,6 +13,5 @@ namespace LMS20.Core.ViewModels
         public CreateCoursePartialViewModel createCourse { get; set; }
         public IEnumerable<CoursePartialViewModel> courses { get; set; } = new List<CoursePartialViewModel>();
         public string Name { get; set; }
-
     }
 }

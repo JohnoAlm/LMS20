@@ -13,13 +13,7 @@ namespace LMS20.Web.Controllers
         private readonly ApplicationDbContext db;
         private readonly UserManager <ApplicationUser> userManager;
 
-        //private readonly ILogger<HomeController> _logger;
-
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-
-        //    _logger = logger;
-        //}
+    
 
         public HomeController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
@@ -97,7 +91,11 @@ namespace LMS20.Web.Controllers
                     MyTasks = myModuleTasks,
                     MyWeek= thisWeeksactivities,
                     MyWeek2 = res,
-                    Today = today
+                    Today = today,
+                    CourseId = courseId,
+                    UserId  = user.Id
+          
+
             };
               
             return View(dashInfo);

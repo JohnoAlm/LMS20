@@ -2,6 +2,7 @@
 @model CoursesViewModel
 
 @*Modal View*@
+@{ Layout = "_LayoutTeacher";}
 <partial name="CreateCoursePartial" model="new CreateCoursePartialViewModel{}" />
 
 <div class="row">
@@ -46,9 +47,9 @@
     {
         if(item.CourseStatus == Status.Current) {
             if(!isFound) { isFound = true; 
-                <span class="coursegroup">Pågående</span> 
+                        <span class="coursegroup">Pågående</span> 
             }
-            <partial name="CoursePartial" model="@item"/>
+                    <partial name="CoursePartial" model="@item"/>
         }
     }
 }
@@ -59,9 +60,9 @@
     {
         if(item.CourseStatus == Status.Comming) {
             if(!isFound) { isFound = true; 
-                <span class="coursegroup">Kommande</span>
+                        <span class="coursegroup">Kommande</span>
             }
-            <partial name="CoursePartial" model="@item"/>
+                    <partial name="CoursePartial" model="@item"/>
         }
     }
 }
@@ -73,9 +74,9 @@
     {
         if(item.CourseStatus == Status.Completed) {
             if(!isFound) { isFound = true; 
-                <span class="coursegroup">Avslutade</span> 
+                        <span class="coursegroup">Avslutade</span> 
             }
-            <partial name="CoursePartial" model="@item"/>
+                    <partial name="CoursePartial" model="@item"/>
         }
     }
 }

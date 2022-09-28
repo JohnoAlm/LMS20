@@ -232,7 +232,6 @@ namespace LMS20.Web.Controllers
                 Id = course.Id,
                 Name = course.Name,
                 ApplicationUsers = await db.Users.Where(u => u.CourseId == id).ToListAsync()
-
             };
 
             return View(viewModel);
@@ -337,10 +336,29 @@ namespace LMS20.Web.Controllers
             return RedirectToAction(nameof(Participants));
         }
 
-        //public async Task<IdentityResult> ChangePasswordAsync
+        private bool UserExists(string id)
+        {
+            return (db.Users?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+        public IActionResult Modules(int? id)
+             
+        {
+            var course = db.Courses.FirstOrDefault(m => m.Id == id);
+
+
+            var modulesModel = new ModulesViewModel
+            {
+                Course = course,
+                CourseName = course.Name,
+                Description = course.Description,
+            };
 
 
 
+            return View(modulesModel);
+        }
 
+
+       
     }
 }
