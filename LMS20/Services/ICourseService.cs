@@ -7,5 +7,6 @@ namespace lms20.web.services
     {
         Task<string> getCourseName(ClaimsPrincipal User);
         Task<string> getCourseId(ClaimsPrincipal User);
+        Task<string> getCourseName2(int id);
     }
 }
