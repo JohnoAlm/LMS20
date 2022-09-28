@@ -246,14 +246,12 @@ body {
     z-index: 1;
     border-right: 1px solid #ddd;
     align-content: center;
-}
-
-.navbar {
+    .navbar {
     border: none;
     margin-left: 0;
     width: 100%;
     align-content: center;
-    background-color: #264653;
+    background-color: inherit;
 }
     /*.navbar-nav {
         li {
