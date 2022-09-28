@@ -39,7 +39,7 @@ var app = builder.Build();
 
 // SeedData
 
-using (var scope = app.Services.CreateScope())
+using(var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var db = services.GetRequiredService<ApplicationDbContext>();

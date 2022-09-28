@@ -65,20 +65,20 @@ function removeCreateCourseForm() {
     // Workaround for modal hide bug
     $('#createCourseModal').modal('hide');
     $('#createCourseModal').on('hidden.bs.modal', function () {
-        $('.btn-close').trigger('click');
+        $('#formClose').trigger('click');
     });
-
+    console.log("killroy was here");
 }
 
-function removeDeleteCourseForm() {
+//function removeDeleteCourseForm() {
 
-    // Workaround for modal hide bug
-    $('#confirmDeleteModal').modal('hide');
-    $('#confirmDeleteModal').on('hidden.bs.modal', function () {
-        $('.btn-close').trigger('click');
-    });
+//    // Workaround for modal hide bug
+//    $('#confirmDeleteModal').modal('hide');
+//    $('#confirmDeleteModal').on('hidden.bs.modal', function () {
+//        $('.btn-close').trigger('click');
+//    });
 
-}
+//}
 
 function failCreate(response) {
 

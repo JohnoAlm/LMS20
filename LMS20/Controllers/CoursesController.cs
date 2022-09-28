@@ -9,6 +9,7 @@ using LMS20.Core.ViewModels;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using LMS20.Core.Types;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LMS20.Web.Controllers
 {
@@ -28,6 +29,7 @@ namespace LMS20.Web.Controllers
         }
 
         // GET: Courses
+        [Authorize(Roles = "Teacher")]  
         public async Task<IActionResult> Index()
         {
             var courses = await uow.CourseRepository.GetAllCoursesAsync();
@@ -87,6 +89,7 @@ namespace LMS20.Web.Controllers
         }
 
         // GET: Courses/Create
+        [Authorize(Roles = "Teacher")]
         public IActionResult Create()
         {
             // return PartialView("CreatePartial")
@@ -96,6 +99,7 @@ namespace LMS20.Web.Controllers
         // POST: Courses/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateCoursePartialViewModel viewModel)
@@ -131,6 +135,7 @@ namespace LMS20.Web.Controllers
         }
 
         // GET: Courses/Delete/5
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> Delete(int? id)
         {
             if(id == null || db.Courses == null) return NotFound();
@@ -145,6 +150,7 @@ namespace LMS20.Web.Controllers
         }
 
         // POST: Courses/Delete/5
+        [Authorize(Roles = "Teacher")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id,/*ConfirmDeletePartialViewModel*/ ConfirmDeletePartialViewModel viewModel /*int id*/)
@@ -159,6 +165,7 @@ namespace LMS20.Web.Controllers
         }
 
         // GET: Courses/Edit/5
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || db.Courses == null)
@@ -177,6 +184,7 @@ namespace LMS20.Web.Controllers
         // POST: Courses/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,StartDateTime,Duration")] Course course)
