@@ -31,7 +31,25 @@
 let exampleModal = document.querySelector("#createCourseModal");
 let validationSummary = document.querySelector('#validationSummary');
 
-function removeForm() {
+document.querySelectorAll('.deleteBtn').forEach(b => b.addEventListener('click', function () {
+
+    console.log("CoursId: " + this.id);
+
+    // ToDo: Implementera 
+
+}));
+
+$(document).ready(function () {
+    console.log("Killroy igen 1");
+    $("#formClose").click(function () {
+        $("#createCourseForm").trigger("reset");
+        console.log("Killroy igen 2");
+    });
+});
+
+//$('#myModal').on('shown.bs.modal', function () {
+//    $('#myInput').trigger('focus')
+//})
 
     // Workaround for modal hide bug
     $('#createCourseModal').modal('hide');
