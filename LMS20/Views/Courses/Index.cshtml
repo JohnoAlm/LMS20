@@ -1,14 +1,15 @@
 ﻿@using LMS20.Core.Types
 @model CoursesViewModel
 
-@*Modal View*@
-@{ Layout = "_LayoutTeacher";}
+@{ Layout = "_LayoutTeacher"; }
+
 <partial name="CreateCoursePartial" model="new CreateCoursePartialViewModel{}" />
+<partial name="ConfirmDeletePartial" model="new ConfirmDeletePartialViewModel{}" />
 
 <div class="row">
-<div class="col-2">
 
-    @*Nav-bar*@
+@*Nav-bar*@
+<div class="col-2">
     <div class="msb" id="msb">
 	    <nav class="navbar navbar-default" role="navigation">
             <div class="side-menu-container">
@@ -31,7 +32,6 @@
             </div>
         </nav>  
     </div>
-
 </div>
 
 @*Courses List*@
@@ -74,9 +74,9 @@
     {
         if(item.CourseStatus == Status.Completed) {
             if(!isFound) { isFound = true; 
-                        <span class="coursegroup">Avslutade</span> 
+                <span class="coursegroup">Avslutade</span> 
             }
-                    <partial name="CoursePartial" model="@item"/>
+            <partial name="CoursePartial" model="@item"/>
         }
     }
 }
