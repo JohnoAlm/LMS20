@@ -44,8 +44,15 @@ namespace LMS20.Web.Services
 
             
         }
+        public async Task<string> getCourseName2(int id)
+        {
+            var course = await db.Courses.FirstOrDefaultAsync(c => c.Id == id);
+            var courseName = course.Name;
+            return courseName;
 
-      
+        }
+
+
         public async Task<string> getCourseId(ClaimsPrincipal User)
         {
             if (User.IsInRole("Teacher"))
