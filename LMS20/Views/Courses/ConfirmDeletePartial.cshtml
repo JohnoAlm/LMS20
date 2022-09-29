@@ -15,9 +15,9 @@
                 <form asp-action="Delete" id="deleteCourseForm"
                     data-ajax="true"
                     data-ajax-method="post"
-                    data-ajax-mode="after"
                     data-ajax-update="#courses-list"
                     data-ajax-success="removeDeleteCourseForm">
+                    @*data-ajax-mode="after"*@
 
                     <input type="hidden" asp-for="Id" id="courseId"/>
                 </form>                

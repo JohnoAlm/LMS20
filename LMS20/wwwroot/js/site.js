@@ -32,14 +32,6 @@ document.querySelectorAll('.deleteBtn').forEach(b => b.addEventListener('click',
 
 }));
 
-$(document).ready(function () {
-    console.log("Killroy igen 1");
-    $("#formClose").click(function () {
-        $("#createCourseForm").trigger("reset");
-        console.log("Killroy igen 2");
-    });
-});
-
 //$('#myModal').on('shown.bs.modal', function () {
 //    $('#myInput').trigger('focus')
 //})
@@ -67,6 +59,7 @@ function removeDeleteCourseForm() {
     $('#confirmDeleteModal').on('hidden.bs.modal', function () {
         $('#formClose').trigger('click');
     });
+    console.log("killroy was here 2");
 }
 
 function failCreate(response) {
