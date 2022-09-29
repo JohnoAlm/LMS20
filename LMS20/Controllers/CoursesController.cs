@@ -233,6 +233,7 @@ namespace LMS20.Web.Controllers
                 Name = course.Name,
                 ApplicationUsers = await db.Users.Where(u => u.CourseId == id).ToListAsync()
             };
+            ViewData["CourseId"] = course.Id;
 
             return View(viewModel);
         }
@@ -308,7 +309,7 @@ namespace LMS20.Web.Controllers
                 LastName = user.LastName,
                 CourseId = user.CourseId,
             };
-
+            ViewData["CourseId"] = user.CourseId;
             return View(editUserViewModel);
         }
 
@@ -353,7 +354,7 @@ namespace LMS20.Web.Controllers
                 Description = course.Description,
             };
 
-
+            ViewData["CourseId"] = course.Id;
 
             return View(modulesModel);
         }

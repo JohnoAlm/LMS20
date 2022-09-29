@@ -275,14 +275,16 @@ body {
     background-color: darkgrey;
     transition: 0.3s;
 }
-
-#logo{
-   
+/*#accordion-module{
+    background-color: grey;
+    
+}*/
+.accordion {
+    background-color: #D9D9D9;
+    cursor: pointer;
+    border: none;
+    outline: none;
 }
-
-img{
-    height: 50%;
-    width: 50%;
+.panel {
+    border-left: 5px solid #264653;
 }
-
-
