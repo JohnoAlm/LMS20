@@ -29,13 +29,13 @@
     }
 }
 
-<a asp-controller="Courses" asp-action="Modules" asp-route-id="@Model.Id">
+@*<a asp-controller="Courses" asp-action="Modules" asp-route-id="@Model.Id">*@
 
 <div id = "callout" class="bd-callout bd-callout-@calloutLevel">
 
     <div class="row">
     <div class="col-10">
-        <span class="course-title">@Model.Name</span>
+        <span class="course-title"><a asp-controller="Courses" asp-action="Modules" asp-route-id="@Model.Id">@Model.Name</a></span>
     </div>
     <div class="col-2 text-end" >
         <a id = "participantsBtn" asp-controller = "Courses" asp-action = "Participants" asp-route-id = "@Model.Id">
@@ -60,5 +60,4 @@
 
 </div>
 
-</a>
-@*"Participants" "*@
+@*</a>*@
