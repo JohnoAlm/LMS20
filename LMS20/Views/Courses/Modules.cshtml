@@ -11,7 +11,7 @@
 <hr />
 @*@Html.DisplayNameFor(model => model.ApplicationUsers.FirstOrDefault()!.FirstName)*@
 <div class="container-fluid">
-    <div class="row justify-content-around mt-5 pt-5">
+    <div class="row justify-content-around mt-5 pt-5 mb-5">
 
         <div class="col-8">
             <h1 class="dash-titel">Kursbeskrivning</h1>
@@ -22,24 +22,43 @@
          </div>
 
 
-        <div class="accordion accordion-flush col-8 lecture " id="accordion-module">
-                <div class="accordion-item panel">
+        <div class="accordion  col-8 lecture  mt-5" id="accordion-module">
+                <div class="accordion-item panel ">
             
                         <h5 class="mb-0 accordion-header" id="" >
-                        <button class="accordion-button collapsed dash-titel " 
+                        <a class="accordion-button collapsed dash-titel " 
                                 data-bs-toggle="collapse" 
-                                data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                data-bs-target="#One" aria-expanded="false" aria-controls="flush-collapseOne">
                             Kursfiler
-                        </button>
+                        </a>
                         </h5>
-                    <div id="flush-collapseOne" class="accordion-collapse collapse" 
-                        aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body"> Här ska det ligga filer</div>
+                    <div id="One" class="accordion-collapse collapse" 
+                         data-bs-parent="#accordion">
+                    <div class="accordion-body m-3" > Här ska det ligga filer</div>
                     </div>
                         
                     
                  </div>
         </div>
+      
+        <div class="accordion  col-8 lecture  mt-5" id="accordion-module">
+        <div class="accordion-item panel ">
+
+            <h5 class="mb-0 accordion-header" id="">
+                <a class="accordion-button collapsed dash-titel "
+                   data-bs-toggle="collapse"
+                   data-bs-target="#Two" aria-expanded="false" aria-controls="flush-collapseOne">
+                   Modul 1
+                </a>
+            </h5>
+            <div id="Two" class="accordion-collapse collapse"
+                 data-bs-parent="#accordion">
+                <div class="accordion-body m-3"> Här ska det ligga information och möjlighet att lämna in uppgifter</div>
+            </div>
+
+
+        </div>
+    </div>
 
     
     </div>
