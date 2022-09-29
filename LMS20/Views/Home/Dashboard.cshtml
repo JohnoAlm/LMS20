@@ -26,7 +26,8 @@
                 <ul class="list-group list-group-flush ">
                     @foreach (var activity in Model.Today)
                     {
-                    <li class="list-group-item  @(activity.ActivityType == LMS20.Core.Entities.ActivityType.Task ? "taskType" :"lectureType")">
+                        <li class="list-group-item  @(activity.ActivityType == LMS20.Core.Entities.ActivityType.Task ? "taskType" :"lectureType")">
+                                                
                             <div class="dagens-rubrik "> @Html.DisplayFor(modelItem => activity.Name)<a href=""><i class="bi bi-filter-square " style="font-size:25px;float: right ;color: black;"></i></a></div>
                             <div class="dagens-info">@(activity.ActivityType == LMS20.Core.Entities.ActivityType.Task ? "Senast 18.00" : "09.00 - 11.00")</div>
                     </li>
@@ -55,7 +56,10 @@
                  </div>
                     @foreach (var activity in key.Activities)
                     {
-                    <div class="card col-3  single-card @(activity.ActivityType == LMS20.Core.Entities.ActivityType.Task ? "task" :"lecture")" style="width: 18rem; ">
+                    <div class="card col-3  single-card @(activity.ActivityType == LMS20.Core.Entities.ActivityType.Delayed ? "delayed":"")
+                                                        @(activity.ActivityType == LMS20.Core.Entities.ActivityType.Task ? "task" :"lecture")
+                                                        " style="width: 18rem; ">
+                                                            
 
                         <ul class="list-group list-group-flush  ">
                             <li class="list-group-item single-card single-info pt-1 pb-0">
