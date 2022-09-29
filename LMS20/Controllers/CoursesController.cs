@@ -9,6 +9,7 @@ using LMS20.Core.ViewModels;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using LMS20.Core.Types;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LMS20.Web.Controllers
 {
@@ -122,14 +123,6 @@ namespace LMS20.Web.Controllers
 
             return Json(true);
         }
-
-        // GET: Courses/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || db.Courses == null)
-            {
-                return NotFound();
-            }
 
         // POST: Courses/Delete/5
         [Authorize(Roles = "Teacher")]
