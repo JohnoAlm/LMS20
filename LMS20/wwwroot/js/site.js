@@ -18,18 +18,31 @@
         //this.className += "active" ;
 //    })
 //}
-//$(document).ready(function () {
 
 
-//});
-/*});*/
-//$(document).ready(function () {
-//    const myPage = window.location;
-//    console.log(myPage);
-//});
+document.querySelectorAll('.deleteBtn').forEach(b => b.addEventListener('click', function () {
 
-let exampleModal = document.querySelector("#createCourseModal");
-let validationSummary = document.querySelector('#validationSummary');
+    var myCourseId = $(this).data('id');
+    var myCourseName = $(this).data('name');
+
+    $("#courseId").val(myCourseId);
+    $("#courseName").text(myCourseName);
+    
+    console.log("CoursId: " + myCourseId + ", CourseName: " + myCourseName);
+
+}));
+
+$(document).ready(function () {
+    console.log("Killroy igen 1");
+    $("#formClose").click(function () {
+        $("#createCourseForm").trigger("reset");
+        console.log("Killroy igen 2");
+    });
+});
+
+//$('#myModal').on('shown.bs.modal', function () {
+//    $('#myInput').trigger('focus')
+//})
 
 document.querySelectorAll('.deleteBtn').forEach(b => b.addEventListener('click', function () {
 
@@ -57,6 +70,15 @@ $(document).ready(function () {
     // Workaround for modal hide bug
     $('#createCourseModal').modal('hide');
     $('#createCourseModal').on('hidden.bs.modal', function () {
+        $('#formClose').trigger('click');
+    });
+    console.log("killroy was here");
+}
+
+function removeDeleteCourseForm() {
+
+    $('#confirmDeleteModal').modal('hide');
+    $('#confirmDeleteModal').on('hidden.bs.modal', function () {
         $('.btn-close').trigger('click');
     });
 
@@ -71,7 +93,6 @@ function removeDeleteCourseForm() {
 
 function failCreate(response) {
 
-    //console.log(response, 'failed to create');
+    let validationSummary = document.querySelector('#validationSummary');
     validationSummary.innerHTML = "Någonting gick fel";
-
 }
