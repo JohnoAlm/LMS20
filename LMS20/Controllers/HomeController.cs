@@ -37,7 +37,7 @@ namespace LMS20.Web.Controllers
                 var user = await userManager.GetUserAsync(User);
                 var courseId = user.CourseId;
                 var currentModule = db.Courses.SelectMany(c => c.Modules) //Alla Moduler där startdatumet passerat och där slutdatumet inte är passerat för detta kursid
-                                             .Where(m => m.Start < DateTime.Now && m.End > DateTime.Now)
+                                             .Where(m => m.Start <= DateTime.Now && m.End >= DateTime.Now)
                                              .FirstOrDefault(c => c.Id == courseId);
                                       
             var course = db.Courses.Include(c => c.Modules) //ta alla kurser och haka på deras moduler => kursen med alla moduler och aktiviteter

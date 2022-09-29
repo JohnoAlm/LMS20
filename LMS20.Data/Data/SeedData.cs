@@ -276,7 +276,7 @@ namespace LMS20.Data.Data
                                 Name = "Uppgift 101",
                                 Description = faker.Company.Bs(),
                                 Start = new DateTime(2022, 09, 01, 09, 0,0 ),
-                                End = new DateTime(2022, 09, 28, 18, 0,0 ),
+                                End = new DateTime(2022, 09, 29, 18, 0,0 ),
                                 ActivityType = ActivityType.Task
                             },
                            new ModuleActivity{

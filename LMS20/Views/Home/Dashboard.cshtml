@@ -77,63 +77,6 @@
         
             }
 
-
-     @*       @foreach (var task in Model.MyWeek)
-            {
-                <div class="datumrubrik">
-                    <h7 class=" ">@task.EndDateTime.ToString("dddd dd MMMM") </h7>
-                </div>
-
-
-
-                <div class="card col-3  single-card @(task.ActivityType == LMS20.Core.Entities.ActivityType.Task ? "task" :"lecture")" style="width: 18rem; ">
-
-                    <ul class="list-group list-group-flush  ">
-                        <li class="list-group-item single-card single-info pt-1 pb-0">
-
-                            @(task.ActivityType == LMS20.Core.Entities.ActivityType.Task ? "Senast 18.00" : "Lilla salen")
-                            <h6 class="single-rubrik">@Html.DisplayFor(modelItem => task.Name) <a href=""><i class="bi bi-filter-square " style="font-size:20px; float: right; color:black;"></i></a></h6>
-                        </li>
-
-                    </ul>
-
-                </div>
-            }*@
-          @*  <div class="card col-3 task single-card " style="width: 18rem; ">
-
-                <ul class="list-group list-group-flush  ">
-
-                    <li class="list-group-item single-card single-info pt-1 pb-0">
-                        Lilla salen
-                        <h6 class="single-rubrik">Uppgift 102 <a href=""><i class="bi bi-filter-square " style="font-size:20px; float: right; color:black;"></i></a></h6>
-                    </li>
-                </ul>
-            </div>
-            <div class="datumrubrik">
-                <h7 class=" ">Torsdag 25 september </h7>
-            </div>
-             <div class="card col-3 lecture single-card " style="width: 18rem; ">
-             
-                <ul class="list-group list-group-flush  ">
-
-                    <li class="list-group-item single-card single-info pt-1 pb-0">
-                        Lilla salen
-                        <h6 class="single-rubrik">Föreläsning 101 <a href=""><i class="bi bi-filter-square " style="font-size:20px; float: right; color:black;"></i></a></h6>
-                    </li>
-                </ul>
-            </div>
-            <div class="card col-3 task single-card " style="width: 18rem; ">
-
-                <ul class="list-group list-group-flush  ">
-
-                    <li class="list-group-item single-card single-info pt-1 pb-0">
-                        Lilla salen
-                        <h6 class="single-rubrik">Uppgift 102 <a href=""><i class="bi bi-filter-square " style="font-size:20px; float: right; color:black;"></i></a></h6>
-                    </li>
-                </ul>
-            </div>*@
-
-
         </div>
        @* slut veckan*@
 
