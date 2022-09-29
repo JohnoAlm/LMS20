@@ -35,7 +35,10 @@ document.querySelectorAll('.deleteBtn').forEach(b => b.addEventListener('click',
 
     console.log("CoursId: " + this.id);
 
-    // ToDo: Implementera 
+    $("#courseId").val(myCourseId);
+    $("#courseName").text(myCourseName);
+    console.log("CoursId: " + myCourseId + ", CourseName: " + myCourseName);
+
 
 }));
 
@@ -57,6 +60,13 @@ $(document).ready(function () {
         $('.btn-close').trigger('click');
     });
 
+function removeDeleteCourseForm() {
+
+    $('#confirmDeleteModal').modal('hide');
+    $('#confirmDeleteModal').on('hidden.bs.modal', function () {
+        $('#formClose').trigger('click');
+    });
+    console.log("killroy was here 2");
 }
 
 function failCreate(response) {
