@@ -1,0 +1,34 @@
+﻿@model ConfirmDeletePartialViewModel
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="dash-titel" id="confirmDeleteModalLabel">Bekräfta ta bort kurs</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="formClose"></button>
+            </div>
+            <div class="modal-body">
+                Varning, du håller på att ta bort kursen <br/>
+                <span id="courseName"></span> <br/>
+                Är du säker?
+ 
+                <form asp-action="Delete" id="deleteCourseForm"
+                    data-ajax="true"
+                    data-ajax-method="post"
+                    data-ajax-mode="after"
+                    data-ajax-update="#courses-list"
+                    data-ajax-success="removeDeleteCourseForm">
+                    @*data-ajax-url=""*@
+
+                    <input type="hidden" asp-for="Id" id="courseId"/>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a asp-action="Index" class="btn btn-secondary" data-bs-dismiss="modal">Avbryt</a>
+                <button type="submit" class="btn btn-danger" form="deleteCourseForm">Ta bort</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

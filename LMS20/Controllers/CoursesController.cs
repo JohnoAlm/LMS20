@@ -71,17 +71,10 @@ namespace LMS20.Web.Controllers
         // GET: Courses/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || db.Courses == null)
-            {
-                return NotFound();
-            }
+            if (id == null || db.Courses == null) return NotFound();
 
-            var course = await db.Courses
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (course == null)
-            {
-                return NotFound();
-            }
+            var course = await db.Courses.FirstOrDefaultAsync(m => m.Id == id);
+            if (course == null) return NotFound();
 
             return View(course);
         }
@@ -138,11 +131,29 @@ namespace LMS20.Web.Controllers
                 return NotFound();
             }
 
+        // POST: Courses/Delete/5
+        [Authorize(Roles = "Teacher")]
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(ConfirmDeletePartialViewModel viewModel)
+        {
+            int id = viewModel.Id;
+
+            await uow.CourseRepository.RemoveCourseAsync(id);
+            await uow.CompleteAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Courses/Edit/5
+        [Authorize(Roles = "Teacher")]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if(id == null || db.Courses == null) return NotFound();
+
             var course = await db.Courses.FindAsync(id);
-            if (course == null)
-            {
-                return NotFound();
-            }
+            if(course == null) return NotFound();
+
             return View(course);
         }
 
@@ -232,6 +243,7 @@ namespace LMS20.Web.Controllers
                 Id = course.Id,
                 Name = course.Name,
                 ApplicationUsers = await db.Users.Where(u => u.CourseId == id).ToListAsync()
+
             };
             ViewData["CourseId"] = course.Id;
 

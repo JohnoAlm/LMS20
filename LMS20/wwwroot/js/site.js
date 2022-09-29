@@ -54,14 +54,20 @@ $(document).ready(function () {
     // Workaround for modal hide bug
     $('#createCourseModal').modal('hide');
     $('#createCourseModal').on('hidden.bs.modal', function () {
-        $('.btn-close').trigger('click');
+        $('#formClose').trigger('click');
     });
 
+function removeDeleteCourseForm() {
+
+    $('#confirmDeleteModal').modal('hide');
+    $('#confirmDeleteModal').on('hidden.bs.modal', function () {
+        $('#formClose').trigger('click');
+    });
+    console.log("killroy was here 2");
 }
 
 function failCreate(response) {
 
     //console.log(response, 'failed to create');
     validationSummary.innerHTML = "Någonting gick fel";
-
 }

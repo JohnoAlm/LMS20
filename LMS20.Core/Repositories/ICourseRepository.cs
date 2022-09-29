@@ -4,7 +4,9 @@ namespace LMS20.Core.Repositories
 {
     public interface ICourseRepository
     {
+        Task<IEnumerable<Course>> GetAllCoursesAsync();        
         Task AddCourseAsync(Course course);
-        Task<IEnumerable<Course>> GetAllCoursesAsync();
+        Task RemoveCourseAsync(int id);
+
     }
 }

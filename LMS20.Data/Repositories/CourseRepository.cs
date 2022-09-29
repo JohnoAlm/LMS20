@@ -2,11 +2,6 @@
 using LMS20.Core.Repositories;
 using LMS20.Data.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LMS20.Data.Repositories
 {
@@ -15,7 +10,6 @@ namespace LMS20.Data.Repositories
     {
         private readonly ApplicationDbContext db;
         
-
         public CourseRepository(ApplicationDbContext db)
         {
             this.db = db;
@@ -31,5 +25,10 @@ namespace LMS20.Data.Repositories
             await db.Courses.AddAsync(course);
         }
 
+        public async Task RemoveCourseAsync(int id)
+        {
+            var course = await db.Courses.FirstOrDefaultAsync(c => c.Id == id);
+            if(course != null) db.Courses.Remove(course);
+        }
     }
 }
