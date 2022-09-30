@@ -15,7 +15,7 @@ namespace LMS20.Core.ViewModels
 
         [Required]
         [EmailAddress]
-        [Display(Name = "Användarnamn")]
+        [Display(Name = "E-postadress")]
         public string Email { get; set; }
 
         [Required]

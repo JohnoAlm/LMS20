@@ -46,12 +46,10 @@ using(var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var db = services.GetRequiredService<ApplicationDbContext>();
 
-    db.Database.EnsureDeleted();
-    db.Database.Migrate();
+    //db.Database.EnsureDeleted();
+    //db.Database.Migrate();
 
     var config = services.GetRequiredService<IConfiguration>();
-
-    var studentPW2 = builder.Configuration["studentPW"];
 
     var teacherPW = "abc123";
     var studentPW = "abc123";
