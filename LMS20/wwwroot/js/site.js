@@ -45,6 +45,7 @@ $(document).ready(function () {
 });
 
 function removeCreateCourseForm() {
+
     // Workaround for modal hide bug
     $('#createCourseModal').modal('hide');
     $('#createCourseModal').on('hidden.bs.modal', function () {
