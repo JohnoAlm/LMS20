@@ -19,13 +19,15 @@ namespace LMS20.Web.Controllers
         private readonly IMapper mapper;
         private readonly UnitOfWork uow;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IConfiguration configuration;
 
-        public CoursesController(ApplicationDbContext context, IMapper mapper, UserManager<ApplicationUser> userManager)
+        public CoursesController(ApplicationDbContext context, IMapper mapper, UserManager<ApplicationUser> userManager, IConfiguration configuration)
         {
             db = context;
             this.mapper = mapper;
             uow = new UnitOfWork(db);
             this.userManager = userManager;
+            this.configuration = configuration;
         }
 
         // GET: Courses
@@ -251,6 +253,8 @@ namespace LMS20.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegisterUser(RegistrationViewModel registrationViewModel)
         {
+            var studentPW = configuration.GetValue<string>("studentPW");
+
             registrationViewModel.RegistrationInValid = "true";
 
             if (ModelState.IsValid)
@@ -264,7 +268,7 @@ namespace LMS20.Web.Controllers
                     CourseId = registrationViewModel.CourseId
                 };
 
-                var result = await userManager.CreateAsync(user, registrationViewModel.Password);
+                var result = await userManager.CreateAsync(user, studentPW);
                 await userManager.AddToRoleAsync(user, "Student");
                
                 if (result.Succeeded)

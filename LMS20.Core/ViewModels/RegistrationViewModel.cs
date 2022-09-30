@@ -17,17 +17,6 @@ namespace LMS20.Core.ViewModels
         [EmailAddress]
         [Display(Name = "Användarnamn")]
         public string Email { get; set; }
-        
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "Lösenord")]
-        public string Password { get; set; }
-
-        [Required]
-        [Compare("Password")]
-        [DataType(DataType.Password)]
-        [Display(Name = "Bekräfta lösenord")]
-        public string ConfirmPassword { get; set; }
 
         [Required]
         [StringLength(50, MinimumLength = 2)]
