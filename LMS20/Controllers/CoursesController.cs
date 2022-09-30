@@ -9,6 +9,7 @@ using LMS20.Core.ViewModels;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using LMS20.Core.Types;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LMS20.Web.Controllers
 {
@@ -28,6 +29,7 @@ namespace LMS20.Web.Controllers
         }
 
         // GET: Courses
+        [Authorize(Roles = "Teacher")]  
         public async Task<IActionResult> Index()
         {
             var courses = await uow.CourseRepository.GetAllCoursesAsync();
@@ -87,6 +89,7 @@ namespace LMS20.Web.Controllers
         }
 
         // GET: Courses/Create
+        [Authorize(Roles = "Teacher")]
         public IActionResult Create()
         {
             // return PartialView("CreatePartial")
@@ -96,6 +99,7 @@ namespace LMS20.Web.Controllers
         // POST: Courses/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateCoursePartialViewModel viewModel)
@@ -130,25 +134,52 @@ namespace LMS20.Web.Controllers
             return Json(true);
         }
 
+        // GET: Courses/Delete/5
+        [Authorize(Roles = "Teacher")]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if(id == null || db.Courses == null) return NotFound();
+
+            var course = await db.Courses.FirstOrDefaultAsync(m => m.Id == id);
+            if(course == null) return NotFound();
+
+            //var partial = mapper.Map<ConfirmDeletePartialViewModel>(course);
+
+            //return PartialView("ConfirmDeletePartial", partial); 
+            return View(course);
+        }
+
+        // POST: Courses/Delete/5
+        [Authorize(Roles = "Teacher")]
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id,/*ConfirmDeletePartialViewModel*/ ConfirmDeletePartialViewModel viewModel /*int id*/)
+        {
+            var course = mapper.Map<Course>(viewModel);
+
+            if(course == null) return Problem("Entity set 'ApplicationDbContext.Courses' is null.");
+            else db.Courses.Remove(course);
+
+            await db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
         // GET: Courses/Edit/5
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || db.Courses == null)
-            {
-                return NotFound();
-            }
+            if(id == null || db.Courses == null) return NotFound();
 
             var course = await db.Courses.FindAsync(id);
-            if (course == null)
-            {
-                return NotFound();
-            }
+            if(course == null) return NotFound();
+
             return View(course);
         }
 
         // POST: Courses/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,StartDateTime,Duration")] Course course)
@@ -179,43 +210,6 @@ namespace LMS20.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(course);
-        }
-
-        // GET: Courses/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || db.Courses == null)
-            {
-                return NotFound();
-            }
-
-            var course = await db.Courses
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (course == null)
-            {
-                return NotFound();
-            }
-
-            return View(course);
-        }
-
-        // POST: Courses/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (db.Courses == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.Courses'  is null.");
-            }
-            var course = await db.Courses.FindAsync(id);
-            if (course != null)
-            {
-                db.Courses.Remove(course);
-            }
-            
-            await db.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool CourseExists(int id)
@@ -359,7 +353,5 @@ namespace LMS20.Web.Controllers
             return View(modulesModel);
         }
 
-
-       
     }
 }

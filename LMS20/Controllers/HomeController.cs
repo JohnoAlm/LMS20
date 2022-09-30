@@ -32,14 +32,11 @@ namespace LMS20.Web.Controllers
 
                 var user = await userManager.GetUserAsync(User);
                 var courseId = user.CourseId;
-                var currentModule = db.Courses.SelectMany(c => c.Modules)
-                                             .Where(m => m.Start < DateTime.Now && m.End > DateTime.Now)
+                var currentModule = db.Courses.SelectMany(c => c.Modules) //Alla Moduler där startdatumet passerat och där slutdatumet inte är passerat för detta kursid
+                                             .Where(m => m.Start <= DateTime.Now && m.End >= DateTime.Now)
                                              .FirstOrDefault(c => c.Id == courseId);
                                       
-           // if (currentModule == null) throw new ArgumentException("Inga moduler");
-
-
-            var course = db.Courses.Include(c => c.Modules) //ta alla kurser och haka på deras moduler
+            var course = db.Courses.Include(c => c.Modules) //ta alla kurser och haka på deras moduler => kursen med alla moduler och aktiviteter
 
                     .ThenInclude(m => m.ModuleActivities) //Haka sedan på varje moduls aktiviteter
                     .FirstOrDefault(c => c.Id == courseId); //jämnför alla kursers id med vårt id
@@ -47,9 +44,9 @@ namespace LMS20.Web.Controllers
                                                             // muduler och deras aktiviteter
             if (course == null) throw new ArgumentException("Något är fel");
 
-            var myAllAktivities = course.Modules.SelectMany(m => m.ModuleActivities); //ALLA aktiviteter I EN LISTA
-                                                                                          // var res =  myModuleAktivities.Where(m => (m.ModuleActivities.Where(x => x.StartDateTime == DateTime.Now)).ToList().Count > 0);
-            var myModuleTasks = myAllAktivities.Where(a => a.ActivityType != ActivityType.Lecture )
+            var myAllAktivities = course.Modules.SelectMany(m => m.ModuleActivities); //ALLA kursens aktiviteter I EN LISTA
+                                                                                         
+            var myModuleTasks = myAllAktivities.Where(a => a.ActivityType != ActivityType.Lecture ) //Alla Uppgifter(Tasks) inom denna modul : Uppgifter som kan bli försenade
                                                .Where(a => a.Start >= currentModule.Start && currentModule.End > a.End).ToList();
            
             var myModuleActivities = myAllAktivities
@@ -57,7 +54,6 @@ namespace LMS20.Web.Controllers
            
             
             //Is delayed?                                  
-
             for (int i = 0; i < myModuleTasks.Count(); i++)
             {
                 if (myModuleTasks[i].End < DateTime.Now)
@@ -65,12 +61,10 @@ namespace LMS20.Web.Controllers
                     myModuleTasks[i].ActivityType = ActivityType.Delayed;
                     db.SaveChanges();
                 }
-
             }
 
-            //Denna vecka
-        
-            DateTime myMonday = DateTime.Now.AddDays(DayOfWeek.Monday - DateTime.Now.DayOfWeek).Date;
+            //Denna vecka        
+            DateTime myMonday = DateTime.Now.AddDays(DayOfWeek.Monday - DateTime.Now.DayOfWeek).Date; //Denna måndags datum 
 
             var thisWeeksactivities = myModuleActivities.Where(a => a.End.Date >= myMonday && a.End.Date <= myMonday.AddDays(6))
                                                         .OrderBy(a => a.End).ToList();
@@ -83,7 +77,7 @@ namespace LMS20.Web.Controllers
                 });
             var today = thisWeeksactivities.Where(a => a.End.Date == DateTime.Now.Date)
                                             .OrderBy(a => a.End);   
-
+         
             var dashInfo = new IndexViewModel //skapa en ny IndexViewModel som ska populeras
             {
                     Id = course.Id,
